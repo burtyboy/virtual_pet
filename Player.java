@@ -1,9 +1,12 @@
 package jbu71_nsa73_virtualPet;
 
-public class Player{
+import java.util.ArrayList;
+
+public class Player extends GameEnvironment{
 	private int money = 100;
-	private int score;
+	private int score = 0;
 	private String name;
+	private ArrayList<Printable> inventory = new ArrayList<Printable>(0);
 	
 	
 	public Player(String playerName){

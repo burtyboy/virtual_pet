@@ -1,7 +1,7 @@
 package tamagochi;
 
 public class Toy_Car {
-	Toy car = new Toy("Toy Car", 10, 10, 5);
+	Toy car = new Toy("Toy Car", 10, 10, 4);
 	public String name() {
 		return car.getName();
 	}

@@ -31,6 +31,11 @@ public class GameEnvironment implements Printable {
 				printToScreen("Names must have at least 1 letter, please choose a new name.");
 			}
 			else {
+				if (playerName.length() > 20) {
+					isValid = false;
+					printToScreen("Names must not exceed 20 characters, please choose a new name.");
+				}
+				else {
 			for(Player person:playerArray){
 				if(person.getName().equals(playerName)){
 					isValid = false;
@@ -38,6 +43,7 @@ public class GameEnvironment implements Printable {
 				}
 			}
 			}
+				}
 		}
 		playerArray.add(new Player(playerName));
 	}
@@ -48,6 +54,16 @@ public class GameEnvironment implements Printable {
 		while(!isValid){
 			isValid = true;
 			petName = getInput();
+			if (petName.trim().length() == 0) {
+				isValid = false;
+				printToScreen("Names must have at least 1 letter, please choose a new name.");
+			}
+			else {
+				if ( petName.length() > 20) {
+					isValid = false;
+					printToScreen("Names must not exceed 20 characters, please choose a new name.");
+				}
+				else {
 			for(Player person:playerArray){
 				if(person.getName().equals(petName)){
 					isValid = false;
@@ -58,6 +74,8 @@ public class GameEnvironment implements Printable {
 				if(animal.getName().equals(petName)){
 					isValid = false;
 					printToScreen("Names must be unique, please choose a new name.\n");
+				}
+			}
 				}
 			}
 		}

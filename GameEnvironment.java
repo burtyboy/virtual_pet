@@ -26,11 +26,17 @@ public class GameEnvironment implements Printable {
 		while(!isValid){
 			playerName = getInput();
 			isValid = true;
+			if (playerName.trim().length() == 0) { 
+				isValid = false;
+				printToScreen("Names must have at least 1 letter, please choose a new name.");
+			}
+			else {
 			for(Player person:playerArray){
 				if(person.getName().equals(playerName)){
 					isValid = false;
 					printToScreen("Names must be unique, please choose a new name.");
 				}
+			}
 			}
 		}
 		playerArray.add(new Player(playerName));

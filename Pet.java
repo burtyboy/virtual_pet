@@ -1,4 +1,4 @@
-package jbu71_nsa73_virtualPet;
+
 
 public class Pet extends GameEnvironment {
 	private String petName;

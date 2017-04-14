@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public class Football {
 	Toy ball = new Toy("Football", 20, 8, 9);

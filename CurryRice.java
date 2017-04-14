@@ -1,17 +1,19 @@
-package tamagochi;
 
-public class CurryRice {
-	Food curry = new Food("Curry rice", 10, 10, 6, 6);
+
+public class CurryRice extends Food{
+	public CurryRice(){
+		super("Curry rice", 10, 10, 6, 6);
+	}
 	public String food() {
-		return curry.getFood();
+		return super.getFood();
 	}
 	public int nutrition() {
-		return curry.getnutrition();
+		return super.getnutrition();
 	}
 	public int tastiness() {
-		return curry.gettaste();
+		return super.gettaste();
 	}
-	public int bladdarDrop() {
-		return curry.getbladdar();
+	public int bladderDrop() {
+		return super.getbladder();
 	}
 }

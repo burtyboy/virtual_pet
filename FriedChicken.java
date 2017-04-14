@@ -1,17 +1,20 @@
-package tamagochi;
 
-public class FriedChicken {
-	Food chicken = new Food("Fried Chicken", 2, 1, 4, 2);
+
+public class FriedChicken extends Food{
+	
+	public FriedChicken(){
+		super("Fried Chicken", 2, 1, 4, 2);
+	}
 	public String food() {
-		return chicken.getFood();
+		return super.getFood();
 	}
 	public int nutrition() {
-		return chicken.getnutrition();
+		return super.getnutrition();
 	}
 	public int tastiness() {
-		return chicken.gettaste();
+		return super.gettaste();
 	}
-	public int bladdarDrop() {
-		return chicken.getbladdar();
+	public int bladderDrop() {
+		return super.getbladder();
 	}
 }

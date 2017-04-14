@@ -1,17 +1,19 @@
-package tamagochi;
 
-public class Doll {
-	Toy doll = new Toy("Doll", 15, 5, 10);
+
+public class Doll extends Toy{
+	public Doll(){
+		super("Doll", 15, 5, 10);
+	}
 	public String name() {
-		return doll.getName();
+		return super.getName();
 	}
 	public int price() {
-		return doll.getPrice();
+		return super.getPrice();
 	}
 	public int durability() {
-		return doll.getDurability();
+		return super.getDurability();
 	}
 	public int happiness() {
-		return doll.getHappy();
+		return super.getHappy();
 	}
 }

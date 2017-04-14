@@ -1,17 +1,19 @@
-package tamagochi;
 
-public class Hamburger {
-Food hamburger = new Food("Hamburger", 5,  3, 5, 3);
-public String food() {
-	return hamburger.getFood();
-}
-public int nutrition() {
-	return hamburger.getnutrition();
-}
-public int tastiness() {
-	return hamburger.gettaste();
-}
-public int bladdarDrop() {
-	return hamburger.getbladdar();
-}
+
+public class Hamburger extends Food{
+	public Hamburger(){
+		super("Hamburger", 5,  3, 5, 3);
+	}
+	public String food() {
+		return super.getFood();
+	}
+	public int nutrition() {
+		return super.getnutrition();
+	}
+	public int tastiness() {
+		return super.gettaste();
+	}
+	public int bladderDrop() {
+		return super.getbladder();
+	}
 }

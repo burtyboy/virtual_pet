@@ -1,17 +1,18 @@
-package tamagochi;
 
-public class Steak {
-	Food steak = new Food("Steak", 23, 8, 9, 4);
+public class Steak extends Food{
+	public Steak(){
+		super("Steak", 23, 8, 9, 4);
+	}
 	public String food() {
-		return steak.getFood();
+		return super.getFood();
 	}
 	public int nutrition() {
-		return steak.getnutrition();
+		return super.getnutrition();
 	}
 	public int tastiness() {
-		return steak.gettaste();
+		return super.gettaste();
 	}
-	public int bladdarDrop() {
-		return steak.getbladdar();
+	public int bladderDrop() {
+		return super.getbladder();
 	}
 }

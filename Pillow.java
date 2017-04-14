@@ -1,17 +1,18 @@
-package tamagochi;
 
-public class Pillow {
-	Toy pillow = new Toy("Pillow", 8, 3, 5);
+public class Pillow extends Toy {
+	public Pillow(){
+		super("Pillow", 8, 3, 5);
+	}
 	public String name() {
-		return pillow.getName();
+		return super.getName();
 	}
 	public int price() {
-		return pillow.getPrice();
+		return super.getPrice();
 	}
 	public int durability() {
-		return pillow.getDurability();
+		return super.getDurability();
 	}
 	public int happiness() {
-		return pillow.getHappy();
+		return super.getHappy();
 	}
 }

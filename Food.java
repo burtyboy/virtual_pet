@@ -1,17 +1,17 @@
-package tamagochi;
 
-public class Food {
+
+public class Food extends Item{
 	private String food;
 	private int price;
 	private int nutrition;
 	private int tastiness;
-	private int bladdar;
+	private int bladder;
 	public Food(String meal, int cost, int diet, int taste, int toiletLevel) {
 		food = meal;
 		price = cost;
 		nutrition = diet;
 		tastiness = taste;
-		bladdar = toiletLevel;
+		bladder = toiletLevel;
 	}
 public String getFood() {
 	return food;
@@ -25,7 +25,7 @@ public int getnutrition() {
 public int gettaste() {
 	return tastiness;
 }
-public int getbladdar() {
-	return bladdar;
+public int getbladder() {
+	return bladder;
 }
 }

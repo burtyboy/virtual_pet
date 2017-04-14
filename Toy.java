@@ -1,6 +1,5 @@
-package tamagochi;
 
-public class Toy {
+public class Toy extends Item{
 	private String name;
 	private int prices;
 	private int durability;

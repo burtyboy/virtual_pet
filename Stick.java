@@ -1,17 +1,22 @@
-package tamagochi;
 
-public class Stick {
-	Toy stick = new Toy("Stick", 6, 5, 2);
+public class Stick extends Toy{
+	
+	
+	public Stick(){
+		super("Stick", 6, 5, 2);
+	}
+	
+	
 	public String name() {
-		return stick.getName();
+		return super.getName();
 	}
 	public int price() {
-		return stick.getPrice();
+		return super.getPrice();
 	}
 	public int durability() {
-		return stick.getDurability();
+		return super.getDurability();
 	}
 	public int happiness() {
-		return stick.getHappy();
+		return super.getHappy();
 	}
 }

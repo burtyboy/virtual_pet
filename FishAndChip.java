@@ -1,17 +1,19 @@
-package tamagochi;
 
-public class FishAndChip {
-	Food fish = new Food("Fish and chips", 3, 6, 2, 4);
+
+public class FishAndChip extends Food{
+	public FishAndChip(){
+		super("Fish and chips", 3, 6, 2, 4);
+	}
 	public String food() {
-		return fish.getFood();
+		return super.getFood();
 	}
 	public int nutrition() {
-		return fish.getnutrition();
+		return super.getnutrition();
 	}
 	public int tastiness() {
-		return fish.gettaste();
+		return super.gettaste();
 	}
-	public int bladdarDrop() {
-		return fish.getbladdar();
+	public int bladderDrop() {
+		return super.getbladder();
 	}
 }

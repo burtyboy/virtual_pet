@@ -1,17 +1,23 @@
 
 
-public class Football {
-	Toy ball = new Toy("Football", 20, 8, 9);
+
+public class Football extends Toy{
+	
+	public Football(){
+		super("Football", 20, 8, 9);
+	}
 	public String name() {
-		return ball.getName();
+		return super.getName();
 	}
 	public int price() {
-		return ball.getPrice();
+		return super.getPrice();
 	}
 	public int durability() {
-		return ball.getDurability();
+		return super.getDurability();
 	}
 	public int happiness() {
-		return ball.getHappy();
+		return super.getHappy();
 	}
 }
+
+

@@ -1,5 +1,6 @@
 
 
+
 public class Food extends Item{
 	private String food;
 	private int price;
@@ -13,19 +14,24 @@ public class Food extends Item{
 		tastiness = taste;
 		bladder = toiletLevel;
 	}
-public String getFood() {
-	return food;
+	public String getFood() {
+		return food;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public int getNutrition() {
+		return nutrition;
+	}
+	public int getTaste() {
+		return tastiness;
+	}
+	public int getBladder() {
+		return bladder;
+	}
+	
+	public String toString(){
+		return getFood() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getBladder();
+	}
 }
-public int getprice() {
-	return price;
-}
-public int getnutrition() {
-	return nutrition;
-}
-public int gettaste() {
-	return tastiness;
-}
-public int getbladder() {
-	return bladder;
-}
-}
+

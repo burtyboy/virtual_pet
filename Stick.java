@@ -20,3 +20,4 @@ public class Stick extends Toy{
 		return super.getHappy();
 	}
 }
+

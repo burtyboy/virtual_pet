@@ -1,5 +1,6 @@
 
 
+
 public class FriedChicken extends Food{
 	
 	public FriedChicken(){
@@ -9,12 +10,12 @@ public class FriedChicken extends Food{
 		return super.getFood();
 	}
 	public int nutrition() {
-		return super.getnutrition();
+		return super.getNutrition();
 	}
 	public int tastiness() {
-		return super.gettaste();
+		return super.getTaste();
 	}
 	public int bladderDrop() {
-		return super.getbladder();
+		return super.getBladder();
 	}
 }

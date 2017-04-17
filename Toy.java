@@ -1,4 +1,5 @@
 
+
 public class Toy extends Item{
 	private String name;
 	private int prices;
@@ -22,4 +23,10 @@ public class Toy extends Item{
 	public int getHappy() {
 		return happiness;
 	}
+	
+	
+	public String toString(){
+		return getName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
+	}
 }
+

@@ -1,5 +1,6 @@
 
 
+
 public class CurryRice extends Food{
 	public CurryRice(){
 		super("Curry rice", 10, 10, 6, 6);
@@ -8,12 +9,13 @@ public class CurryRice extends Food{
 		return super.getFood();
 	}
 	public int nutrition() {
-		return super.getnutrition();
+		return super.getNutrition();
 	}
 	public int tastiness() {
-		return super.gettaste();
+		return super.getTaste();
 	}
 	public int bladderDrop() {
-		return super.getbladder();
+		return super.getBladder();
 	}
 }
+

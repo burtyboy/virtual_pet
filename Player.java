@@ -6,7 +6,9 @@ public class Player extends GameEnvironment{
 	private int money = 100;
 	private int score = 0;
 	private String name;
+
 	private boolean stillTurn = false;
+
 	public ArrayList<Item> inventory = new ArrayList<Item>(0);
 	public ArrayList<Pet> petArray  = new ArrayList<Pet>(0);
 	

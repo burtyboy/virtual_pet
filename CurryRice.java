@@ -1,5 +1,6 @@
 
 
+
 public class CurryRice extends Food{
 	public CurryRice(){
 		super("Curry rice", 10, 10, 6, 6);
@@ -17,3 +18,4 @@ public class CurryRice extends Food{
 		return super.getBladder();
 	}
 }
+

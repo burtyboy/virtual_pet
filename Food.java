@@ -1,5 +1,6 @@
 
 
+
 public class Food extends Item{
 	private String food;
 	private int price;
@@ -33,3 +34,4 @@ public class Food extends Item{
 		return getFood() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getBladder();
 	}
 }
+

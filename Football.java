@@ -1,5 +1,6 @@
 
 
+
 public class Football extends Toy{
 	
 	public Football(){
@@ -18,3 +19,5 @@ public class Football extends Toy{
 		return super.getHappy();
 	}
 }
+
+

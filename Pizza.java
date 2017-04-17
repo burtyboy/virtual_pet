@@ -9,6 +9,7 @@ public class Pizza extends Food{
 		return super.getFood();
 	}
 	public int nutrition() {
+
 		return super.getNutrition();
 	}
 	public int tastiness() {

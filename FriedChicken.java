@@ -1,5 +1,6 @@
 
 
+
 public class FriedChicken extends Food{
 	
 	public FriedChicken(){

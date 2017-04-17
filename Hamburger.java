@@ -17,3 +17,6 @@ public class Hamburger extends Food{
 		return super.getBladder();
 	}
 }
+
+
+

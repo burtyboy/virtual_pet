@@ -1,9 +1,8 @@
-
 public class Stick extends Toy{
 	
 	
 	public Stick(){
-		super("Stick", 6, 5, 2);
+		super("Stick", 6, 5, 3, 2);
 	}
 	
 	
@@ -19,5 +18,7 @@ public class Stick extends Toy{
 	public int happiness() {
 		return super.getHappy();
 	}
+	public int Exercise() {
+		return super.getExercise();
+	}
 }
-

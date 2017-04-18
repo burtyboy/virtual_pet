@@ -1,3 +1,4 @@
+package tamagochi;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -277,11 +278,13 @@ public class GameEnvironment implements Printable {
 				isValid = true;
 				break;
 			case "4": isValid = true;
+				printToScreen("Thank you for shopping with us!");
 				break;
-			default: isValid = false;
-				break;
-				
-			}
+			default: printToScreen("Please enter a valid option number");
+			isValid = false;
+			break;
+		
+		}
 		}
 		
 	}
@@ -510,6 +513,11 @@ public class GameEnvironment implements Printable {
 		}
 		useShop(p);
 	}
+	public void useToilet(Pet a) {
+		int num = a.getBladder();
+		num = 10 - num;
+		a.setBladder(num);
+	}
 	
 	public void displayPets(Player p){
 		int i = 1;
@@ -517,18 +525,15 @@ public class GameEnvironment implements Printable {
 			printToScreen("("+Integer.toString(i)+") "+animal.getName());
 			i++;
 		}
+		printToScreen("(" + Integer.toString(i) + ") Move to the next day");
 	}
 	
 	
 	public void playDay(Player p){
-
 		printHeader();
 		printToScreen("Player: "+ p.getName());
 		printHeader();
 		printToScreen("Pets available:");
-		for(Pet animal:p.petArray){
-			animal.setActionsRemaning(2);
-		}
 		displayPets(p);
 		boolean isValid = false;
 		int selectedPet = 0;
@@ -545,8 +550,17 @@ public class GameEnvironment implements Printable {
 				isValid = true;
 			}
 		}
-		if(p.petArray.get(selectedPet).getActionsRemaning() !=0){
-			dailyPetUse(p,p.petArray.get(selectedPet));
+		if (selectedPet != p.petArray.size()){
+			if(p.petArray.get(selectedPet).getActionsRemaning() !=0){
+				dailyPetUse(p,p.petArray.get(selectedPet));
+			}
+			else {
+				Pet animal = p.petArray.get(selectedPet);
+				printToScreen(animal.getName() + " wants to call it a day. Please choose a different pet");
+			}
+			}
+		else {
+			p.setStillTurn(false);
 		}
 		
 	}
@@ -556,14 +570,26 @@ public class GameEnvironment implements Printable {
 		printHeader();
 		printToScreen("Pet: "+a.getName());
 		printHeader();
-		printToScreen("What would you like to do with " +a.getName()+" ?");
-		printToScreen("\t(1) Use the Shop\n\t(2) Use the Toilet\n\t(3) Feed "+a.getName()+"\n\t(4)Play with "+a.getName()+"\n\t(5) Discipline "+a.getName());
 		boolean isValid = false;
 		while(!isValid){
+			printToScreen(a.getName() + " has " + a.getActionsRemaning() + " actions remaining!");
+			printToScreen("What would you like to do with " +a.getName()+" ?");
+			printToScreen("\t(1) Use the Shop\n\t(2) Use the Toilet\n\t(3) Feed "+a.getName()+"\n\t(4) Play with "+a.getName()+"\n\t(5) Discipline "+a.getName());
 			String option = getInput();
 			switch(option){
 				case "1": useShop(p);
 					isValid = true;
+				case "2": 
+					useToilet(a);
+					isValid = true;
+					int actions = a.getActionsRemaning();
+					int newActions = actions - 1;
+					a.setActionsRemaning(newActions);
+			}
+			if (isValid == false){
+				printToScreen("Please enter a valid option number");
+				isValid = false;
+				break;
 			}
 		}
 		
@@ -581,10 +607,13 @@ public class GameEnvironment implements Printable {
 		g.printToScreen("| Welcome to virtual pets! |");
 		g.printHeader();
 		g.createGame();
-		g.printDay();
 		while (g.day<=g.lengthOfGame) {
+			g.printDay();
 			for (Player person : g.playerArray) {
 				person.setStillTurn(true);
+				for(Pet animal:person.petArray){
+					animal.setActionsRemaning(2);
+				}
 				while(person.isStillTurn()){
 					g.playDay(person);
 				}

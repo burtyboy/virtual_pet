@@ -6,14 +6,41 @@ public class Pet extends GameEnvironment {
 	private int sleep;
 	private int aggressive;
 	private int happiness;
+	private int stomach = 10;
+	private int bladder = 10;
+	private int fun = 10;
+	private int energy = 10;
 	public Pet(String name, int hungerDrop, int sleepDrop, int durabilityDrop, int happinessDrop){
 		petName = name;
 		hunger = hungerDrop;
 		sleep = sleepDrop;
-		aggressive = durabilityDrop;
 		happiness = happinessDrop;
+		aggressive = durabilityDrop;
 	}
-	
+	public int getEnergy() {
+		return energy;
+	}
+	public void setEnergy(int changeEnergy) {
+		energy += changeEnergy;
+	}
+	public int getBladder() {
+		return bladder;
+	}
+	public void setBladder(int changeBladder){
+		bladder += changeBladder;
+	}
+	public int getStomach() {
+		return stomach;
+	}
+	public void setStomach(int stomachAdd) {
+		stomach += stomachAdd;
+	}
+	public void setFun(int changeFun) {
+		fun += changeFun;
+	}
+	public int getFun() {
+		return fun;
+	}
 	public String getName(){
 		return petName;
 	}
@@ -29,7 +56,6 @@ public class Pet extends GameEnvironment {
 	public int getHappiness(){
 		return happiness;
 	}
-	
 	public int getActionsRemaning() {
 		return actionsRemaning;
 	}
@@ -37,5 +63,6 @@ public class Pet extends GameEnvironment {
 	public void setActionsRemaning(int actionsRemaning) {
 		this.actionsRemaning = actionsRemaning;
 	}
+	
 
 }

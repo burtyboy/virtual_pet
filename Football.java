@@ -1,10 +1,7 @@
-
-
-
 public class Football extends Toy{
 	
 	public Football(){
-		super("Football", 20, 8, 9);
+		super("Football", 20, 10, 10, 3);
 	}
 	public String name() {
 		return super.getName();
@@ -17,6 +14,9 @@ public class Football extends Toy{
 	}
 	public int happiness() {
 		return super.getHappy();
+	}
+	public int exercise() {
+		return super.getExercise();
 	}
 }
 

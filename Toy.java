@@ -23,8 +23,9 @@ public class Toy extends Item{
 	public int getHappy() {
 		return happiness;
 	}
-	
-	
+	public int getExercise() {
+		return exercise;
+	}
 	public String toString(){
 		return getName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
 	}

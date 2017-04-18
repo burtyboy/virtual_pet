@@ -6,10 +6,10 @@ public class Pet extends GameEnvironment {
 	private int sleep;
 	private int aggressive;
 	private int happiness;
-	private int stomach = 10;
-	private int bladder = 10;
-	private int fun = 10;
-	private int energy = 10;
+	private int stomach = 5;
+	private int bladder = 5;
+	private int fun = 5;
+	private int energy = 5;
 	private String favouriteToy;
 	private String favouriteFood;
 	
@@ -33,21 +33,42 @@ public class Pet extends GameEnvironment {
 	}
 	public void setEnergy(int changeEnergy) {
 		energy += changeEnergy;
+		if (energy < 0) {
+			energy = 0;
+		}
+		if (energy > 10) {
+			energy = 10;
+		}
 	}
 	public int getBladder() {
 		return bladder;
 	}
 	public void setBladder(int changeBladder){
 		bladder += changeBladder;
+		if (bladder < 0) {
+			bladder = 0;
+		}
 	}
 	public int getStomach() {
 		return stomach;
 	}
 	public void setStomach(int stomachAdd) {
 		stomach += stomachAdd;
+		if (stomach < 0) {
+			stomach = 0;
+		}
+		if (stomach > 10) {
+			stomach = 10;
+		}
 	}
 	public void setFun(int changeFun) {
 		fun += changeFun;
+		if(fun < 0) {
+			fun = 0;
+		}
+		if (fun > 10) {
+			fun = 10;
+		}
 	}
 	public int getFun() {
 		return fun;

@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -295,27 +294,99 @@ public class GameEnvironment implements Printable {
 	
 	public void purchaseFood(Player p){
 		boolean isValid = false;
-		printToScreen("Food options available:\n(1)Curry Rice\n(2)Fish and Chips\n(3)Hamburger\n(4)Fried Chicken\n(5)Pizza\n(6)Steak\n(7)Cancel");
+		Food food1 = new CurryRice();
+		Food food2 = new FishAndChip();
+		Food food3 = new Hamburger();
+		Food food4 = new FriedChicken();
+		Food food5 = new Pizza();
+		Food food6 = new Steak();
+		printToScreen("Food options available:\n(1)" + food1.getFood() + " $" + food1.getPrice());
+		printToScreen("(2)" + food2.getFood() + " $" + food2.getPrice());
+		printToScreen("(3)" + food3.getFood() + " $" + food3.getPrice());
+		printToScreen("(4)" + food4.getFood() + " $" + food4.getPrice());
+		printToScreen("(5)" + food5.getFood() + " $" + food5.getPrice());
+		printToScreen("(6)" + food6.getFood() + " $" + food6.getPrice());
+		printToScreen("(7)Cancel");
 		String option = getInput();
-		switch(option){
-			case "1": p.inventory.add(new CurryRice());
+		switch(option){ 
+			case "1": 
+				if (food1.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(food1);
+				int cost1 = 0 - food1.getPrice();
+				p.setMoney(cost1);
 				isValid = true;
 				break;
-			case "2": p.inventory.add(new FishAndChip());
+				}
+			case "2": 
+				if (food2.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(food2);
+				int cost2 = 0 - food2.getPrice();
+				p.setMoney(cost2);
 				isValid = true;
 				break;
-			case "3": p.inventory.add(new Hamburger());
+				}
+			case "3": 
+				if (food3.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(food3);
+				int cost3 = 0 - food3.getPrice();
+				p.setMoney(cost3);
 				isValid = true;
 				break;
-			case "4": p.inventory.add(new FriedChicken());
+				}
+			case "4": 
+				if (food4.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(food4);
+				int cost4 = 0 - food4.getPrice();
+				p.setMoney(cost4);
 				isValid = true;
 				break;
-			case "5": p.inventory.add(new Pizza());
+				}
+			case "5": 
+				if (food5.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(food5);
+				int cost5 = 0 - food5.getPrice();
+				p.setMoney(cost5);
 				isValid = true;
 				break;
-			case "6": p.inventory.add(new Steak());
+				}
+			case "6": 
+				if (food6.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(food6);
+				int cost6 = 0 - food6.getPrice();
+				p.setMoney(cost6);
 				isValid = true;
 				break;
+				}
 			case "7": isValid = true;
 				break;
 			default: printToScreen("Please enter a valid option number");
@@ -333,27 +404,99 @@ public class GameEnvironment implements Printable {
 	
 	public void purchaseToy(Player p){
 		boolean isValid = false;
-		printToScreen("Toy options available:\n(1)Doll\n(2)Football\n(3)Pillow\n(4)Stick\n(5)Toilet Paper\n(6)Toy car\n(7)Cancel");
+		Toy toy1 = new Doll();
+		Toy toy2 = new Football();
+		Toy toy3 = new Pillow();
+		Toy toy4 = new Stick();
+		Toy toy5 = new ToiletPaper();
+		Toy toy6 = new ToyCar();
+		printToScreen("Toy options available:\n(1)" + toy1.getName() + " $" + toy1.getPrice());
+		printToScreen("(2)" + toy2.getName() + " $" + toy2.getPrice());
+		printToScreen("(3)" + toy3.getName() + " $" + toy3.getPrice());
+		printToScreen("(4)" + toy4.getName() + " $" + toy4.getPrice());
+		printToScreen("(5)" + toy5.getName() + " $" + toy5.getPrice());
+		printToScreen("(6)" + toy6.getName() + " $" + toy6.getPrice());
+		printToScreen("(7)Cancel");
 		String option = getInput();
 		switch(option){
-			case "1": p.inventory.add(new Doll());
+			case "1":
+			if (toy1.getPrice() > p.getMoney()) {
+				printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+				isValid = false;
+				break;
+			}
+			else {
+			p.inventory.add(toy1);
+			int cost1 = 0 - toy1.getPrice();
+			p.setMoney(cost1);
+			isValid = true;
+			break;
+			}
+			case "2": 
+				if (toy2.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(toy2);
+				int cost2 = 0 - toy2.getPrice();
+				p.setMoney(cost2);
 				isValid = true;
 				break;
-			case "2": p.inventory.add(new Football());
+				}
+			case "3":
+				if (toy3.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(toy3);
+				int cost3 = 0 - toy3.getPrice();
+				p.setMoney(cost3);
 				isValid = true;
 				break;
-			case "3": p.inventory.add(new Pillow());
+				}
+			case "4":
+				if (toy4.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(toy4);
+				int cost4 = 0 - toy4.getPrice();
+				p.setMoney(cost4);
 				isValid = true;
 				break;
-			case "4": p.inventory.add(new Stick());
+				}
+			case "5": 
+				if (toy5.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(toy5);
+				int cost5 = 0 - toy5.getPrice();
+				p.setMoney(cost5);
 				isValid = true;
 				break;
-			case "5": p.inventory.add(new ToiletPaper());
+				}
+			case "6":
+				if (toy6.getPrice() > p.getMoney()) {
+					printToScreen("YOU DON'T HAVE ENOUGH MONEY!");
+					isValid = false;
+					break;
+				}
+				else {
+				p.inventory.add(toy6);
+				int cost6 = 0 - toy6.getPrice();
+				p.setMoney(cost6);
 				isValid = true;
 				break;
-			case "6": p.inventory.add(new ToyCar());
-				isValid = true;
-				break;
+				}
 			case "7": isValid = true;
 				break;
 			default: printToScreen("Please enter a valid option number");
@@ -452,7 +595,3 @@ public class GameEnvironment implements Printable {
 		
 	}
 }
-
-	
-
-

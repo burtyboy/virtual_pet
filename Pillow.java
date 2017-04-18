@@ -1,8 +1,6 @@
-
-
 public class Pillow extends Toy {
 	public Pillow(){
-		super("Pillow", 8, 3, 5);
+		super("Pillow", 8, 3, 5, 0);
 	}
 	public String name() {
 		return super.getName();
@@ -15,5 +13,8 @@ public class Pillow extends Toy {
 	}
 	public int happiness() {
 		return super.getHappy();
+	}
+	public int Exercise() {
+		return super.getExercise();
 	}
 }

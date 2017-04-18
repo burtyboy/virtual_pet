@@ -22,6 +22,9 @@ public class Toy extends Item{
 	public int getDurability() {
 		return durability;
 	}
+	public void setDurability(int drop) {
+		durability -= drop;
+	}
 	public int getHappy() {
 		return happiness;
 	}

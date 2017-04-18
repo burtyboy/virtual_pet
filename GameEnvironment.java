@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -517,6 +515,7 @@ public class GameEnvironment implements Printable {
 		int num = a.getBladder();
 		num = 10 - num;
 		a.setBladder(num);
+		printToScreen(a.getName() + " feels relief.");
 	}
 	public void feed(Player p, Pet a) {
 		boolean isValid = false;
@@ -569,7 +568,58 @@ public class GameEnvironment implements Printable {
 		p.inventory.remove(selectedFood);
 		}
 	}
-	
+	public void play(Player p , Pet a) {
+		boolean isValid = false;
+		int selected = 0;
+		ArrayList<Integer> nums = new ArrayList<Integer>(0);
+		int index = 0;
+		int count = 1;
+		for (Item i : p.inventory) {
+			if (i instanceof Toy) {
+				printToScreen("("+Integer.toString(count)+") " + ((Toy) i).getName());
+				count++;
+				nums.add(index);
+			}
+			index++;
+		}
+		if (count == 1) {
+			printToScreen(p.getName() + " is looking for toys, but could not find any toy inside his bag.");
+		}
+		else {
+		printToScreen("Choose which toy " + a.getName() +" would like to play:");
+		while(!isValid){
+		String toyOption = getInput();
+		try {
+			selected = Integer.parseInt(toyOption) - 1;
+			if(selected >= 0 && selected < nums.size()){
+				isValid = true;
+		}
+		}
+		catch(NumberFormatException e){
+			printToScreen("Please enter a valid number.\n");
+		}
+	}
+		int selectedToy = nums.get(selected);
+		Toy toy = (Toy) p.inventory.get(selectedToy);
+		if (a.getToy() == toy.getName()) {
+			printToScreen(a.getName() + " is happily playing with a " + toy.getName());
+			int funUp = toy.getHappy() + 1;
+			a.setFun(funUp);
+		}
+		else {
+			printToScreen(a.getName() + " is playing with a " + toy.getName());
+			a.setFun(toy.getHappy());
+		}
+		toy.setDurability(a.getAgressive());
+		if (toy.getDurability() <= 0) {
+			printToScreen("Oh no the " + toy.getName() + " is broken!");
+			p.inventory.remove(selectedToy);
+		}
+		int drops = 0 - toy.getExercise();
+		a.setEnergy(drops);
+		a.setStomach(drops);
+		}
+	}
 	public void displayPets(Player p){
 		int i = 1;
 		for(Pet animal:p.petArray){
@@ -643,6 +693,12 @@ public class GameEnvironment implements Printable {
 					isValid = true;
 					int actions1 = a.getActionsRemaning() - 1;
 					a.setActionsRemaning(actions1);
+					break;
+				case "4":
+					play(p, a);
+					isValid = true;
+					int actions2 = a.getActionsRemaning() - 1;
+					a.setActionsRemaning(actions2);
 					break;
 			}
 			if (isValid == false){

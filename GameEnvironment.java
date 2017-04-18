@@ -517,6 +517,49 @@ public class GameEnvironment implements Printable {
 		num = 10 - num;
 		a.setBladder(num);
 	}
+	public void feed(Player p, Pet a) {
+		boolean isValid = false;
+		int selected = 0;
+		ArrayList<Integer> nums = new ArrayList<Integer>(0);
+		int index = 0;
+		int count = 1;
+		printToScreen("Choose which food " + a.getName() +" would like to eat:");
+		for (Item i : p.inventory) {
+			if (i instanceof Food) {
+				printToScreen("("+Integer.toString(count)+") " + ((Food) i).getFood());
+				count++;
+				nums.add(index);
+			}
+			index++;
+		}
+		while(!isValid){
+		String foodOption = getInput();
+		try {
+			selected = Integer.parseInt(foodOption) - 1;
+			if(selected >= 0 && selected < nums.size()){
+				isValid = true;
+		}
+		}
+		catch(NumberFormatException e){
+			printToScreen("Please enter a valid number.\n");
+		}
+	}
+		int selectedFood = nums.get(selected);
+		Food food = (Food) p.inventory.get(selectedFood);
+		if (a.getFood() == food.getFood()) {
+			a.setStomach(food.getNutrition());
+			int bladderDrop = 0 - food.getBladder();
+			a.setBladder(bladderDrop);
+			int funUp = food.getTaste() + 1;
+			a.setFun(funUp);
+		}
+		else {
+			a.setStomach(food.getNutrition());
+			int bladderDrop = 0 - food.getBladder();
+			a.setBladder(bladderDrop);
+			a.setFun(food.getTaste());
+		}
+	}
 	
 	public void displayPets(Player p){
 		int i = 1;
@@ -584,6 +627,9 @@ public class GameEnvironment implements Printable {
 					int actions = a.getActionsRemaning();
 					int newActions = actions - 1;
 					a.setActionsRemaning(newActions);
+				case "3":
+					feed(p, a);
+					isValid = true;
 			}
 			if (isValid == false){
 				printToScreen("Please enter a valid option number");
@@ -623,3 +669,4 @@ public class GameEnvironment implements Printable {
 		
 	}
 }
+

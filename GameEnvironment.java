@@ -620,6 +620,23 @@ public class GameEnvironment implements Printable {
 		a.setStomach(drops);
 		}
 	}
+	public void sleep(Pet a) {
+		int sleeping = 10 - a.getEnergy();
+		a.setEnergy(sleeping);
+		printToScreen(a.getName() + " is sleeping... zzzzzzzz");
+		printToScreen(a.getName() + " has woken up and feels great!");
+	}
+	public void discipline(Pet a) {
+		int dropFun = 0 - a.getFun();
+		a.setFun(dropFun);
+	}
+	public void status(Pet a) {
+		printToScreen("Status of how " + a.getName() + " is feeling now: (0=low, 10=High)");
+		printToScreen("Happiness: " + Integer.toString(a.getFun()));
+		printToScreen("Bladder: " + Integer.toString(a.getBladder()));
+		printToScreen("Energy: " + Integer.toString(a.getEnergy()));
+		printToScreen("Hunger: " + Integer.toString(a.getStomach()));
+		}
 	public void displayPets(Player p){
 		int i = 1;
 		for(Pet animal:p.petArray){
@@ -675,7 +692,7 @@ public class GameEnvironment implements Printable {
 		while(!isValid){
 			printToScreen(a.getName() + " has " + a.getActionsRemaning() + " actions remaining!");
 			printToScreen("What would you like to do with " +a.getName()+" ?");
-			printToScreen("\t(1) Use the Shop\n\t(2) Use the Toilet\n\t(3) Feed "+a.getName()+"\n\t(4) Play with "+a.getName()+"\n\t(5) Discipline "+a.getName());
+			printToScreen("\t(1) Use the Shop\n\t(2) Use the Toilet\n\t(3) Feed "+a.getName()+"\n\t(4) Play with "+a.getName()+"\n\t(5) Put "+ a.getName() + " to sleep" +"\n\t(6) Discipline "+a.getName() + "\n\t(7) View " + a.getName() + "'s status");
 			String option = getInput();
 			switch(option){
 				case "1": useShop(p);
@@ -699,6 +716,22 @@ public class GameEnvironment implements Printable {
 					isValid = true;
 					int actions2 = a.getActionsRemaning() - 1;
 					a.setActionsRemaning(actions2);
+					break;
+				case "5":
+					sleep(a);
+					isValid = true;
+					int actions3 = a.getActionsRemaning() - 1;
+					a.setActionsRemaning(actions3);
+					break;
+				case "6":
+					discipline(a);
+					isValid = true;
+					int actions4 = a.getActionsRemaning() - 1;
+					a.setActionsRemaning(actions4);
+					break;
+				case "7":
+					status(a);
+					isValid = true;
 					break;
 			}
 			if (isValid == false){
@@ -731,6 +764,14 @@ public class GameEnvironment implements Printable {
 				}
 				while(person.isStillTurn()){
 					g.playDay(person);
+				}
+				for(Pet animal:person.petArray){
+					int sleepDrop = 0 - animal.getSleep();
+					int happyDrop = 0 - animal.getHappiness();
+					int hungerDrop = 0 - animal.getHunger();
+					animal.setEnergy(sleepDrop);
+					animal.setFun(happyDrop);
+					animal.setStomach(hungerDrop);
 				}
 				
 			} 

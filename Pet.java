@@ -10,12 +10,23 @@ public class Pet extends GameEnvironment {
 	private int bladder = 10;
 	private int fun = 10;
 	private int energy = 10;
-	public Pet(String name, int hungerDrop, int sleepDrop, int durabilityDrop, int happinessDrop){
+	private String favouriteToy;
+	private String favouriteFood;
+	
+	public Pet(String name, int hungerDrop, int sleepDrop, int happinessDrop, int durabilityDrop, String toy, String food){
 		petName = name;
 		hunger = hungerDrop;
 		sleep = sleepDrop;
 		happiness = happinessDrop;
 		aggressive = durabilityDrop;
+		favouriteToy = toy;
+		favouriteFood = food;
+	}
+	public String getToy() {
+		return favouriteToy;
+	}
+	public String getFood() {
+		return favouriteFood;
 	}
 	public int getEnergy() {
 		return energy;

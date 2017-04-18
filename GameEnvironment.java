@@ -1,4 +1,5 @@
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -523,7 +524,6 @@ public class GameEnvironment implements Printable {
 		ArrayList<Integer> nums = new ArrayList<Integer>(0);
 		int index = 0;
 		int count = 1;
-		printToScreen("Choose which food " + a.getName() +" would like to eat:");
 		for (Item i : p.inventory) {
 			if (i instanceof Food) {
 				printToScreen("("+Integer.toString(count)+") " + ((Food) i).getFood());
@@ -532,6 +532,11 @@ public class GameEnvironment implements Printable {
 			}
 			index++;
 		}
+		if (count == 1) {
+			printToScreen(p.getName() + " is looking for food, but could not find any food inside his bag.");
+		}
+		else {
+		printToScreen("Choose which food " + a.getName() +" would like to eat:");
 		while(!isValid){
 		String foodOption = getInput();
 		try {
@@ -547,6 +552,7 @@ public class GameEnvironment implements Printable {
 		int selectedFood = nums.get(selected);
 		Food food = (Food) p.inventory.get(selectedFood);
 		if (a.getFood() == food.getFood()) {
+			printToScreen(a.getName() + " is happily eating a " + food.getFood());
 			a.setStomach(food.getNutrition());
 			int bladderDrop = 0 - food.getBladder();
 			a.setBladder(bladderDrop);
@@ -554,10 +560,13 @@ public class GameEnvironment implements Printable {
 			a.setFun(funUp);
 		}
 		else {
+			printToScreen(a.getName() + " is eating a " + food.getFood());
 			a.setStomach(food.getNutrition());
 			int bladderDrop = 0 - food.getBladder();
 			a.setBladder(bladderDrop);
 			a.setFun(food.getTaste());
+		}
+		p.inventory.remove(selectedFood);
 		}
 	}
 	
@@ -632,6 +641,8 @@ public class GameEnvironment implements Printable {
 				case "3":
 					feed(p, a);
 					isValid = true;
+					int actions1 = a.getActionsRemaning() - 1;
+					a.setActionsRemaning(actions1);
 					break;
 			}
 			if (isValid == false){
@@ -672,4 +683,3 @@ public class GameEnvironment implements Printable {
 		
 	}
 }
-

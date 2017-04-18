@@ -5,11 +5,13 @@ public class Toy extends Item{
 	private int prices;
 	private int durability;
 	private int happiness;
-	public Toy(String brand, int price, int strength, int happy) {
+	private int exercise;
+	public Toy(String brand, int price, int strength, int happy, int exercise) {
 		name = brand;
 		prices = price;
 		durability = strength;
 		happiness = happy;
+		this.exercise = exercise;
 	}
 	public int getPrice() {
 		return prices;

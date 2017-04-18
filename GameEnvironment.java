@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class GameEnvironment implements Printable {
 	private int day = 1;
 	private int numberOfPlayers, numberOfPets, lengthOfGame = 0;
-	private ArrayList<Player> playerArray = new ArrayList<Player>(0);
+	public ArrayList<Player> playerArray = new ArrayList<Player>(0);//changed to allow testing
 	public int getDay(){
 		return day;
 	}
@@ -621,15 +621,18 @@ public class GameEnvironment implements Printable {
 			switch(option){
 				case "1": useShop(p);
 					isValid = true;
+					break;
 				case "2": 
 					useToilet(a);
 					isValid = true;
 					int actions = a.getActionsRemaning();
 					int newActions = actions - 1;
 					a.setActionsRemaning(newActions);
+					break;
 				case "3":
 					feed(p, a);
 					isValid = true;
+					break;
 			}
 			if (isValid == false){
 				printToScreen("Please enter a valid option number");

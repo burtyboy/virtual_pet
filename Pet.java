@@ -12,6 +12,10 @@ public class Pet extends GameEnvironment {
 	private int energy = 5;
 	private String favouriteToy;
 	private String favouriteFood;
+	private boolean isMisbehave = false;
+	private boolean isSick = false;
+	private boolean isDead = false;
+	private boolean zombie = false;
 	
 	public Pet(String name, int hungerDrop, int sleepDrop, int happinessDrop, int durabilityDrop, String toy, String food){
 		petName = name;
@@ -90,6 +94,30 @@ public class Pet extends GameEnvironment {
 	}
 	public int getActionsRemaning() {
 		return actionsRemaning;
+	}
+	public boolean getIsMisbehave() {
+		return isMisbehave;
+	}
+	public void setbehave(boolean behaviour) {
+		isMisbehave = behaviour;
+	}
+	public boolean getIsSick(){
+		return isSick;
+	}
+	public void setSick(boolean sickness) {
+		isSick = sickness;
+	}
+	public boolean isZombie() {
+		return zombie;
+	}
+	public void setZombie(boolean zombie) {
+		this.zombie = zombie;
+	}
+	public boolean getIsDead() {
+		return isDead;
+	}
+	public void setDead(boolean death) {
+		isDead = death;
 	}
 
 	public void setActionsRemaning(int actionsRemaning) {

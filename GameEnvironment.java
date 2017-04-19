@@ -326,6 +326,7 @@ public class GameEnvironment implements Printable {
 			patientP.setDead(false);
 			patientP.setZombie(true);
 			p.setMoney(-30);
+			printToScreen(patientP.getName() + " is back from the dead!");
 		}
 		useShop(p);
 		}

@@ -80,38 +80,89 @@ public class GameEnvironment implements Printable {
 			String type = getInput();
 			switch(type){
 				case "1":petName = getName();
-					p.petArray.add(new Cat(petName));
+					Pet cat = new Cat(petName);
+					boolean petWanted = petStatusDisplay(cat);
+					if (petWanted == true) {
+					p.petArray.add(cat);
 					printToScreen("Creating a Cat named "+petName+" for you.");
 					isValid = true;
 					break;
+					}
+					else {
+						printToScreen("What breed would you like your pet to be?");
+						printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
+						break;
+					}
 				case"2":petName = getName(); 
-					p.petArray.add(new Dog(petName));
-					printToScreen("Creating a Dog named "+petName+" for you.");
-					isValid = true;
+					Pet dog = new Dog(petName);
+					boolean dogWanted = petStatusDisplay(dog);
+					if (dogWanted == true) {
+						p.petArray.add(dog);
+						printToScreen("Creating a Dog named "+petName+" for you.");
+						isValid = true;
+						break;
+					}
+				else {
+					printToScreen("What breed would you like your pet to be?");
+					printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 					break;
-				case "3": petName = getName();
-					p.petArray.add(new CatDog(petName));					
+				}
+				case "3":petName = getName(); 
+				Pet catDog = new CatDog(petName);
+				boolean catDogWanted = petStatusDisplay(catDog);
+				if (catDogWanted == true) {
+					p.petArray.add(catDog);
 					printToScreen("Creating a CatDog named "+petName+" for you.");
 					isValid = true;
 					break;
-				case "4": petName = getName();
-					p.petArray.add(new Tiger(petName));
+				}
+			else {
+				printToScreen("What breed would you like your pet to be?");
+				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
+				break;
+			}
+				case "4": petName = getName(); 
+				Pet tiger = new Tiger(petName);
+				boolean tigerWanted = petStatusDisplay(tiger);
+				if (tigerWanted == true) {
+					p.petArray.add(tiger);
 					printToScreen("Creating a Tiger named "+petName+" for you.");
-					isValid = true;	
+					isValid = true;
 					break;
-				case "5": petName = getName();
-					p.petArray.add(new Bird(petName));
+				}
+			else {
+				printToScreen("What breed would you like your pet to be?");
+				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
+				break;
+			}
+				case "5": petName = getName(); 
+				Pet bird = new Bird(petName);
+				boolean birdWanted = petStatusDisplay(bird);
+				if (birdWanted == true) {
+					p.petArray.add(bird);
 					printToScreen("Creating a Bird named "+petName+" for you.");
-					isValid = true;		
+					isValid = true;
 					break;
-				case "6": petName = getName();
-					p.petArray.add(new Ocelot(petName));
+				}
+			else {
+				printToScreen("What breed would you like your pet to be?");
+				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
+				break;
+			}
+				case "6": petName = getName(); 
+				Pet ocelot = new Ocelot(petName);
+				boolean ocelotWanted = petStatusDisplay(ocelot);
+				if (ocelotWanted == true) {
+					p.petArray.add(ocelot);
 					printToScreen("Creating a Ocelot named "+petName+" for you.");
 					isValid = true;
 					break;
-				default: printToScreen("Please enter a valid option number");
-					isValid = false;
-					break;
+				}
+			else {
+				printToScreen("What breed would you like your pet to be?");
+				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
+				break;
+			}
 		
 			}
 		}
@@ -257,7 +308,36 @@ public class GameEnvironment implements Printable {
 		
 		
 	}
-	
+	public boolean petStatusDisplay(Pet a) {
+		printToScreen("Here is the following status of " + a.getName() + " (0 = Low, 3 = High)");
+		printToScreen("Name : " + a.getName());
+		printToScreen("Appetite: " + Integer.toString(a.getHunger()));
+		printToScreen("Fatigue: " + Integer.toString(a.getSleep()));
+		printToScreen("Depression: " + Integer.toString(a.getHappiness()));
+		printToScreen("Aggression: " + Integer.toString(a.getAgressive()));
+		printToScreen("Favourite food: " + a.getFood());
+		printToScreen("Favourite toy: " + a.getToy());
+		printToScreen("Are you sure this is the right pet for you?");
+		printToScreen("(1) Yes\n(2) No");
+		boolean isValid = false;
+		boolean selected = false;
+		while(!isValid) {
+			String option = getInput();
+			switch(option){
+			case "1":
+				isValid = true;
+				selected = true;
+				break;
+			case "2":
+				isValid = true;
+				selected = false;
+				break;
+			default: 
+				printToScreen("Please select a valid number!");
+			}
+			}
+	return selected;
+	}
 	//TODO set methods for purchasing to remove money from player. add ability to reuse the shop 
 	public void useShop(Player p){
 		boolean isValid = false;
@@ -721,10 +801,11 @@ public class GameEnvironment implements Printable {
 	public void displayPets(Player p){
 		int i = 1;
 		for(Pet animal:p.petArray){
-			printToScreen("("+Integer.toString(i)+") "+animal.getName());
+			printToScreen("("+Integer.toString(i)+") Interact with "+animal.getName());
 			i++;
 		}
 		printToScreen("(" + Integer.toString(i) + ") Move to the next day");
+		printToScreen("(" + Integer.toString(i + 1) + ") Use the shop");
 	}
 	
 	
@@ -732,24 +813,22 @@ public class GameEnvironment implements Printable {
 		printHeader();
 		printToScreen("Player: "+ p.getName());
 		printHeader();
-		printToScreen("Pets available:");
+		printToScreen("What would you like to do?");
 		displayPets(p);
 		boolean isValid = false;
 		int selectedPet = 0;
 		while(!isValid){
-			
-			printToScreen("Please Select a pet");
 			String petNumber = getInput();
 			try{
 				selectedPet = Integer.parseInt(petNumber) - 1;
 			}catch(NumberFormatException e){
 				printToScreen("Please enter a valid number.\n");
 			}
-			if(selectedPet >= 0 && selectedPet <=p.petArray.size()){
+			if(selectedPet >= 0 && selectedPet <=(p.petArray.size() + 1)){
 				isValid = true;
 			}
 		}
-		if (selectedPet != p.petArray.size()){
+		if (selectedPet < p.petArray.size()){
 			if(p.petArray.get(selectedPet).getActionsRemaning() !=0){
 				dailyPetUse(p,p.petArray.get(selectedPet));
 			}
@@ -758,8 +837,11 @@ public class GameEnvironment implements Printable {
 				printToScreen(animal.getName() + " wants to call it a day. Please choose a different pet");
 			}
 			}
-		else {
+		if (selectedPet == p.petArray.size()){
 			p.setStillTurn(false);
+		}
+		else {
+			useShop(p);
 		}
 		
 	}

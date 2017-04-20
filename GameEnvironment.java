@@ -1,5 +1,3 @@
-package tamagochi;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -311,6 +309,92 @@ public class GameEnvironment implements Printable {
 		
 	}
 	/**
+	 * returns Boolean.
+	 * Prints off the selected food's status.
+	 * Gives a player a choice to either by them or not.
+	 */
+	public boolean foodStatusDisplay(Player p, Food food) {
+		printToScreen("Here is the following status of " + food.getFood() + " (1 = Bad, 10 = Good)");
+		printToScreen("Nutrition: " + Integer.toString(food.getNutrition()));
+		printToScreen("Taste: " + Integer.toString(food.getTaste()));
+		if (food.getFullness() <= 2) {
+			printToScreen("Meal size: Small");
+			}
+		else {
+			if (food.getFullness() <= 4) {
+				printToScreen("Meal size: Medium");
+				}
+			else {
+				printToScreen("Meal size: Large");
+				}
+			}
+		printToScreen("price: $" + Integer.toString(food.getPrice()));
+		printToScreen("Available money: $" + Integer.toString(p.getMoney()));
+		printToScreen("Would you like to buy this?");
+		printToScreen("(1) Yes\n(2) No");
+		boolean isValid = false;
+		boolean selected = false;
+		while(!isValid) {
+			String option = getInput();
+			switch(option){
+				case "1":
+					isValid = true;
+					selected = true;
+					break;
+				case "2":
+					isValid = true;
+					selected = false;
+					break;
+				default: 
+					printToScreen("Please select a valid number!");
+				}
+				}
+		return selected;
+		}
+	/**
+	 * returns Boolean.
+	 * Prints off the selected toy's status.
+	 * Gives a player a choice to either by them or not.
+	 */
+	public boolean toyStatusDisplay(Player p, Toy toy) {
+		printToScreen("Here is the following status of " + toy.getName() + " (1 = Low, 10 = High)");
+		printToScreen("Happiness: " + Integer.toString(toy.getHappy()));
+		printToScreen("Durablilty: " + Integer.toString(toy.getDurability()));
+		if (toy.getExercise() == 0) {
+		printToScreen("Exercise: None");
+		}
+		else {
+			if (toy.getExercise() >= 3) {
+				printToScreen("Exercise: High");
+			}
+			else {
+				printToScreen("Exercise: low");
+			}
+		}
+		printToScreen("price: $" + Integer.toString(toy.getPrice()));
+		printToScreen("Available money: $" + Integer.toString(p.getMoney()));
+		printToScreen("Would you like to buy this?");
+		printToScreen("(1) Yes\n(2) No");
+		boolean isValid = false;
+		boolean selected = false;
+		while(!isValid) {
+			String option = getInput();
+			switch(option){
+				case "1":
+					isValid = true;
+					selected = true;
+					break;
+				case "2":
+					isValid = true;
+					selected = false;
+					break;
+				default: 
+					printToScreen("Please select a valid number!");
+				}
+				}
+		return selected;
+	}
+	/**
 	 * returns boolean
 	 * prints of the selected pet's status.
 	 * Player gets a choice either keeping the pet or choose a different pet.
@@ -415,12 +499,17 @@ public class GameEnvironment implements Printable {
 			}
 		}
 		if (selected != position.size()) {
+			if (p.getMoney() >= 30) {
 			int selectedPet = position.get(selected);
 			Pet patientP = p.petArray.get(selectedPet);
 			patientP.setDead(false);
 			patientP.setZombie(true);
 			p.setMoney(-30);
 			printToScreen(patientP.getName() + " is back from the dead!");
+			}
+			else {
+				printToScreen("You don't have enough money!");
+			}
 		}
 		useShop(p);
 		}
@@ -458,6 +547,7 @@ public class GameEnvironment implements Printable {
 			}
 		}
 		if (selected != position.size()) {
+			if (p.getMoney() >= 10) {
 			int selectedPet = position.get(selected);
 			Pet patientP = p.petArray.get(selectedPet);
 			patientP.setSick(false);
@@ -466,6 +556,10 @@ public class GameEnvironment implements Printable {
 			patientP.setActionsRemaining(waitingTime);
 			printToScreen(patientP.getName() + " is feeling much better now!");
 			p.setMoney(-10);
+			}
+			else {
+				printToScreen("You don't have enough money!");
+			}
 		}
 		useShop(p);
 		}
@@ -499,9 +593,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought1 = foodStatusDisplay(p, food1);
+				if (bought1 == true) {
 				p.inventory.add(food1);
 				int cost1 = 0 - food1.getPrice();
 				p.setMoney(cost1);
+				}
 				isValid = true;
 				break;
 				}
@@ -512,9 +609,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought2 = foodStatusDisplay(p, food2);
+				if (bought2 == true) {
 				p.inventory.add(food2);
 				int cost2 = 0 - food2.getPrice();
 				p.setMoney(cost2);
+				}
 				isValid = true;
 				break;
 				}
@@ -525,9 +625,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought3 = foodStatusDisplay(p, food3);
+				if (bought3 == true) {
 				p.inventory.add(food3);
 				int cost3 = 0 - food3.getPrice();
 				p.setMoney(cost3);
+				}
 				isValid = true;
 				break;
 				}
@@ -538,9 +641,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought4 = foodStatusDisplay(p, food4);
+				if (bought4 == true) {
 				p.inventory.add(food4);
 				int cost4 = 0 - food4.getPrice();
 				p.setMoney(cost4);
+				}
 				isValid = true;
 				break;
 				}
@@ -551,9 +657,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought5 = foodStatusDisplay(p, food5);
+				if (bought5 == true) {
 				p.inventory.add(food5);
 				int cost5 = 0 - food5.getPrice();
 				p.setMoney(cost5);
+				}
 				isValid = true;
 				break;
 				}
@@ -564,9 +673,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought6 = foodStatusDisplay(p, food6);
+				if(bought6 == true){
 				p.inventory.add(food6);
 				int cost6 = 0 - food6.getPrice();
 				p.setMoney(cost6);
+				}
 				isValid = true;
 				break;
 				}
@@ -613,9 +725,12 @@ public class GameEnvironment implements Printable {
 				break;
 			}
 			else {
+			boolean bought1 = toyStatusDisplay(p, toy1);
+			if (bought1 == true) {
 			p.inventory.add(toy1);
 			int cost1 = 0 - toy1.getPrice();
 			p.setMoney(cost1);
+			}
 			isValid = true;
 			break;
 			}
@@ -626,9 +741,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought2 = toyStatusDisplay(p, toy2);
+				if (bought2 == true) {
 				p.inventory.add(toy2);
 				int cost2 = 0 - toy2.getPrice();
 				p.setMoney(cost2);
+				}
 				isValid = true;
 				break;
 				}
@@ -639,9 +757,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought3 = toyStatusDisplay(p, toy3);
+				if (bought3 == true) {
 				p.inventory.add(toy3);
 				int cost3 = 0 - toy3.getPrice();
 				p.setMoney(cost3);
+				}
 				isValid = true;
 				break;
 				}
@@ -652,9 +773,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought4 = toyStatusDisplay(p, toy4);
+				if (bought4 == true) {
 				p.inventory.add(toy4);
 				int cost4 = 0 - toy4.getPrice();
 				p.setMoney(cost4);
+				}
 				isValid = true;
 				break;
 				}
@@ -665,9 +789,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought5 = toyStatusDisplay(p, toy5);
+				if (bought5 == true) {
 				p.inventory.add(toy5);
 				int cost5 = 0 - toy5.getPrice();
 				p.setMoney(cost5);
+				}
 				isValid = true;
 				break;
 				}
@@ -678,9 +805,12 @@ public class GameEnvironment implements Printable {
 					break;
 				}
 				else {
+				boolean bought6 = toyStatusDisplay(p, toy6);
+				if (bought6 == true) {
 				p.inventory.add(toy6);
 				int cost6 = 0 - toy6.getPrice();
 				p.setMoney(cost6);
+				}
 				isValid = true;
 				break;
 				}
@@ -751,15 +881,15 @@ public class GameEnvironment implements Printable {
 		if (a.getFavouriteFood() == food.getFood()) {
 			printToScreen(a.getName() + " is happily eating a " + food.getFood());
 			a.setHunger(food.getNutrition());
-			int bladderDrop = 0 - food.getBladder();
+			int bladderDrop = 0 - food.getFullness();
 			a.setBladder(bladderDrop);
-			int funUp = food.getTaste() + 1;
-			a.setHappiness(funUp);
+			int happyUp = food.getTaste() + 1;
+			a.setHappiness(happyUp);
 		}
 		else {
 			printToScreen(a.getName() + " is eating a " + food.getFood());
 			a.setHunger(food.getNutrition());
-			int bladderDrop = 0 - food.getBladder();
+			int bladderDrop = 0 - food.getFullness();
 			a.setBladder(bladderDrop);
 			a.setHappiness(food.getTaste());
 		}
@@ -920,6 +1050,7 @@ public class GameEnvironment implements Printable {
 	 * If the pet is misbehaving or sick then it will alert the player.
 	 * If the pet is dead, then it will go back to playDay method.
 	 * The player is given a list of methods, which player can choose from.
+	 * Some method will not be able to call if the pet is misbehaving/sick.
 	 */
 	public void dailyPetUse(Player p, Pet a){
 		printHeader();
@@ -1038,10 +1169,9 @@ public class GameEnvironment implements Printable {
 						}
 					}
 					if (animal.getHunger() <= 3 || animal.getEnergy() <= 3) {
-						if (animal.isMisbehave() == false) {
-							animal.setSick(true);
+						animal.setbehaviour(false);
+						animal.setSick(true);
 						}
-					}
 					if (animal.getHappiness() == 0 || animal.getBladder() == 0 || animal.getHunger() == 0 || animal.getEnergy() == 0) {
 						animal.setbehaviour(false);
 						animal.setSick(false);

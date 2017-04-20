@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 public class Hamburger extends Food{
 	public Hamburger(){
@@ -7,6 +7,9 @@ public class Hamburger extends Food{
 	public String food() {
 		return super.getFood();
 	}
+	public int price() {
+		return super.getPrice();
+	}
 	public int nutrition() {
 		return super.getNutrition();
 	}
@@ -14,9 +17,6 @@ public class Hamburger extends Food{
 		return super.getTaste();
 	}
 	public int bladderDrop() {
-		return super.getBladder();
+		return super.getFullness();
 	}
 }
-
-
-

@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 public class Pizza extends Food{
 	public Pizza(){
@@ -8,6 +8,9 @@ public class Pizza extends Food{
 	public String food() {
 		return super.getFood();
 	}
+	public int price() {
+		return super.getPrice();
+	}
 	public int nutrition() {
 
 		return super.getNutrition();
@@ -16,6 +19,6 @@ public class Pizza extends Food{
 		return super.getTaste();
 	}
 	public int bladderDrop() {
-		return super.getBladder();
+		return super.getFullness();
 	}
 }

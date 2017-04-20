@@ -1,5 +1,3 @@
-package tamagochi;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -1224,11 +1222,11 @@ public class GameEnvironment implements Printable {
 		printHeader();
 	}
 	/**
-	 * The main function
-	 * Where the game loop occurs
-	 * The player is given $30 each day.
+	 * The main function.
+	 * Each pet gets 2 actions per day.
+	 * The player is given $20 each day.
 	 * Depending on the pet's stat, it can change the pet's condition such as sickness, death, or misbehaving.
-	 * As each day passes, each drops certain stats.
+	 * As each day passes, each stat drops (Except the final day).
 	 * Players earn points each day (Unless the pet is dead).
 	 * Final score is calculated depending on the pet's conditions. 
 	 */
@@ -1242,7 +1240,7 @@ public class GameEnvironment implements Printable {
 			g.printDay();
 			for (Player person : g.playerArray) {
 				person.setStillTurn(true);
-				person.setMoney(30);
+				person.setMoney(20);
 				for(Pet animal:person.petArray){
 					animal.setActionsRemaining(2);
 					if (animal.getHappiness() <= 3 || animal.getBladder() <= 3) {
@@ -1257,13 +1255,16 @@ public class GameEnvironment implements Printable {
 					if (animal.getHappiness() == 0 || animal.getBladder() == 0 || animal.getHunger() == 0 || animal.getEnergy() == 0) {
 						animal.setbehaviour(false);
 						animal.setSick(false);
+						if (animal.isDead() == false) {
 						animal.setDead(true);
 						g.printToScreen("Oh no! " + animal.getName() + " has died!");
+						}
 					}
 				}
 				while(person.isStillTurn()){
 					g.playDay(person);
 				}
+				if ( g.day != g.lengthOfGame ) {
 				for(Pet animal:person.petArray){
 					g.perDayScores(person, animal);
 					if (animal.isDead() == false) {
@@ -1274,6 +1275,7 @@ public class GameEnvironment implements Printable {
 					animal.setHappiness(happyDrop);
 					animal.setHunger(hungerDrop);
 					}
+				}
 				}
 			} 
 			g.day++;

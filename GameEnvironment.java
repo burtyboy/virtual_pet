@@ -443,6 +443,74 @@ public class GameEnvironment implements Printable {
 	return selected;
 	}
 	/**
+	 * return void
+	 * Each pet gets 2 actions per day.
+	 * If the pet has low happiness (and/or) bladder, the pet will start misbehaving.
+	 * If the pet has low hunger (and/or) energy, the pet will get sick.
+	 * If any stats drops to 0, the pet will die.
+	 * If the pet gets sick, the pet is no longer misbehaving.
+	 * If the pet dies, then the pet is no longer misbehaving or sick.
+	 */
+	public void setPetCondition(Pet animal) {
+		animal.setActionsRemaining(2);
+		if (animal.getHappiness() <= 6 || animal.getBladder() <= 6) {
+			if (animal.isSick() == false) {
+			animal.setbehaviour(true);
+			}
+		}
+		if (animal.getHunger() <= 3 || animal.getEnergy() <= 3) {
+			animal.setbehaviour(false);
+			animal.setSick(true);
+			}
+		if (animal.getHappiness() == 0 || animal.getBladder() == 0 || animal.getHunger() == 0 || animal.getEnergy() == 0) {
+			animal.setbehaviour(false);
+			animal.setSick(false);
+			if (animal.isDead() == false) {
+			animal.setDead(true);
+			printToScreen("Oh no! " + animal.getName() + " has died!");
+			}
+		}
+	}
+	/**
+	 * returns void
+	 * Each pet drops stat such as energy, happiness, and hunger level.
+	 * If the pet is dead, then the stats will not drop.
+	 */
+	public void statDrops(Pet animal) {
+		if (animal.isDead() == false) {
+			int sleepDrop = 0 - animal.getEnergyDrop();
+			int happyDrop = 0 - animal.getHappinessDrop();
+			int hungerDrop = 0 - animal.getHungerDrop();
+			animal.setEnergy(sleepDrop);
+			animal.setHappiness(happyDrop);
+			animal.setHunger(hungerDrop);
+		}
+	}
+	/**
+	 * returns Void.
+	 * Prints out all the items available in the inventory.
+	 * If the inventory is empty, the player will be informed.
+	 */
+	public void checkInventory(Player p) {
+		printToScreen("Inventory: ");
+		String items = "The inventory is empty!";
+		int index = 1;
+		for (Item item:p.inventory) {
+			if (item instanceof Food) {
+				items = ((Food) item).getFood();
+			}
+			if (item instanceof Toy) {
+				items = ((Toy) item).getName();
+			}
+			printToScreen("(" + Integer.toString(index) + ") " + items);
+			index++;
+		}
+		if (p.inventory.size() == 0) {
+			printToScreen(items);
+		}
+	}
+	
+	/**
 	 * returns Void.
 	 * Open up the shop by asking which section of the shop the player is willing to visit.
 	 * Player also have an option to exit the shop (return to playDay method). 
@@ -486,6 +554,7 @@ public class GameEnvironment implements Printable {
 	 * Player can either revive them or cancel the visit.
 	 * When the pet gets revived, the player loses $30, and the pet turns into a zombie and is no longer dead.
 	 * Also, checks if the player currently has enough money to revive them.
+	 * The pet's stat remains the same.
 	 */
 	public void revivePet(Player p){
 		ArrayList<Integer> position = new ArrayList<Integer>(0);
@@ -1071,11 +1140,17 @@ public class GameEnvironment implements Printable {
 		}
 		printToScreen("(" + Integer.toString(i) + ") Move to the next day");
 		printToScreen("(" + Integer.toString(i + 1) + ") Use the shop");
+		printToScreen("(" + Integer.toString(i + 2) + ") check the inventory");
 	}
 	
 	/**
 	 * returns Void.
-	 * The player gets a choice of either interacting with one of the pets, go to the shop or move to the next day.
+	 * The player gets a choice of either...
+	 * interacting with one of the pets
+	 * go to the shop
+	 * check the inventory
+	 * move to the next day.
+	 * Gives an error message if the player didn't pick a valid option.
 	 */
 	public void playDay(Player p){
 		printHeader();
@@ -1092,7 +1167,7 @@ public class GameEnvironment implements Printable {
 			}catch(NumberFormatException e){
 				printToScreen("Please enter a valid number.\n");
 			}
-			if(selectedPet >= 0 && selectedPet <=(p.petArray.size() + 1)){
+			if(selectedPet >= 0 && selectedPet <=(p.petArray.size() + 2)){
 				isValid = true;
 			}
 		}
@@ -1110,7 +1185,12 @@ public class GameEnvironment implements Printable {
 			p.setStillTurn(false);
 		}
 		else {
+			if (selectedPet == p.petArray.size() + 1) {
 			useShop(p);
+			}
+			else {
+				checkInventory(p);
+			}
 		}
 		}
 		
@@ -1225,7 +1305,7 @@ public class GameEnvironment implements Printable {
 	 * The main function.
 	 * Each pet gets 2 actions per day.
 	 * The player is given $20 each day.
-	 * Depending on the pet's stat, it can change the pet's condition such as sickness, death, or misbehaving.
+	 * Depending on the pet's stat, it can change the pet's condition.
 	 * As each day passes, each stat drops (Except the final day).
 	 * Players earn points each day (Unless the pet is dead).
 	 * Final score is calculated depending on the pet's conditions. 
@@ -1242,24 +1322,7 @@ public class GameEnvironment implements Printable {
 				person.setStillTurn(true);
 				person.setMoney(20);
 				for(Pet animal:person.petArray){
-					animal.setActionsRemaining(2);
-					if (animal.getHappiness() <= 3 || animal.getBladder() <= 3) {
-						if (animal.isSick() == false) {
-						animal.setbehaviour(true);
-						}
-					}
-					if (animal.getHunger() <= 3 || animal.getEnergy() <= 3) {
-						animal.setbehaviour(false);
-						animal.setSick(true);
-						}
-					if (animal.getHappiness() == 0 || animal.getBladder() == 0 || animal.getHunger() == 0 || animal.getEnergy() == 0) {
-						animal.setbehaviour(false);
-						animal.setSick(false);
-						if (animal.isDead() == false) {
-						animal.setDead(true);
-						g.printToScreen("Oh no! " + animal.getName() + " has died!");
-						}
-					}
+					g.setPetCondition(animal);
 				}
 				while(person.isStillTurn()){
 					g.playDay(person);
@@ -1267,17 +1330,10 @@ public class GameEnvironment implements Printable {
 				if ( g.day != g.lengthOfGame ) {
 				for(Pet animal:person.petArray){
 					g.perDayScores(person, animal);
-					if (animal.isDead() == false) {
-					int sleepDrop = 0 - animal.getEnergyDrop();
-					int happyDrop = 0 - animal.getHappinessDrop();
-					int hungerDrop = 0 - animal.getHungerDrop();
-					animal.setEnergy(sleepDrop);
-					animal.setHappiness(happyDrop);
-					animal.setHunger(hungerDrop);
+					g.statDrops(animal);
 					}
 				}
-				}
-			} 
+			}
 			g.day++;
 		}
 		for (Player person : g.playerArray) {

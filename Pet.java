@@ -1,14 +1,15 @@
+package tamagochi;
 
 public class Pet extends GameEnvironment {
 	private String petName;
 	private int actionsRemaning = 0;
-	private int hunger;
-	private int sleep;
-	private int aggressive;
-	private int happiness;
-	private int stomach = 5;
+	private int hungerDrop;
+	private int energyDrop;
+	private int aggression;
+	private int happinessDrop;
+	private int hunger = 5;
 	private int bladder = 5;
-	private int fun = 5;
+	private int happiness = 5;
 	private int energy = 5;
 	private String favouriteToy;
 	private String favouriteFood;
@@ -17,19 +18,19 @@ public class Pet extends GameEnvironment {
 	private boolean isDead = false;
 	private boolean zombie = false;
 	
-	public Pet(String name, int hungerDrop, int sleepDrop, int happinessDrop, int durabilityDrop, String toy, String food){
+	public Pet(String name, int hungerDrop, int energyDrop, int happinessDrop, int durabilityDrop, String toy, String food){
 		petName = name;
-		hunger = hungerDrop;
-		sleep = sleepDrop;
-		happiness = happinessDrop;
-		aggressive = durabilityDrop;
+		this.hungerDrop = hungerDrop;
+		this.energyDrop = energyDrop;
+		this.happinessDrop = happinessDrop;
+		aggression = durabilityDrop;
 		favouriteToy = toy;
 		favouriteFood = food;
 	}
-	public String getToy() {
+	public String getFavouriteToy() {
 		return favouriteToy;
 	}
-	public String getFood() {
+	public String getFavouriteFood() {
 		return favouriteFood;
 	}
 	public int getEnergy() {
@@ -53,55 +54,55 @@ public class Pet extends GameEnvironment {
 			bladder = 0;
 		}
 	}
-	public int getStomach() {
-		return stomach;
+	public int getHunger() {
+		return hunger;
 	}
-	public void setStomach(int stomachAdd) {
-		stomach += stomachAdd;
-		if (stomach < 0) {
-			stomach = 0;
+	public void setHunger(int food) {
+		hunger += food;
+		if (hunger < 0) {
+			hunger = 0;
 		}
-		if (stomach > 10) {
-			stomach = 10;
-		}
-	}
-	public void setFun(int changeFun) {
-		fun += changeFun;
-		if(fun < 0) {
-			fun = 0;
-		}
-		if (fun > 10) {
-			fun = 10;
+		if (hunger > 10) {
+			hunger = 10;
 		}
 	}
-	public int getFun() {
-		return fun;
+	public void setHappiness(int happiness) {
+		this.happiness += happiness;
+		if(this.happiness < 0) {
+			this.happiness = 0;
+		}
+		if (this.happiness > 10) {
+			this.happiness = 10;
+		}
+	}
+	public int getHappiness() {
+		return happiness;
 	}
 	public String getName(){
 		return petName;
 	}
-	public int getHunger(){
-		return hunger;
+	public int getHungerDrop(){
+		return hungerDrop;
 	}
-	public int getSleep(){
-		return sleep;
+	public int getEnergyDrop(){
+		return energyDrop;
 	}
-	public int getAgressive(){
-		return aggressive;
+	public int getAggression(){
+		return aggression;
 	}
-	public int getHappiness(){
-		return happiness;
+	public int getHappinessDrop(){
+		return happinessDrop;
 	}
 	public int getActionsRemaning() {
 		return actionsRemaning;
 	}
-	public boolean getIsMisbehave() {
+	public boolean isMisbehave() {
 		return isMisbehave;
 	}
-	public void setbehave(boolean behaviour) {
-		isMisbehave = behaviour;
+	public void setbehaviour(boolean isMisbehave) {
+		this.isMisbehave = isMisbehave;
 	}
-	public boolean getIsSick(){
+	public boolean isSick(){
 		return isSick;
 	}
 	public void setSick(boolean sickness) {
@@ -113,14 +114,14 @@ public class Pet extends GameEnvironment {
 	public void setZombie(boolean zombie) {
 		this.zombie = zombie;
 	}
-	public boolean getIsDead() {
+	public boolean isDead() {
 		return isDead;
 	}
 	public void setDead(boolean death) {
 		isDead = death;
 	}
 
-	public void setActionsRemaning(int actionsRemaning) {
+	public void setActionsRemaining(int actionsRemaning) {
 		this.actionsRemaning = actionsRemaning;
 	}
 	

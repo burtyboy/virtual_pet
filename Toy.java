@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 public class Toy extends Item{
 	private String name;
@@ -35,4 +35,3 @@ public class Toy extends Item{
 		return getName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
 	}
 }
-

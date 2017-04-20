@@ -1,9 +1,9 @@
-
+package tamagochi;
 
 import java.util.ArrayList;
 
 public class Player extends GameEnvironment{
-	private int money = 100;
+	private int money = 0;
 	private int score = 0;
 	private String name;
 

@@ -27,6 +27,10 @@ public class Pet extends GameEnvironment {
 		favouriteToy = toy;
 		favouriteFood = food;
 	}
+	public int getOverallStat() {
+		return hunger + bladder + happiness + energy;
+	}
+	
 	public String getFavouriteToy() {
 		return favouriteToy;
 	}

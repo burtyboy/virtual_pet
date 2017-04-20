@@ -1,3 +1,5 @@
+package tamagochi;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -167,7 +169,10 @@ public class GameEnvironment implements Printable {
 			}
 		}
 	}
-		
+	/**
+	 * returns string.
+	 * Provides validation for names by checking uniqueness against any pets currently in game, length and Non-emptiness
+	 */
 	public String getName(){
 		String petName = "";
 		boolean isValid = false;
@@ -234,9 +239,10 @@ public class GameEnvironment implements Printable {
 	
 	/**
 	 * returns Void.
-	 * Sets up the game by asking for number of players, number of pets, pet types.
+	 * Sets up the game by asking for number of players,number of days, number of pets, pet types.
 	 * MUST ONLY BE CALLED AT THE START OF THE GAME
 	 * Provides validation of numbers and only adds 3 players and up to 3 pets per player. 
+	 * Warn the players, if they picked 10 or more days.
 	 */
 	public void createGame(){
 		boolean isValid = false;
@@ -311,17 +317,19 @@ public class GameEnvironment implements Printable {
 	/**
 	 * returns Boolean.
 	 * Prints off the selected food's status.
-	 * Gives a player a choice to either by them or not.
+	 * Gives a player a choice to either buy them or not.
+	 * Meal size depends on the fullness of the food.
+	 * Also, prints off the cost of the food and the amount of money player currently have.
 	 */
 	public boolean foodStatusDisplay(Player p, Food food) {
 		printToScreen("Here is the following status of " + food.getFood() + " (1 = Bad, 10 = Good)");
 		printToScreen("Nutrition: " + Integer.toString(food.getNutrition()));
 		printToScreen("Taste: " + Integer.toString(food.getTaste()));
-		if (food.getFullness() <= 2) {
+		if (food.getFullness() <= 1) {
 			printToScreen("Meal size: Small");
 			}
 		else {
-			if (food.getFullness() <= 4) {
+			if (food.getFullness() <= 3) {
 				printToScreen("Meal size: Medium");
 				}
 			else {
@@ -354,7 +362,9 @@ public class GameEnvironment implements Printable {
 	/**
 	 * returns Boolean.
 	 * Prints off the selected toy's status.
-	 * Gives a player a choice to either by them or not.
+	 * Gives a player a choice to either buy them or not.
+	 * The exercise level varies depending which toy it is.
+	 * Also, prints off the cost of the toy and the amount of money player currently have.
 	 */
 	public boolean toyStatusDisplay(Player p, Toy toy) {
 		printToScreen("Here is the following status of " + toy.getName() + " (1 = Low, 10 = High)");
@@ -368,7 +378,12 @@ public class GameEnvironment implements Printable {
 				printToScreen("Exercise: High");
 			}
 			else {
+				if (toy.getExercise() == 1) {
 				printToScreen("Exercise: low");
+				}
+				else {
+					printToScreen("Exercise: Medium");
+				}
 			}
 		}
 		printToScreen("price: $" + Integer.toString(toy.getPrice()));
@@ -396,8 +411,8 @@ public class GameEnvironment implements Printable {
 	}
 	/**
 	 * returns boolean
-	 * prints of the selected pet's status.
-	 * Player gets a choice either keeping the pet or choose a different pet.
+	 * Prints of the selected pet's status.
+	 * Player gets a choice of either keeping the pet or choose a different pet.
 	 */
 	public boolean petStatusDisplay(Pet a) {
 		printToScreen("Here is the following status of " + a.getName() + " (1 = Low, 3 = High)");
@@ -432,6 +447,7 @@ public class GameEnvironment implements Printable {
 	/**
 	 * returns Void.
 	 * Open up the shop by asking which section of the shop the player is willing to visit.
+	 * Player also have an option to exit the shop (return to playDay method). 
 	 */ 
 	public void useShop(Player p){
 		boolean isValid = false;
@@ -467,8 +483,11 @@ public class GameEnvironment implements Printable {
 	
 	/**
 	 * returns Void.
-	 * Player is given list of dead pets (Died only once)
-	 * Player can either revive them or cancel(Cancel will lead you back to the shop)
+	 * The player is given a list of dead pets (Pet died as a zombie will not be on this list).
+	 * Players cannot revive a zombie.
+	 * Player can either revive them or cancel the visit.
+	 * When the pet gets revived, the player loses $30, and the pet turns into a zombie and is no longer dead.
+	 * Also, checks if the player currently has enough money to revive them.
 	 */
 	public void revivePet(Player p){
 		ArrayList<Integer> position = new ArrayList<Integer>(0);
@@ -515,8 +534,10 @@ public class GameEnvironment implements Printable {
 		}
 	/**
 	 * returns Void.
-	 * The player is given a list of sick pets
-	 * The player has a choice of either revive them or cancel the visit
+	 * The player is given a list of sick pets.
+	 * The player has a choice to heal them or cancel the visit.
+	 * Checks if the player can currently afford to treat the pet.
+	 * If the pet is healed, the player loses $10, and the pet is no longer sick and should feel happier.
 	 */
 	public void healPet(Player p){
 		ArrayList<Integer> position = new ArrayList<Integer>(0);
@@ -567,7 +588,10 @@ public class GameEnvironment implements Printable {
 	/**
 	 * returns Void.
 	 * Gives a player list of food available to them.
-	 * Player gets a choice of either buying them or cancel the visit
+	 * Player gets a choice of either buying them or cancel the visit.
+	 * Once the player picks a valid option, it will show the status of the food and has a choice to buy them or not.
+	 * Checks if the player can afford the food.
+	 * If chosen to buy the food, the food will be added to the inventory and the player will lose some money (Depending on the price).
 	 */
 	public void purchaseFood(Player p){
 		boolean isValid = false;
@@ -698,8 +722,11 @@ public class GameEnvironment implements Printable {
 	
 	/**
 	 * returns Void.
-	 * Player gets a choice of 6 different toys
+	 * Player gets a choice of 6 different toys.
 	 * Player can choose to either buy the toy or cancel the visit.
+	 * Checks if the player can afford the toy.
+	 * If the player picks a valid option, it will show a status of the toy and the player can choose to buy them or not.
+	 * If the player has chosen to buy them, the toy gets added to the inventory and lose some money (Depending on the price).
 	 */
 	public void purchaseToy(Player p){
 		boolean isValid = false;
@@ -829,7 +856,7 @@ public class GameEnvironment implements Printable {
 	}
 	/**
 	 * returns Void.
-	 * The pets bladder should be high after calling this method.
+	 * By calling this method, the pet's bladder should change to maximum (10).
 	 */
 	public void useToilet(Pet a) {
 		int num = a.getBladder();
@@ -837,11 +864,11 @@ public class GameEnvironment implements Printable {
 		a.setBladder(num);
 		printToScreen(a.getName() + " feels relief.");
 	}
-	/**S
+	/**
 	 * returns Void.
-	 * By calling this method, player is given a choice of food available in the inventory
-	 * If the food does not contain inside the inventory, it will do nothing but lose 1 action point
-	 * If the food is given to a pet, the pet's hunger and happiness level should go up.
+	 * By calling this method, the player is given a choice of food available in the inventory.
+	 * If the food does not contain inside the inventory, it will do nothing but lose 1 action point.
+	 * If the food is given to a pet, the pet's hunger and happiness level go up, but the pet's bladder goes down.
 	 * If the food given is pet's favourite food, the happiness goes up by 1.
 	 * The food is removed from the inventory once eaten.
 	 */
@@ -898,12 +925,12 @@ public class GameEnvironment implements Printable {
 	}
 	/**
 	 * returns Void.
-	 * By calling this method, player is given a choice of toys available in the inventory
-	 * If the toy does not contain inside the inventory, it will do nothing but lose 1 action point
-	 * If the toy is given to a pet, the pet's happiness level should go up but energy and hunger may go down.
+	 * By calling this method, the player is given a choice of toys available in the inventory.
+	 * If the toy does not contain inside the inventory, it will do nothing but lose 1 action point.
+	 * If the toy is given to a pet, the pet's happiness level go up, but energy and hunger may go down.
 	 * If the food given is pet's favourite toy, the happiness goes up by 1.
-	 * The toy's durability get reduced once used (If the toy's durability drops to 0 then the toy breaks)
-	 * If the toy breaks, the toy is removed from the inventory
+	 * The toy's durability gets reduced once used (If the toy's durability drops to under 0 then the toy breaks).
+	 * If the toy breaks, the toy is removed from the inventory.
 	 */
 	public void play(Player p , Pet a) {
 		boolean isValid = false;
@@ -959,7 +986,7 @@ public class GameEnvironment implements Printable {
 	}
 	/**
 	 * returns Void.
-	 * By calling this method, the pet's energy increase to maximum.
+	 * By calling this method, the pet's energy increases to maximum (10).
 	 */
 	public void sleep(Pet a) {
 		int sleeping = 10 - a.getEnergy();
@@ -969,7 +996,7 @@ public class GameEnvironment implements Printable {
 	}
 	/**
 	 * returns Void.
-	 * By calling this method, the pet's happiness drop to 0 but the pet will start behaving.
+	 * By calling this method, the pet's happiness drops to 0, but the pet is no longer misbehaving.
 	 */
 	public void discipline(Pet a) {
 		int dropFun = 0 - a.getHappiness();
@@ -989,8 +1016,54 @@ public class GameEnvironment implements Printable {
 		printToScreen("Hunger: " + Integer.toString(a.getHunger()));
 		}
 	/**
+	 * returns Void
+	 * Each pet's overall stats contributes to the score (Unless the pet is dead).
+	 * Players earn extra points if the pet is not misbehaving/sick (Pets that are misbehaving earns more points than pets that are sick).
+	 */
+	public void perDayScores(Player p, Pet a) {
+		int score = 0;
+		if (a.isMisbehave() == true) {
+			score = a.getOverallStat() * 2;
+		}
+		else {
+			if (a.isSick() == true) {
+				score = a.getOverallStat();
+			}
+			else {
+				if (a.isDead() == false) {
+					score = a.getOverallStat() * 4;
+				}
+			}
+		}
+		p.setScore(score);
+	}
+	/**
+	 * returns double.
+	 * On the final day, the pet's condition contributes to your final score.
+	 * If the pet is dead or sick, the player will lose some points.
+	 * If the pet is misbehaving, the score will not change.
+	 * If the pet is in perfect condition, it will gain extra points.
+	 */
+	public double finalScoreAdjust(Player p, Pet a) {
+		double finalScore = 0;
+		if (a.isDead() == true) {
+			finalScore = 0.9;
+		}
+		else {
+			if (a.isSick() == true) {
+				finalScore = 0.97;
+			}
+			else {
+				if (a.isMisbehave() == false) {
+					finalScore = 1.05;
+				}
+			}
+		}
+		return finalScore;
+	}
+	/**
 	 * returns Void.
-	 * prints off a list of pets.
+	 * Prints off a list of pets and options to move to the next day, use the shop.
 	 */
 	public void displayPets(Player p){
 		int i = 1;
@@ -1004,7 +1077,7 @@ public class GameEnvironment implements Printable {
 	
 	/**
 	 * returns Void.
-	 * player gets a choice of either interacting with one of the pets, go to the shop or move to the next day
+	 * The player gets a choice of either interacting with one of the pets, go to the shop or move to the next day.
 	 */
 	public void playDay(Player p){
 		printHeader();
@@ -1047,9 +1120,9 @@ public class GameEnvironment implements Printable {
 	
 	/**
 	 * returns Void.
-	 * If the pet is misbehaving or sick then it will alert the player.
-	 * If the pet is dead, then it will go back to playDay method.
-	 * The player is given a list of methods, which player can choose from.
+	 * If the pet is misbehaving or sick, then it will alert the player.
+	 * If the pet is dead, then it will go back to playDay method (The player cannot interact with dead pet).
+	 * The player is given a list of methods, which if the player picks a valid option, it will call the method.
 	 * Some method will not be able to call if the pet is misbehaving/sick.
 	 */
 	public void dailyPetUse(Player p, Pet a){
@@ -1150,7 +1223,15 @@ public class GameEnvironment implements Printable {
 		printToScreen("|           Day"+getDay()+"           |");
 		printHeader();
 	}
-
+	/**
+	 * The main function
+	 * Where the game loop occurs
+	 * The player is given $30 each day.
+	 * Depending on the pet's stat, it can change the pet's condition such as sickness, death, or misbehaving.
+	 * As each day passes, each drops certain stats.
+	 * Players earn points each day (Unless the pet is dead).
+	 * Final score is calculated depending on the pet's conditions. 
+	 */
 	public static void main(String[] args) {
 		GameEnvironment g = new GameEnvironment();
 		g.printHeader();
@@ -1161,6 +1242,7 @@ public class GameEnvironment implements Printable {
 			g.printDay();
 			for (Player person : g.playerArray) {
 				person.setStillTurn(true);
+				person.setMoney(30);
 				for(Pet animal:person.petArray){
 					animal.setActionsRemaining(2);
 					if (animal.getHappiness() <= 3 || animal.getBladder() <= 3) {
@@ -1183,16 +1265,26 @@ public class GameEnvironment implements Printable {
 					g.playDay(person);
 				}
 				for(Pet animal:person.petArray){
+					g.perDayScores(person, animal);
+					if (animal.isDead() == false) {
 					int sleepDrop = 0 - animal.getEnergyDrop();
 					int happyDrop = 0 - animal.getHappinessDrop();
 					int hungerDrop = 0 - animal.getHungerDrop();
 					animal.setEnergy(sleepDrop);
 					animal.setHappiness(happyDrop);
 					animal.setHunger(hungerDrop);
+					}
 				}
 			} 
 			g.day++;
 		}
-		
+		for (Player person : g.playerArray) {
+			double scoreAdjust = 0;
+			for(Pet animal:person.petArray){
+				scoreAdjust = scoreAdjust + g.finalScoreAdjust(person, animal);
+			}
+			int finalScore = (int) (scoreAdjust * person.getScore());
+			g.printToScreen(person.getName() + " your final score is: " + Integer.toString(finalScore));
+			}
 	}
 }

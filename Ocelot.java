@@ -1,3 +1,5 @@
+package tamagochi;
+
 
 public class Ocelot extends Pet{
 	public Ocelot(String petName){

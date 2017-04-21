@@ -1114,15 +1114,15 @@ public class GameEnvironment implements Printable {
 	public double finalScoreAdjust(Player p, Pet a) {
 		double finalScore = 0;
 		if (a.isDead() == true) {
-			finalScore = 0.9;
+			finalScore = -0.1;
 		}
 		else {
 			if (a.isSick() == true) {
-				finalScore = 0.97;
+				finalScore = -0.03;
 			}
 			else {
 				if (a.isMisbehave() == false) {
-					finalScore = 1.05;
+					finalScore = 0.05;
 				}
 			}
 		}
@@ -1337,7 +1337,7 @@ public class GameEnvironment implements Printable {
 			g.day++;
 		}
 		for (Player person : g.playerArray) {
-			double scoreAdjust = 0;
+			double scoreAdjust = 1;
 			for(Pet animal:person.petArray){
 				scoreAdjust = scoreAdjust + g.finalScoreAdjust(person, animal);
 			}

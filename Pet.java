@@ -1,5 +1,3 @@
-package tamagochi;
-
 public class Pet extends GameEnvironment {
 	private String petName;
 	private int actionsRemaning = 0;
@@ -7,10 +5,10 @@ public class Pet extends GameEnvironment {
 	private int energyDrop;
 	private int aggression;
 	private int happinessDrop;
-	private int hunger = 5;
-	private int bladder = 5;
-	private int happiness = 5;
-	private int energy = 5;
+	private int hunger = 7;
+	private int bladder = 7;
+	private int happiness = 7;
+	private int energy = 7;
 	private String favouriteToy;
 	private String favouriteFood;
 	private boolean isMisbehave = false;

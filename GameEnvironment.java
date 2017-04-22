@@ -445,20 +445,20 @@ public class GameEnvironment implements Printable {
 	/**
 	 * return void
 	 * Each pet gets 2 actions per day.
-	 * If the pet has low happiness (and/or) bladder, the pet will start misbehaving.
-	 * If the pet has low hunger (and/or) energy, the pet will get sick.
+	 * If the pet has (medium/low) happiness or hunger, the pet will start misbehaving.
+	 * If the pet has low hunger, bladder, or energy, the pet will get sick.
 	 * If any stats drops to 0, the pet will die.
 	 * If the pet gets sick, the pet is no longer misbehaving.
 	 * If the pet dies, then the pet is no longer misbehaving or sick.
 	 */
 	public void setPetCondition(Pet animal) {
 		animal.setActionsRemaining(2);
-		if (animal.getHappiness() <= 6 || animal.getBladder() <= 6) {
+		if (animal.getHappiness() <= 6 || animal.getHunger() <= 6) {
 			if (animal.isSick() == false) {
 			animal.setbehaviour(true);
 			}
 		}
-		if (animal.getHunger() <= 3 || animal.getEnergy() <= 3) {
+		if (animal.getBladder() <= 3 || animal.getEnergy() <= 3 || animal.getHunger() <= 3) {
 			animal.setbehaviour(false);
 			animal.setSick(true);
 			}

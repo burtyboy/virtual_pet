@@ -1114,19 +1114,46 @@ public class GameEnvironment implements Printable {
 	public double finalScoreAdjust(Player p, Pet a) {
 		double finalScore = 0;
 		if (a.isDead() == true) {
-			finalScore = -0.1;
+			finalScore = -0.3;
 		}
 		else {
 			if (a.isSick() == true) {
-				finalScore = -0.03;
+				finalScore = -0.1;
 			}
 			else {
 				if (a.isMisbehave() == false) {
-					finalScore = 0.05;
+					finalScore = 0.2;
 				}
 			}
 		}
 		return finalScore;
+	}
+	/**
+	 * returns Void.
+	 * Prints off the final score for each player.
+	 */
+	public void finalScoreDisplay(ArrayList<Player> players) {
+		for (Player person : players) {
+			double scoreAdjust = 1;
+			for(Pet animal:person.petArray){
+				scoreAdjust = scoreAdjust + finalScoreAdjust(person, animal);
+			}
+			int finalScore = (int) (scoreAdjust * person.getScore());
+			printToScreen(person.getName() + " your final score is: " + Integer.toString(finalScore));
+			}
+	}
+	/**
+	 * returns void.
+	 * Each pet gets 2 actions per day.
+	 * The player is given $20 each day.
+	 * Depending on the pet's stat, it can change the pet's condition.
+	 */
+	public void setDailyCondition(Player person) {
+		person.setStillTurn(true);
+		person.setMoney(20);
+		for(Pet animal:person.petArray){
+			setPetCondition(animal);
+		}
 	}
 	/**
 	 * returns Void.
@@ -1164,11 +1191,14 @@ public class GameEnvironment implements Printable {
 			String petNumber = getInput();
 			try{
 				selectedPet = Integer.parseInt(petNumber) - 1;
+				if(selectedPet >= 0 && selectedPet <=(p.petArray.size() + 2)){
+					isValid = true;
+				}
+				else {
+					printToScreen("Please enter a valid number.\n");
+				}
 			}catch(NumberFormatException e){
 				printToScreen("Please enter a valid number.\n");
-			}
-			if(selectedPet >= 0 && selectedPet <=(p.petArray.size() + 2)){
-				isValid = true;
 			}
 		}
 		if (selectedPet < p.petArray.size()){
@@ -1319,30 +1349,17 @@ public class GameEnvironment implements Printable {
 		while (g.day<=g.lengthOfGame) {
 			g.printDay();
 			for (Player person : g.playerArray) {
-				person.setStillTurn(true);
-				person.setMoney(20);
-				for(Pet animal:person.petArray){
-					g.setPetCondition(animal);
-				}
+				g.setDailyCondition(person);
 				while(person.isStillTurn()){
 					g.playDay(person);
 				}
-				if ( g.day != g.lengthOfGame ) {
 				for(Pet animal:person.petArray){
 					g.perDayScores(person, animal);
 					g.statDrops(animal);
-					}
 				}
 			}
 			g.day++;
 		}
-		for (Player person : g.playerArray) {
-			double scoreAdjust = 1;
-			for(Pet animal:person.petArray){
-				scoreAdjust = scoreAdjust + g.finalScoreAdjust(person, animal);
-			}
-			int finalScore = (int) (scoreAdjust * person.getScore());
-			g.printToScreen(person.getName() + " your final score is: " + Integer.toString(finalScore));
-			}
+		g.finalScoreDisplay(g.playerArray);
 	}
 }

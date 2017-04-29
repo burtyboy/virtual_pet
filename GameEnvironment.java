@@ -237,23 +237,43 @@ public class GameEnvironment implements Printable {
 	
 	/**
 	 * returns Void.
+	 * Before the set up, the game would ask if you like to start a new game or check the instruction.
 	 * Sets up the game by asking for number of players,number of days, number of pets, pet types.
 	 * MUST ONLY BE CALLED AT THE START OF THE GAME
 	 * Provides validation of numbers and only adds 3 players and up to 3 pets per player. 
 	 * Warn the players, if they picked 10 or more days.
 	 */
 	public void createGame(){
+		boolean startGame = false;
+		while(!startGame){
+		printToScreen("(1) Start a new game!");
+		printToScreen("(2) Check the instruction");
+		String option = getInput();
+		switch(option){
+			case "1":
+				startGame = true;
+				break;
+			case "2":
+				displayInstruction();
+				break;
+			default: 
+				printToScreen("Please select a valid number!");
+			}
+		}
 		boolean isValid = false;
 		while(!isValid){
 			printToScreen("How many Players would you like(1-3)? \n");
 			String numPlayers = getInput();
 			try{
 				numberOfPlayers  = Integer.parseInt(numPlayers);
+				if(numberOfPlayers >= 1 && numberOfPlayers <=3){
+					isValid = true;
+				}
+				else {
+					printToScreen("Please enter a valid number.");
+				}
 			}catch(NumberFormatException e){
 				printToScreen("Please enter a valid number.\n");
-			}
-			if(numberOfPlayers >= 1 && numberOfPlayers <=3){
-				isValid = true;
 			}
 		}
 		int i = 0;
@@ -311,6 +331,13 @@ public class GameEnvironment implements Printable {
 		}
 		
 		
+	}
+	/**
+	 * returns void
+	 * Displays an instruction on how to play the game.
+	 */
+	public void displayInstruction() {
+		printToScreen("Learn it yourself!");
 	}
 	/**
 	 * returns Boolean.

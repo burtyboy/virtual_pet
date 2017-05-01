@@ -325,6 +325,7 @@ public class GameEnvironment implements Printable {
 				String proceed  = getInput();
 				if(!proceed.equals("y")){
 					isValid = false;
+					printToScreen("How many days would you like to play?");
 				}
 			}
 			
@@ -502,6 +503,7 @@ public class GameEnvironment implements Printable {
 	 * returns void
 	 * Each pet drops stat such as energy, happiness, and hunger level.
 	 * If the pet is dead, then the stats will not drop.
+	 * If the pet is sick, then the bladder stat will also drop.
 	 */
 	public void statDrops(Pet animal) {
 		if (animal.isDead() == false) {
@@ -511,6 +513,9 @@ public class GameEnvironment implements Printable {
 			animal.setEnergy(sleepDrop);
 			animal.setHappiness(happyDrop);
 			animal.setHunger(hungerDrop);
+			if (animal.isSick() == true) {
+				animal.setBladder(-2);
+			}
 		}
 	}
 	/**
@@ -952,10 +957,8 @@ public class GameEnvironment implements Printable {
 	 * returns Void.
 	 * By calling this method, the pet's bladder should change to maximum (10).
 	 */
-	public void useToilet(Pet a) {
-		int num = a.getBladder();
-		num = 10 - num;
-		a.setBladder(num);
+	public void useToilet(Pet a) { 
+		a.setBladder(10);
 		printToScreen(a.getName() + " feels relief.");
 	}
 	/**
@@ -965,6 +968,7 @@ public class GameEnvironment implements Printable {
 	 * If the food is given to a pet, the pet's hunger and happiness level go up, but the pet's bladder goes down.
 	 * If the food given is pet's favourite food, the happiness goes up by 1.
 	 * The food is removed from the inventory once eaten.
+	 * If the pet is sick, the nutrition of the food will drop. Also the pet will not be able to taste the food.
 	 */
 	public void feed(Player p, Pet a) {
 		boolean isValid = false;
@@ -991,7 +995,10 @@ public class GameEnvironment implements Printable {
 			selected = Integer.parseInt(foodOption) - 1;
 			if(selected >= 0 && selected < nums.size()){
 				isValid = true;
-		}
+			}
+			else {
+				printToScreen("Please enter a valid number.");
+			}
 		}
 		catch(NumberFormatException e){
 			printToScreen("Please enter a valid number.\n");
@@ -999,20 +1006,29 @@ public class GameEnvironment implements Printable {
 	}
 		int selectedFood = nums.get(selected);
 		Food food = (Food) p.inventory.get(selectedFood);
-		if (a.getFavouriteFood() == food.getFood()) {
-			printToScreen(a.getName() + " is happily eating a " + food.getFood());
-			a.setHunger(food.getNutrition());
+		if (a.isSick() == true) {
+			printToScreen(a.getName() + " is slowly eating " + food.getFood());
+			int nutritionAdjust = (food.getNutrition() / 2);
+			a.setHunger(nutritionAdjust);
 			int bladderDrop = 0 - food.getFullness();
 			a.setBladder(bladderDrop);
-			int happyUp = food.getTaste() + 1;
-			a.setHappiness(happyUp);
 		}
-		else {
-			printToScreen(a.getName() + " is eating a " + food.getFood());
-			a.setHunger(food.getNutrition());
-			int bladderDrop = 0 - food.getFullness();
-			a.setBladder(bladderDrop);
-			a.setHappiness(food.getTaste());
+		else {	
+			if (a.getFavouriteFood() == food.getFood()) {
+				printToScreen(a.getName() + " is happily eating a " + food.getFood());
+				a.setHunger(food.getNutrition());
+				int bladderDrop = 0 - food.getFullness();
+				a.setBladder(bladderDrop);
+				int happyUp = food.getTaste() + 1;
+				a.setHappiness(happyUp);
+			}
+			else {
+				printToScreen(a.getName() + " is eating a " + food.getFood());
+				a.setHunger(food.getNutrition());
+				int bladderDrop = 0 - food.getFullness();
+				a.setBladder(bladderDrop);
+				a.setHappiness(food.getTaste());
+			}
 		}
 		p.inventory.remove(selectedFood);
 		}
@@ -1025,6 +1041,8 @@ public class GameEnvironment implements Printable {
 	 * If the food given is pet's favourite toy, the happiness goes up by 1.
 	 * The toy's durability gets reduced once used (If the toy's durability drops to under 0 then the toy breaks).
 	 * If the toy breaks, the toy is removed from the inventory.
+	 * If the pet is sick, it will use up more energy to play.
+	 * If the pet is misbehaving, it will try to break the toy.
 	 */
 	public void play(Player p , Pet a) {
 		boolean isValid = false;
@@ -1051,7 +1069,10 @@ public class GameEnvironment implements Printable {
 			selected = Integer.parseInt(toyOption) - 1;
 			if(selected >= 0 && selected < nums.size()){
 				isValid = true;
-		}
+				}
+			else {
+				printToScreen("Please enter a valid number.\n");
+			}
 		}
 		catch(NumberFormatException e){
 			printToScreen("Please enter a valid number.\n");
@@ -1068,25 +1089,43 @@ public class GameEnvironment implements Printable {
 			printToScreen(a.getName() + " is playing with a " + toy.getName());
 			a.setHappiness(toy.getHappy());
 		}
+		if (a.isMisbehave() == true) {
+			printToScreen(a.getName() + " is trying to break the " + toy.getName());
+			toy.setDurability(1);
+		}
 		toy.setDurability(a.getAggression());
 		if (toy.getDurability() <= 0) {
 			printToScreen("Oh no the " + toy.getName() + " is broken!");
 			p.inventory.remove(selectedToy);
 		}
-		int drops = 0 - toy.getExercise();
-		a.setEnergy(drops);
-		a.setHunger(drops);
+		if (a.isSick() == true) {
+			printToScreen(a.getName() + " is exhausted.");
+			int drops1 = 0 - (toy.getExercise() + 1);
+			a.setEnergy(drops1);
+			a.setHunger(drops1);
+		}
+		else {
+			int drops2 = 0 - toy.getExercise();
+			a.setEnergy(drops2);
+			a.setHunger(drops2);
+		}
 		}
 	}
 	/**
 	 * returns Void.
 	 * By calling this method, the pet's energy increases to maximum (10).
+	 * If the pet is misbehaving, the pet will not sleep properly.
 	 */
 	public void sleep(Pet a) {
-		int sleeping = 10 - a.getEnergy();
-		a.setEnergy(sleeping);
-		printToScreen(a.getName() + " is sleeping... zzzzzzzz");
-		printToScreen(a.getName() + " has woken up and feels great!");
+		if (a.isMisbehave() == true) {
+			a.setEnergy(2);
+			printToScreen(a.getName() + " is pretending to sleep.");
+		}
+		else {
+			a.setEnergy(10);
+			printToScreen(a.getName() + " is sleeping... zzzzzzzz");
+			printToScreen(a.getName() + " has woken up and feels great!");
+		}
 	}
 	/**
 	 * returns Void.
@@ -1258,7 +1297,6 @@ public class GameEnvironment implements Printable {
 	 * If the pet is misbehaving or sick, then it will alert the player.
 	 * If the pet is dead, then it will go back to playDay method (The player cannot interact with dead pet).
 	 * The player is given a list of methods, which if the player picks a valid option, it will call the method.
-	 * Some method will not be able to call if the pet is misbehaving/sick.
 	 */
 	public void dailyPetUse(Player p, Pet a){
 		printHeader();
@@ -1282,46 +1320,26 @@ public class GameEnvironment implements Printable {
 					isValid = true;
 					break;
 				case "2": 
-					if ( a.isMisbehave() == true) {
-						printToScreen(a.getName() + " refusing to listen!");
-					}
-					else {
 					useToilet(a);
-					}
 					isValid = true;
 					int actions = a.getActionsRemaning();
 					int newActions = actions - 1;
 					a.setActionsRemaining(newActions);
 					break;
 				case "3":
-					if (a.isSick() == true) {
-						printToScreen(a.getName() + " is feeling sick and is unwilling to eat");
-					}
-					else {
 					feed(p, a);
-					}
 					isValid = true;
 					int actions1 = a.getActionsRemaning() - 1;
 					a.setActionsRemaining(actions1);
 					break;
 				case "4":
-					if (a.isSick() == true) {
-						printToScreen(a.getName() + " is feeling sick and is unwilling to play");
-					}
-					else {
 					play(p, a);
-					}
 					isValid = true;
 					int actions2 = a.getActionsRemaning() - 1;
 					a.setActionsRemaining(actions2);
 					break;
 				case "5":
-					if ( a.isMisbehave() == true) {
-						printToScreen(a.getName() + " refusing to listen!");
-					}
-					else {
 					sleep(a);
-					}
 					isValid = true;
 					int actions3 = a.getActionsRemaning() - 1;
 					a.setActionsRemaining(actions3);
@@ -1343,6 +1361,7 @@ public class GameEnvironment implements Printable {
 				break;
 			}
 		}
+		
 		
 	}
 		else {

@@ -1,3 +1,5 @@
+package tamagochi;
+
 public class Pet extends GameEnvironment {
 	private String petName;
 	private int actionsRemaning = 0;
@@ -54,6 +56,9 @@ public class Pet extends GameEnvironment {
 		bladder += changeBladder;
 		if (bladder < 0) {
 			bladder = 0;
+		}
+		if (bladder > 10) {
+			bladder = 10;
 		}
 	}
 	public int getHunger() {

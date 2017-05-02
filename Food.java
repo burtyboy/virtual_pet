@@ -13,7 +13,7 @@ public class Food extends Item{
 		tastiness = taste;
 		fullness = mealSize;
 	}
-	public String getFood() {
+	public String getName() {
 		return food;
 	}
 	public int getPrice() {
@@ -30,6 +30,6 @@ public class Food extends Item{
 	}
 	
 	public String toString(){
-		return getFood() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getFullness();
+		return getName() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getFullness();
 	}
 }

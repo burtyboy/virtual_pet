@@ -2,6 +2,6 @@ package tamagochi;
 
 public class Doll extends Toy{
 	public Doll(){
-		super("Doll", 15, 5, 10, 0);
+		super("Doll", 25, 7, 9, 0);
 	}
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 /**
  * Main loop for this game. Provides all control methods and calls and advances days
@@ -348,7 +349,7 @@ public class GameEnvironment implements Printable {
 	 * Also, prints off the cost of the food and the amount of money player currently have.
 	 */
 	public boolean foodStatusDisplay(Player p, Food food) {
-		printToScreen("Here is the following status of " + food.getFood() + " (1 = Bad, 10 = Good)");
+		printToScreen("Here is the following status of " + food.getName() + " (1 = Bad, 10 = Good)");
 		printToScreen("Nutrition: " + Integer.toString(food.getNutrition()));
 		printToScreen("Taste: " + Integer.toString(food.getTaste()));
 		if (food.getFullness() <= 1) {
@@ -473,7 +474,7 @@ public class GameEnvironment implements Printable {
 	/**
 	 * return void
 	 * Each pet gets 2 actions per day.
-	 * If the pet has (medium/low) happiness or hunger, the pet will start misbehaving.
+	 * If the pet has neutral happiness or hunger, the pet will start misbehaving.
 	 * If the pet has low hunger, bladder, or energy, the pet will get sick.
 	 * If any stats drops to 0, the pet will die.
 	 * If the pet gets sick, the pet is no longer misbehaving.
@@ -522,23 +523,26 @@ public class GameEnvironment implements Printable {
 	 * returns Void.
 	 * Prints out all the items available in the inventory.
 	 * If the inventory is empty, the player will be informed.
+	 * If there is a duplicate item in the inventory, then it will calculate the number of occurrence of the duplicated item.
 	 */
-	public void checkInventory(Player p) {
+	public void displayInventory(Player p) {
 		printToScreen("Inventory: ");
-		String items = "The inventory is empty!";
-		int index = 1;
+		String itemName = "The inventory is empty!";
+		ArrayList<String> itemCovered = new ArrayList<String>(0);
+		ArrayList<String> itemNames = new ArrayList<String>(0);
 		for (Item item:p.inventory) {
-			if (item instanceof Food) {
-				items = ((Food) item).getFood();
+			itemName = item.getName();
+			itemNames.add(itemName);
+			if (itemCovered.contains(itemName) == false) {
+				itemCovered.add(itemName);
 			}
-			if (item instanceof Toy) {
-				items = ((Toy) item).getName();
-			}
-			printToScreen("(" + Integer.toString(index) + ") " + items);
-			index++;
+		}
+		for (String name:itemCovered) {
+			int occurrences = Collections.frequency(itemNames, name);
+			printToScreen(name + " x" + Integer.toString(occurrences));
 		}
 		if (p.inventory.size() == 0) {
-			printToScreen(items);
+			printToScreen(itemName);
 		}
 	}
 	
@@ -700,13 +704,14 @@ public class GameEnvironment implements Printable {
 		Food food4 = new FriedChicken();
 		Food food5 = new Pizza();
 		Food food6 = new Steak();
-		printToScreen("Food options available:\n(1)" + food1.getFood() + " $" + food1.getPrice());
-		printToScreen("(2)" + food2.getFood() + " $" + food2.getPrice());
-		printToScreen("(3)" + food3.getFood() + " $" + food3.getPrice());
-		printToScreen("(4)" + food4.getFood() + " $" + food4.getPrice());
-		printToScreen("(5)" + food5.getFood() + " $" + food5.getPrice());
-		printToScreen("(6)" + food6.getFood() + " $" + food6.getPrice());
+		printToScreen("Food options available:\n(1)" + food1.getName() + " $" + food1.getPrice());
+		printToScreen("(2)" + food2.getName() + " $" + food2.getPrice());
+		printToScreen("(3)" + food3.getName() + " $" + food3.getPrice());
+		printToScreen("(4)" + food4.getName() + " $" + food4.getPrice());
+		printToScreen("(5)" + food5.getName() + " $" + food5.getPrice());
+		printToScreen("(6)" + food6.getName() + " $" + food6.getPrice());
 		printToScreen("(7)Cancel");
+		while (!isValid) {
 		String option = getInput();
 		switch(option){ 
 			case "1": 
@@ -810,11 +815,7 @@ public class GameEnvironment implements Printable {
 			default: printToScreen("Please enter a valid option number");
 				isValid = false;
 				break;
-			
-			
-		}
-		if(!isValid){
-			purchaseFood(p);
+			}
 		}
 		useShop(p);
 	}
@@ -842,6 +843,7 @@ public class GameEnvironment implements Printable {
 		printToScreen("(5)" + toy5.getName() + " $" + toy5.getPrice());
 		printToScreen("(6)" + toy6.getName() + " $" + toy6.getPrice());
 		printToScreen("(7)Cancel");
+		while (!isValid) {
 		String option = getInput();
 		switch(option){
 			case "1":
@@ -945,11 +947,7 @@ public class GameEnvironment implements Printable {
 			default: printToScreen("Please enter a valid option number");
 				isValid = false;
 				break;
-			
-			
-		}
-		if(!isValid){
-			purchaseToy(p);
+			}
 		}
 		useShop(p);
 	}
@@ -968,27 +966,36 @@ public class GameEnvironment implements Printable {
 	 * If the food is given to a pet, the pet's hunger and happiness level go up, but the pet's bladder goes down.
 	 * If the food given is pet's favourite food, the happiness goes up by 1.
 	 * The food is removed from the inventory once eaten.
-	 * If the pet is sick, the nutrition of the food will drop. Also the pet will not be able to taste the food.
+	 * If the pet is sick, the pet will not be able to taste the food.
 	 */
 	public void feed(Player p, Pet a) {
 		boolean isValid = false;
 		int selected = 0;
 		ArrayList<Integer> nums = new ArrayList<Integer>(0);
+		ArrayList<String> foodNames = new ArrayList<String>(0);
+		ArrayList<String> foodInventory = new ArrayList<String>(0);
 		int index = 0;
-		int count = 1;
 		for (Item i : p.inventory) {
 			if (i instanceof Food) {
-				printToScreen("("+Integer.toString(count)+") " + ((Food) i).getFood());
-				count++;
+				if (foodNames.contains(i.getName()) == false) {
 				nums.add(index);
+				foodNames.add(i.getName());
+				}
+			foodInventory.add(i.getName());
 			}
 			index++;
 		}
-		if (count == 1) {
+		if (foodNames.size() == 0) {
 			printToScreen(p.getName() + " is looking for food, but could not find any food inside his bag.");
 		}
 		else {
 		printToScreen("Choose which food " + a.getName() +" would like to eat:");
+		int count = 1;
+		for (String name:foodNames) {
+			int occurrences = Collections.frequency(foodInventory, name);
+			printToScreen("("+Integer.toString(count)+") " + name + " x" + Integer.toString(occurrences));
+			count++;
+		}
 		while(!isValid){
 		String foodOption = getInput();
 		try {
@@ -1007,15 +1014,14 @@ public class GameEnvironment implements Printable {
 		int selectedFood = nums.get(selected);
 		Food food = (Food) p.inventory.get(selectedFood);
 		if (a.isSick() == true) {
-			printToScreen(a.getName() + " is slowly eating " + food.getFood());
-			int nutritionAdjust = (food.getNutrition() / 2);
-			a.setHunger(nutritionAdjust);
+			printToScreen(a.getName() + " is slowly eating " + food.getName());
+			a.setHunger(food.getNutrition());
 			int bladderDrop = 0 - food.getFullness();
 			a.setBladder(bladderDrop);
 		}
 		else {	
-			if (a.getFavouriteFood() == food.getFood()) {
-				printToScreen(a.getName() + " is happily eating a " + food.getFood());
+			if (a.getFavouriteFood() == food.getName()) {
+				printToScreen(a.getName() + " is happily eating " + food.getName());
 				a.setHunger(food.getNutrition());
 				int bladderDrop = 0 - food.getFullness();
 				a.setBladder(bladderDrop);
@@ -1023,13 +1029,13 @@ public class GameEnvironment implements Printable {
 				a.setHappiness(happyUp);
 			}
 			else {
-				printToScreen(a.getName() + " is eating a " + food.getFood());
+				printToScreen(a.getName() + " is eating " + food.getName());
 				a.setHunger(food.getNutrition());
 				int bladderDrop = 0 - food.getFullness();
 				a.setBladder(bladderDrop);
 				a.setHappiness(food.getTaste());
-			}
-		}
+					}
+				}
 		p.inventory.remove(selectedFood);
 		}
 	}
@@ -1048,21 +1054,30 @@ public class GameEnvironment implements Printable {
 		boolean isValid = false;
 		int selected = 0;
 		ArrayList<Integer> nums = new ArrayList<Integer>(0);
+		ArrayList<String> toyNames = new ArrayList<String>(0);
+		ArrayList<String> toyInventory = new ArrayList<String>(0);
 		int index = 0;
-		int count = 1;
 		for (Item i : p.inventory) {
 			if (i instanceof Toy) {
-				printToScreen("("+Integer.toString(count)+") " + ((Toy) i).getName());
-				count++;
+				if (toyNames.contains(i.getName()) == false) {
 				nums.add(index);
+				toyNames.add(i.getName());
+				}
+			toyInventory.add(i.getName());
 			}
 			index++;
 		}
-		if (count == 1) {
-			printToScreen(p.getName() + " is looking for toys, but could not find any toy inside his bag.");
+		if (toyNames.size() == 0) {
+			printToScreen(p.getName() + " is looking for food, but could not find any food inside his bag.");
 		}
 		else {
-		printToScreen("Choose which toy " + a.getName() +" would like to play:");
+		printToScreen("Choose which food " + a.getName() +" would like to eat:");
+		int count = 1;
+		for (String name:toyNames) {
+			int occurrences = Collections.frequency(toyInventory, name);
+			printToScreen("("+Integer.toString(count)+") " + name + " x" + Integer.toString(occurrences));
+			count++;
+		}
 		while(!isValid){
 		String toyOption = getInput();
 		try {
@@ -1285,7 +1300,7 @@ public class GameEnvironment implements Printable {
 			useShop(p);
 			}
 			else {
-				checkInventory(p);
+				displayInventory(p);
 			}
 		}
 		}
@@ -1382,7 +1397,7 @@ public class GameEnvironment implements Printable {
 	 * Each pet gets 2 actions per day.
 	 * The player is given $20 each day.
 	 * Depending on the pet's stat, it can change the pet's condition.
-	 * As each day passes, each stat drops (Except the final day).
+	 * As each day passes, each stat drops (The bladder will only drop when the pet is sick).
 	 * Players earn points each day (Unless the pet is dead).
 	 * Final score is calculated depending on the pet's conditions. 
 	 */

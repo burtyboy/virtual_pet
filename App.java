@@ -1,5 +1,3 @@
-package tamagochi;
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +13,7 @@ import java.awt.event.ActionEvent;
 
 public class App{
 
-	public JFrame frame;
-	private GameEnvironment game = new GameEnvironment();
+	JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -57,22 +54,37 @@ public class App{
 		frame.getContentPane().add(lblNewLabel);
 		
 		Button startButton = new Button("Start a new game!");
-		startButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
+		
 		startButton.setForeground(new Color(255, 255, 255));
 		startButton.setFont(new Font("Papyrus", Font.PLAIN, 16));
 		startButton.setBackground(new Color(0, 51, 51));
 		frame.getContentPane().add(startButton);
 		Button instructionButton = new Button("Check the instruction.");
-		instructionButton.addActionListener(new ActionListener() {
+		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Instruction window = new Instruction();
-				window.frame.setVisible(true);
+				AppStartGame panelStart = new AppStartGame();
+				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		        frame.getContentPane().remove(lblNewLabel);
+		        frame.getContentPane().remove(startButton);
+		        frame.getContentPane().remove(instructionButton);
+		        frame.getContentPane().add(panelStart);
+		        frame.pack();
+		        frame.setVisible(true);
 			}
 		});
+		instructionButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			        AppInstructio panelInstruction = new AppInstructio();
+			        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			        frame.getContentPane().remove(lblNewLabel);
+			        frame.getContentPane().remove(startButton);
+			        frame.getContentPane().remove(instructionButton);
+			        frame.getContentPane().add(panelInstruction);
+			        frame.pack();
+			        frame.setVisible(true);
+				}
+		});
+		
 		frame.getContentPane().add(instructionButton);
 		instructionButton.setForeground(Color.WHITE);
 		instructionButton.setFont(new Font("Papyrus", Font.PLAIN, 16));

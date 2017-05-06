@@ -3,6 +3,7 @@ package tamagochi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
 /**
  * Main loop for this game. Provides all control methods and calls and advances days
  * 
@@ -23,7 +24,6 @@ public class GameEnvironment implements Printable {
 	public void nextDay(){
 		day++;
 	}
-	
 	
 	public void printHeader(){
 		printToScreen("##################################################################");
@@ -294,11 +294,14 @@ public class GameEnvironment implements Printable {
 				String numPets = getInput();
 				try{
 					numberOfPets  = Integer.parseInt(numPets);
+					if(numberOfPets >= 1 && numberOfPets <=3){
+						isValid = true;
+					}
+					else {
+						printToScreen("Please enter a valid number.");
+					}
 				}catch(NumberFormatException e){
 					printToScreen("Please enter a valid number.\n");
-				}
-				if(numberOfPets >= 1 && numberOfPets <=3){
-					isValid = true;
 				}
 			}
 		
@@ -315,23 +318,23 @@ public class GameEnvironment implements Printable {
 			String numDays = getInput();
 			try{
 				lengthOfGame = Integer.parseInt(numDays);
-			}catch(NumberFormatException e){
+				if(lengthOfGame< 0){
+					printToScreen("Please enter a positive number.\n");
+					isValid  = false;
+				}
+				if(lengthOfGame >= 10){
+					printToScreen(numDays +" is a long amount of time. Do you really want to play that long?\n(y/n)");
+					String proceed  = getInput();
+					if(!proceed.equals("y")){
+						isValid = false;
+						printToScreen("How many days would you like to play?");
+					}
+				}
+			}
+			catch(NumberFormatException e){
 				printToScreen("Please enter a valid number.\n");
 				isValid = false;
 			}
-			if(lengthOfGame< 0){
-				printToScreen("Please enter a positive number.\n");
-				isValid  = false;
-			}
-			if(lengthOfGame >= 10){
-				printToScreen(numDays +" is a long amount of time. Do you really want to play that long?\n(y/n)");
-				String proceed  = getInput();
-				if(!proceed.equals("y")){
-					isValid = false;
-					printToScreen("How many days would you like to play?");
-				}
-			}
-			
 		}
 		
 		
@@ -478,6 +481,7 @@ public class GameEnvironment implements Printable {
 	 * Each pet gets 2 actions per day.
 	 * If the pet has neutral happiness or hunger, the pet will start misbehaving.
 	 * If the pet has low hunger, bladder, or energy, the pet will get sick.
+	 * If the pet weighs 3 kilogram, the pet will get sick.
 	 * If any stats drops to 0, the pet will die.
 	 * If the pet gets sick, the pet is no longer misbehaving.
 	 * If the pet dies, then the pet is no longer misbehaving or sick.
@@ -489,7 +493,7 @@ public class GameEnvironment implements Printable {
 			animal.setbehaviour(true);
 			}
 		}
-		if (animal.getBladder() <= 3 || animal.getEnergy() <= 3 || animal.getHunger() <= 3) {
+		if (animal.getBladder() <= 3 || animal.getEnergy() <= 3 || animal.getHunger() <= 3 || animal.getWeight() == 3) {
 			animal.setbehaviour(false);
 			animal.setSick(true);
 			}
@@ -507,6 +511,7 @@ public class GameEnvironment implements Printable {
 	 * Each pet drops stat such as energy, happiness, and hunger level.
 	 * If the pet is dead, then the stats will not drop.
 	 * If the pet is sick, then the bladder stat will also drop.
+	 * If the pet weighs more than 10 kilogram, the pet will get hungrier than usual.
 	 */
 	public void statDrops(Pet animal) {
 		if (animal.isDead() == false) {
@@ -519,6 +524,9 @@ public class GameEnvironment implements Printable {
 			if (animal.isSick() == true) {
 				animal.setBladder(-2);
 			}
+			if (animal.getWeight() > 10) {
+				animal.setHunger(-1);
+			}
 		}
 	}
 	/**
@@ -530,17 +538,17 @@ public class GameEnvironment implements Printable {
 	public void displayInventory(Player p) {
 		printToScreen("Inventory: ");
 		String itemName = "The inventory is empty!";
-		ArrayList<String> itemCovered = new ArrayList<String>(0);
 		ArrayList<String> itemNames = new ArrayList<String>(0);
+		ArrayList<String> items = new ArrayList<String>(0);
 		for (Item item:p.inventory) {
 			itemName = item.getName();
 			itemNames.add(itemName);
-			if (itemCovered.contains(itemName) == false) {
-				itemCovered.add(itemName);
+			if (itemNames.contains(itemName) == false) {
+				itemNames.add(itemName);
 			}
 		}
-		for (String name:itemCovered) {
-			int occurrences = Collections.frequency(itemNames, name);
+		for (String name:itemNames) {
+			int occurrences = Collections.frequency(items, name);
 			printToScreen(name + " x" + Integer.toString(occurrences));
 		}
 		if (p.inventory.size() == 0) {
@@ -956,9 +964,11 @@ public class GameEnvironment implements Printable {
 	/**
 	 * returns Void.
 	 * By calling this method, the pet's bladder should change to maximum (10).
+	 * The pet loses 1 kilogram after visiting the bathroom.
 	 */
 	public void useToilet(Pet a) { 
 		a.setBladder(10);
+		a.setWeight(-1);
 		printToScreen(a.getName() + " feels relief.");
 	}
 	/**
@@ -969,6 +979,7 @@ public class GameEnvironment implements Printable {
 	 * If the food given is pet's favourite food, the happiness goes up by 1.
 	 * The food is removed from the inventory once eaten.
 	 * If the pet is sick, the pet will not be able to taste the food.
+	 * The pet gains 1 kilogram after consuming the food.
 	 */
 	public void feed(Player p, Pet a) {
 		boolean isValid = false;
@@ -1038,6 +1049,7 @@ public class GameEnvironment implements Printable {
 				a.setHappiness(food.getTaste());
 					}
 				}
+		a.setWeight(1);
 		p.inventory.remove(selectedFood);
 		}
 	}
@@ -1051,6 +1063,7 @@ public class GameEnvironment implements Printable {
 	 * If the toy breaks, the toy is removed from the inventory.
 	 * If the pet is sick, it will use up more energy to play.
 	 * If the pet is misbehaving, it will try to break the toy.
+	 * The pet loses 1 kilogram by playing with a toy.
 	 */
 	public void play(Player p , Pet a) {
 		boolean isValid = false;
@@ -1125,7 +1138,8 @@ public class GameEnvironment implements Printable {
 			int drops2 = 0 - toy.getExercise();
 			a.setEnergy(drops2);
 			a.setHunger(drops2);
-		}
+			}
+		a.setWeight(-1);
 		}
 	}
 	/**
@@ -1164,6 +1178,7 @@ public class GameEnvironment implements Printable {
 		printToScreen("Bladder: " + Integer.toString(a.getBladder()));
 		printToScreen("Energy: " + Integer.toString(a.getEnergy()));
 		printToScreen("Hunger: " + Integer.toString(a.getHunger()));
+		printToScreen("Weight: " + Integer.toString(a.getWeight()) + "kg");
 		}
 	/**
 	 * returns Void

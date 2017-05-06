@@ -11,6 +11,7 @@ public class Pet extends GameEnvironment {
 	private int bladder = 7;
 	private int happiness = 7;
 	private int energy = 7;
+	private int weight = 5;
 	private String favouriteToy;
 	private String favouriteFood;
 	private boolean isMisbehave = false;
@@ -26,6 +27,15 @@ public class Pet extends GameEnvironment {
 		aggression = durabilityDrop;
 		favouriteToy = toy;
 		favouriteFood = food;
+	}
+	public int getWeight() {
+		return weight;
+	}
+	public void setWeight(int weight){
+		this.weight += weight;
+		if (this.weight < 3) {
+			this.weight = 3;
+		}
 	}
 	public int getOverallStat() {
 		return hunger + bladder + happiness + energy;

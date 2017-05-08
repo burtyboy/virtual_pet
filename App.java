@@ -1,5 +1,3 @@
-package tamagochi;
-
 import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
@@ -115,7 +113,7 @@ public class App{
 		});
 	}
 	public void PlayerName(int playerID) {
-		String questionName = "What is player " + Integer.toString(playerID) + "'s name?";
+		String questionName = "Player " + Integer.toString(playerID) + ", what is your name?";
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		JLabel lblPlayerName = new JLabel(questionName);
@@ -227,16 +225,26 @@ public class App{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		JLabel lblPetName = new JLabel("What is pet " + Integer.toString(petID) + "'s name?");
-		lblPetName.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblPlayerName = new JLabel("  Player: " + currentPlayer.getName());
+		lblPlayerName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		GridBagConstraints gbc_lblPlayerName = new GridBagConstraints();
+		gbc_lblPlayerName.anchor = GridBagConstraints.WEST;
+		gbc_lblPlayerName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPlayerName.gridx = 1;
+		gbc_lblPlayerName.gridy = 1;
+		frame.getContentPane().add(lblPlayerName, gbc_lblPlayerName);
+		
+		JLabel lblPetName = new JLabel("  What is your pet " + Integer.toString(petID) + "'s name?");
+		lblPetName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblPetName = new GridBagConstraints();
+		gbc_lblPetName.anchor = GridBagConstraints.WEST;
 		gbc_lblPetName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPetName.gridx = 1;
-		gbc_lblPetName.gridy = 1;
+		gbc_lblPetName.gridy = 2;
 		frame.getContentPane().add(lblPetName, gbc_lblPetName);
 		
-		JLabel lblSpeciesOption = new JLabel("What breed would you like your pet to be?");
-		lblSpeciesOption.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblSpeciesOption = new JLabel("  What breed would you like your pet to be?");
+		lblSpeciesOption.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblSpeciesOption = new GridBagConstraints();
 		gbc_lblSpeciesOption.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSpeciesOption.gridx = 1;
@@ -253,23 +261,23 @@ public class App{
 		ImageIcon defaultPetImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Bird.png");
 		
 		JTextField textFieldPetName = new JTextField();
-		textFieldPetName.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		textFieldPetName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_textFieldPetName = new GridBagConstraints();
 		gbc_textFieldPetName.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldPetName.gridwidth = 2;
 		gbc_textFieldPetName.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldPetName.gridx = 2;
-		gbc_textFieldPetName.gridy = 1;
+		gbc_textFieldPetName.gridy = 2;
 		frame.getContentPane().add(textFieldPetName, gbc_textFieldPetName);
 		textFieldPetName.setColumns(10);
 		
-		JLabel lblAppetite = new JLabel("Appetite: " + defaultAppetite);
-		lblAppetite.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblAppetite = new JLabel("  Appetite: " + defaultAppetite);
+		lblAppetite.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblAppetite = new GridBagConstraints();
 		gbc_lblAppetite.anchor = GridBagConstraints.WEST;
 		gbc_lblAppetite.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAppetite.gridx = 1;
-		gbc_lblAppetite.gridy = 5;
+		gbc_lblAppetite.gridy = 6;
 		frame.getContentPane().add(lblAppetite, gbc_lblAppetite);
 		
 		JLabel lblPets = new JLabel("");
@@ -279,57 +287,57 @@ public class App{
 		gbc_lblPets.gridheight = 5;
 		gbc_lblPets.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPets.gridx = 2;
-		gbc_lblPets.gridy = 5;
+		gbc_lblPets.gridy = 6;
 		frame.getContentPane().add(lblPets, gbc_lblPets);
 		
-		JLabel lblFatigue = new JLabel("Fatigue: " + defaultFatigue);
-		lblFatigue.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblFatigue = new JLabel("  Fatigue: " + defaultFatigue);
+		lblFatigue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblFatigue = new GridBagConstraints();
 		gbc_lblFatigue.anchor = GridBagConstraints.WEST;
 		gbc_lblFatigue.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFatigue.gridx = 1;
-		gbc_lblFatigue.gridy = 6;
+		gbc_lblFatigue.gridy = 7;
 		frame.getContentPane().add(lblFatigue, gbc_lblFatigue);
 		
-		JLabel lblDepression = new JLabel("Depression: " + defaultDepression);
-		lblDepression.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblDepression = new JLabel("  Depression: " + defaultDepression);
+		lblDepression.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblDepression = new GridBagConstraints();
 		gbc_lblDepression.anchor = GridBagConstraints.WEST;
 		gbc_lblDepression.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDepression.gridx = 1;
-		gbc_lblDepression.gridy = 7;
+		gbc_lblDepression.gridy = 8;
 		frame.getContentPane().add(lblDepression, gbc_lblDepression);
 		
-		JLabel lblAggression = new JLabel("Aggression: " + defaultAggression);
-		lblAggression.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblAggression = new JLabel("  Aggression: " + defaultAggression);
+		lblAggression.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblAggression = new GridBagConstraints();
 		gbc_lblAggression.anchor = GridBagConstraints.WEST;
 		gbc_lblAggression.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAggression.gridx = 1;
-		gbc_lblAggression.gridy = 8;
+		gbc_lblAggression.gridy = 9;
 		frame.getContentPane().add(lblAggression, gbc_lblAggression);
 		
-		JLabel lblFavouriteFood = new JLabel("Favourite food: " + defaultFavouriteFood);
-		lblFavouriteFood.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblFavouriteFood = new JLabel("  Favourite food: " + defaultFavouriteFood);
+		lblFavouriteFood.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblFavouriteFood = new GridBagConstraints();
 		gbc_lblFavouriteFood.anchor = GridBagConstraints.WEST;
 		gbc_lblFavouriteFood.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFavouriteFood.gridx = 1;
-		gbc_lblFavouriteFood.gridy = 9;
+		gbc_lblFavouriteFood.gridy = 10;
 		frame.getContentPane().add(lblFavouriteFood, gbc_lblFavouriteFood);
 		
-		JLabel lblFavouriteToy = new JLabel("Favourite toy: " + defaultFavouriteToy);
-		lblFavouriteToy.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblFavouriteToy = new JLabel("  Favourite toy: " + defaultFavouriteToy);
+		lblFavouriteToy.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblFavouriteToy = new GridBagConstraints();
 		gbc_lblFavouriteToy.anchor = GridBagConstraints.WEST;
 		gbc_lblFavouriteToy.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFavouriteToy.gridx = 1;
-		gbc_lblFavouriteToy.gridy = 10;
+		gbc_lblFavouriteToy.gridy = 11;
 		frame.getContentPane().add(lblFavouriteToy, gbc_lblFavouriteToy);
 		
 		JComboBox comboBoxSpecies = new JComboBox();
 		comboBoxSpecies.setModel(new DefaultComboBoxModel(new String[] {"Bird", "Cat", "CatDog", "Dog", "Ocelot", "Tiger"}));
-		comboBoxSpecies.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		comboBoxSpecies.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_comboBoxSpecies = new GridBagConstraints();
 		gbc_comboBoxSpecies.gridwidth = 2;
 		gbc_comboBoxSpecies.insets = new Insets(0, 0, 5, 5);
@@ -339,10 +347,14 @@ public class App{
 		frame.getContentPane().add(comboBoxSpecies, gbc_comboBoxSpecies);
 		
 		JButton btnConfirm = new JButton("Confirm");
+		btnConfirm.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_btnConfirm = new GridBagConstraints();
-		gbc_btnConfirm.insets = new Insets(0, 0, 0, 5);
+		gbc_btnConfirm.insets = new Insets(0, 0, 5, 5);
 		gbc_btnConfirm.gridx = 3;
 		gbc_btnConfirm.gridy = 11;
+		frame.getContentPane().add(btnConfirm, gbc_btnConfirm);
+
+		
 		frame.getContentPane().add(btnConfirm, gbc_btnConfirm);
 		frame.pack();
 		frame.setVisible(true);
@@ -357,12 +369,12 @@ public class App{
 					String birdFavouriteFood = bird.getFavouriteFood();
 					String birdFavouriteToy = bird.getFavouriteToy();
 					ImageIcon birdImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Bird.png");
-					lblAppetite.setText("Appetite: " + birdAppetite);
-					lblFatigue.setText("Fatigue: " + birdFatigue);
-					lblDepression.setText("Depression: " +birdDepression);
-					lblAggression.setText("Aggression: " + birdAggression);
-					lblFavouriteFood.setText("Favourite food: " + birdFavouriteFood);
-					lblFavouriteToy.setText("Favourite toy: " + birdFavouriteToy);
+					lblAppetite.setText("  Appetite: " + birdAppetite);
+					lblFatigue.setText("  Fatigue: " + birdFatigue);
+					lblDepression.setText("  Depression: " +birdDepression);
+					lblAggression.setText("  Aggression: " + birdAggression);
+					lblFavouriteFood.setText("  Favourite food: " + birdFavouriteFood);
+					lblFavouriteToy.setText("  Favourite toy: " + birdFavouriteToy);
 					lblPets.setIcon(birdImage);
 				}
 				if (comboBoxSpecies.getSelectedItem() == "Cat") {
@@ -374,12 +386,12 @@ public class App{
 					String catFavouriteFood = cat.getFavouriteFood();
 					String catFavouriteToy = cat.getFavouriteToy();
 					ImageIcon catImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Cat.png");
-					lblAppetite.setText("Appetite: " + catAppetite);
-					lblFatigue.setText("Fatigue: " + catFatigue);
-					lblDepression.setText("Depression: " + catDepression);
-					lblAggression.setText("Aggression: " + catAggression);
-					lblFavouriteFood.setText("Favourite food: " + catFavouriteFood);
-					lblFavouriteToy.setText("Favourite toy: " + catFavouriteToy);
+					lblAppetite.setText("  Appetite: " + catAppetite);
+					lblFatigue.setText("  Fatigue: " + catFatigue);
+					lblDepression.setText("  Depression: " + catDepression);
+					lblAggression.setText("  Aggression: " + catAggression);
+					lblFavouriteFood.setText("  Favourite food: " + catFavouriteFood);
+					lblFavouriteToy.setText("  Favourite toy: " + catFavouriteToy);
 					lblPets.setIcon(catImage);
 				}
 				if (comboBoxSpecies.getSelectedItem() == "CatDog") {
@@ -391,12 +403,12 @@ public class App{
 					String catDogFavouriteFood = catDog.getFavouriteFood();
 					String catDogFavouriteToy = catDog.getFavouriteToy();
 					ImageIcon catDogImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\CatDog.png");
-					lblAppetite.setText("Appetite: " + catDogAppetite);
-					lblFatigue.setText("Fatigue: " + catDogFatigue);
-					lblDepression.setText("Depression: " + catDogDepression);
-					lblAggression.setText("Aggression: " + catDogAggression);
-					lblFavouriteFood.setText("Favourite food: " + catDogFavouriteFood);
-					lblFavouriteToy.setText("Favourite toy: " + catDogFavouriteToy);
+					lblAppetite.setText("  Appetite: " + catDogAppetite);
+					lblFatigue.setText("  Fatigue: " + catDogFatigue);
+					lblDepression.setText("  Depression: " + catDogDepression);
+					lblAggression.setText("  Aggression: " + catDogAggression);
+					lblFavouriteFood.setText("  Favourite food: " + catDogFavouriteFood);
+					lblFavouriteToy.setText("  Favourite toy: " + catDogFavouriteToy);
 					lblPets.setIcon(catDogImage);
 				}
 				if (comboBoxSpecies.getSelectedItem() == "Dog") {
@@ -408,12 +420,12 @@ public class App{
 					String dogFavouriteFood = dog.getFavouriteFood();
 					String dogFavouriteToy = dog.getFavouriteToy();
 					ImageIcon dogImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Dog.png");
-					lblAppetite.setText("Appetite: " + dogAppetite);
-					lblFatigue.setText("Fatigue: " + dogFatigue);
-					lblDepression.setText("Depression: " + dogDepression);
-					lblAggression.setText("Aggression: " + dogAggression);
-					lblFavouriteFood.setText("Favourite food: " + dogFavouriteFood);
-					lblFavouriteToy.setText("Favourite toy: " + dogFavouriteToy);
+					lblAppetite.setText("  Appetite: " + dogAppetite);
+					lblFatigue.setText("  Fatigue: " + dogFatigue);
+					lblDepression.setText("  Depression: " + dogDepression);
+					lblAggression.setText("  Aggression: " + dogAggression);
+					lblFavouriteFood.setText("  Favourite food: " + dogFavouriteFood);
+					lblFavouriteToy.setText("  Favourite toy: " + dogFavouriteToy);
 					lblPets.setIcon(dogImage);
 				}
 				if (comboBoxSpecies.getSelectedItem() == "Ocelot") {
@@ -425,12 +437,12 @@ public class App{
 					String ocelotFavouriteFood = ocelot.getFavouriteFood();
 					String ocelotFavouriteToy = ocelot.getFavouriteToy();
 					ImageIcon ocelotImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Ocelot.png");
-					lblAppetite.setText("Appetite: " + ocelotAppetite);
-					lblFatigue.setText("Fatigue: " + ocelotFatigue);
-					lblDepression.setText("Depression: " + ocelotDepression);
-					lblAggression.setText("Aggression: " + ocelotAggression);
-					lblFavouriteFood.setText("Favourite food: " + ocelotFavouriteFood);
-					lblFavouriteToy.setText("Favourite toy: " + ocelotFavouriteToy);
+					lblAppetite.setText("  Appetite: " + ocelotAppetite);
+					lblFatigue.setText("  Fatigue: " + ocelotFatigue);
+					lblDepression.setText("  Depression: " + ocelotDepression);
+					lblAggression.setText("  Aggression: " + ocelotAggression);
+					lblFavouriteFood.setText("  Favourite food: " + ocelotFavouriteFood);
+					lblFavouriteToy.setText("  Favourite toy: " + ocelotFavouriteToy);
 					lblPets.setIcon(ocelotImage);
 				}
 				if (comboBoxSpecies.getSelectedItem() == "Tiger") {
@@ -442,12 +454,12 @@ public class App{
 					String tigerFavouriteFood = tiger.getFavouriteFood();
 					String tigerFavouriteToy = tiger.getFavouriteToy();
 					ImageIcon tigerImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Tiger.png");
-					lblAppetite.setText("Appetite: " + tigerAppetite);
-					lblFatigue.setText("Fatigue: " + tigerFatigue);
-					lblDepression.setText("Depression: " + tigerDepression);
-					lblAggression.setText("Aggression: " + tigerAggression);
-					lblFavouriteFood.setText("Favourite food: " + tigerFavouriteFood);
-					lblFavouriteToy.setText("Favourite toy: " + tigerFavouriteToy);
+					lblAppetite.setText("  Appetite: " + tigerAppetite);
+					lblFatigue.setText("  Fatigue: " + tigerFatigue);
+					lblDepression.setText("  Depression: " + tigerDepression);
+					lblAggression.setText("  Aggression: " + tigerAggression);
+					lblFavouriteFood.setText("  Favourite food: " + tigerFavouriteFood);
+					lblFavouriteToy.setText("  Favourite toy: " + tigerFavouriteToy);
 					lblPets.setIcon(tigerImage);
 				}
 			}
@@ -531,6 +543,7 @@ public class App{
 								currentPlayer.petArray.add(tiger);
 							}
 							if (petID == numPets){
+								frame.getContentPane().remove(lblPlayerName);
 								frame.getContentPane().remove(comboBoxSpecies);
 								frame.getContentPane().remove(btnConfirm);
 								frame.getContentPane().remove(lblFavouriteToy);
@@ -554,6 +567,7 @@ public class App{
 									return;
 								}
 							}
+							frame.getContentPane().remove(lblPlayerName);
 							frame.getContentPane().remove(comboBoxSpecies);
 							frame.getContentPane().remove(btnConfirm);
 							frame.getContentPane().remove(lblFavouriteToy);

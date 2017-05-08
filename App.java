@@ -1,3 +1,5 @@
+package tamagochi;
+
 import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
@@ -35,6 +37,7 @@ public class App{
 	private int numPlayers;
 	private Player currentPlayer;
 	private JLabel lblIntroTitle;
+	private int gameLength;
 	GameEnvironment game = new GameEnvironment();
 
 	/**
@@ -557,6 +560,8 @@ public class App{
 								frame.getContentPane().remove(lblSpeciesOption);
 								frame.getContentPane().remove(lblPetName);
 								if (game.playerArray.size() == game.playerArray.indexOf(currentPlayer) + 1){
+									frame.getContentPane().add(lblIntroTitle);
+									numDays();
 									return;
 								}
 								else {
@@ -585,6 +590,80 @@ public class App{
 							petName(petID + 1, numPets);
 							return;
 						}
+					}
+				}
+			}
+		});
+	}
+	public void numDays() {
+		frame.setBackground(new Color(240, 255, 240));
+		frame.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNumDays = new JLabel("How many days would you like to play?");
+		lblNumDays.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblNumDays.setBackground(new Color(240, 255, 240));
+		frame.getContentPane().add(lblNumDays);
+		
+		JTextField textFieldNumDays = new JTextField();
+		textFieldNumDays.setToolTipText("");
+		textFieldNumDays.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		frame.getContentPane().add(textFieldNumDays);
+		textFieldNumDays.setColumns(10);
+		
+		JButton btnConfirm = new JButton("Confirm");
+		frame.getContentPane().add(btnConfirm);
+		
+		frame.pack();
+		frame.setVisible(true);
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String numDays = textFieldNumDays.getText();
+				try {
+					gameLength = Integer.parseInt(numDays);
+					if (gameLength < 0) {
+						try {
+							ErrorNegativeNumber dialog = new ErrorNegativeNumber();
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					if (gameLength > 10){
+						frame.getContentPane().remove(textFieldNumDays);
+						frame.getContentPane().remove(btnConfirm);
+						lblNumDays.setText("Do you really want to play " + numDays + " days?");
+						JButton btnYes = new JButton("Yes");
+						frame.getContentPane().add(btnYes);
+						JButton btnNo = new JButton("No");
+						frame.getContentPane().add(btnNo);
+						btnNo.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								frame.getContentPane().remove(btnNo);
+								frame.getContentPane().remove(btnYes);
+								lblNumDays.setText("How many days would you like to play?");
+								frame.getContentPane().add(textFieldNumDays);
+								frame.getContentPane().add(btnConfirm);
+								frame.revalidate();
+								frame.repaint();
+									}
+								});
+						btnYes.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+									}
+								});
+					}
+					else {
+						
+					}
+				}
+				catch(NumberFormatException e){
+					try {
+						ErrorInvalidNumber dialog = new ErrorInvalidNumber();
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					} catch (Exception e1) {
+						e1.printStackTrace();
 					}
 				}
 			}

@@ -23,6 +23,8 @@ import java.awt.Insets;
 import java.awt.Label;
 import java.awt.TextArea;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.awt.event.ActionEvent;
@@ -33,7 +35,7 @@ public class App{
 
 	JFrame frame;
 	private int numPlayers;
-	private int numPets;
+	private Player currentPlayer;
 	private JLabel lblIntroTitle;
 	GameEnvironment game = new GameEnvironment();
 
@@ -184,10 +186,10 @@ public class App{
 		});
 	}
 	public void NumPets(int index) {
-		Player playerName = (Player) game.playerArray.get(index);
+		currentPlayer = (Player) game.playerArray.get(index);
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
-		JLabel lblPlayer = new JLabel("Player: " + playerName.getName());
+		JLabel lblPlayer = new JLabel("Player: " + currentPlayer.getName());
 		lblPlayer.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		frame.getContentPane().add(lblPlayer);
 		JLabel lblQuantityPets = new JLabel("How many pets would you like?");
@@ -210,13 +212,13 @@ public class App{
 				frame.getContentPane().remove(comboBoxNumsPets);
 				frame.getContentPane().remove(btnConfirm);
 				frame.getContentPane().remove(lblIntroTitle);
-				numPets = Integer.parseInt((String) comboBoxNumsPets.getSelectedItem());
+				int numPets = Integer.parseInt((String) comboBoxNumsPets.getSelectedItem());
 				int countPets = 1;
-				petName(countPets);
+				petName(countPets, numPets);
 				}
 		});
 	}
-	public void petName(int petID) {
+	public void petName(int petID, int numPets) {
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 111, 18, 0};
@@ -225,13 +227,30 @@ public class App{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		JLabel lblPetName = new JLabel("What is pet 1's name?");
+		JLabel lblPetName = new JLabel("What is pet " + Integer.toString(petID) + "'s name?");
 		lblPetName.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblPetName = new GridBagConstraints();
 		gbc_lblPetName.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPetName.gridx = 1;
 		gbc_lblPetName.gridy = 1;
 		frame.getContentPane().add(lblPetName, gbc_lblPetName);
+		
+		JLabel lblSpeciesOption = new JLabel("What breed would you like your pet to be?");
+		lblSpeciesOption.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblSpeciesOption = new GridBagConstraints();
+		gbc_lblSpeciesOption.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSpeciesOption.gridx = 1;
+		gbc_lblSpeciesOption.gridy = 3;
+		frame.getContentPane().add(lblSpeciesOption, gbc_lblSpeciesOption);
+		String box = "\u239A";
+		Pet animal = new Bird("Default");
+		String defaultAppetite = String.join("", Collections.nCopies(animal.getHungerDrop(), box));
+		String defaultFatigue = String.join("", Collections.nCopies(animal.getEnergyDrop(), box));
+		String defaultDepression = String.join("", Collections.nCopies(animal.getHappinessDrop(), box));
+		String defaultAggression = String.join("", Collections.nCopies(animal.getAggression(), box));
+		String defaultFavouriteFood = animal.getFavouriteFood();
+		String defaultFavouriteToy = animal.getFavouriteToy();
+		ImageIcon defaultPetImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Bird.png");
 		
 		JTextField textFieldPetName = new JTextField();
 		textFieldPetName.setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -244,13 +263,69 @@ public class App{
 		frame.getContentPane().add(textFieldPetName, gbc_textFieldPetName);
 		textFieldPetName.setColumns(10);
 		
-		JLabel lblSpeciesOption = new JLabel("What breed would you like your pet to be?");
-		lblSpeciesOption.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblSpeciesOption = new GridBagConstraints();
-		gbc_lblSpeciesOption.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSpeciesOption.gridx = 1;
-		gbc_lblSpeciesOption.gridy = 3;
-		frame.getContentPane().add(lblSpeciesOption, gbc_lblSpeciesOption);
+		JLabel lblAppetite = new JLabel("Appetite: " + defaultAppetite);
+		lblAppetite.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblAppetite = new GridBagConstraints();
+		gbc_lblAppetite.anchor = GridBagConstraints.WEST;
+		gbc_lblAppetite.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAppetite.gridx = 1;
+		gbc_lblAppetite.gridy = 5;
+		frame.getContentPane().add(lblAppetite, gbc_lblAppetite);
+		
+		JLabel lblPets = new JLabel("");
+		lblPets.setIcon(defaultPetImage);
+		GridBagConstraints gbc_lblPets = new GridBagConstraints();
+		gbc_lblPets.gridwidth = 2;
+		gbc_lblPets.gridheight = 5;
+		gbc_lblPets.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPets.gridx = 2;
+		gbc_lblPets.gridy = 5;
+		frame.getContentPane().add(lblPets, gbc_lblPets);
+		
+		JLabel lblFatigue = new JLabel("Fatigue: " + defaultFatigue);
+		lblFatigue.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblFatigue = new GridBagConstraints();
+		gbc_lblFatigue.anchor = GridBagConstraints.WEST;
+		gbc_lblFatigue.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFatigue.gridx = 1;
+		gbc_lblFatigue.gridy = 6;
+		frame.getContentPane().add(lblFatigue, gbc_lblFatigue);
+		
+		JLabel lblDepression = new JLabel("Depression: " + defaultDepression);
+		lblDepression.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblDepression = new GridBagConstraints();
+		gbc_lblDepression.anchor = GridBagConstraints.WEST;
+		gbc_lblDepression.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDepression.gridx = 1;
+		gbc_lblDepression.gridy = 7;
+		frame.getContentPane().add(lblDepression, gbc_lblDepression);
+		
+		JLabel lblAggression = new JLabel("Aggression: " + defaultAggression);
+		lblAggression.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblAggression = new GridBagConstraints();
+		gbc_lblAggression.anchor = GridBagConstraints.WEST;
+		gbc_lblAggression.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAggression.gridx = 1;
+		gbc_lblAggression.gridy = 8;
+		frame.getContentPane().add(lblAggression, gbc_lblAggression);
+		
+		JLabel lblFavouriteFood = new JLabel("Favourite food: " + defaultFavouriteFood);
+		lblFavouriteFood.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblFavouriteFood = new GridBagConstraints();
+		gbc_lblFavouriteFood.anchor = GridBagConstraints.WEST;
+		gbc_lblFavouriteFood.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFavouriteFood.gridx = 1;
+		gbc_lblFavouriteFood.gridy = 9;
+		frame.getContentPane().add(lblFavouriteFood, gbc_lblFavouriteFood);
+		
+		JLabel lblFavouriteToy = new JLabel("Favourite toy: " + defaultFavouriteToy);
+		lblFavouriteToy.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblFavouriteToy = new GridBagConstraints();
+		gbc_lblFavouriteToy.anchor = GridBagConstraints.WEST;
+		gbc_lblFavouriteToy.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFavouriteToy.gridx = 1;
+		gbc_lblFavouriteToy.gridy = 10;
+		frame.getContentPane().add(lblFavouriteToy, gbc_lblFavouriteToy);
 		
 		JComboBox comboBoxSpecies = new JComboBox();
 		comboBoxSpecies.setModel(new DefaultComboBoxModel(new String[] {"Bird", "Cat", "CatDog", "Dog", "Ocelot", "Tiger"}));
@@ -263,88 +338,6 @@ public class App{
 		gbc_comboBoxSpecies.gridy = 3;
 		frame.getContentPane().add(comboBoxSpecies, gbc_comboBoxSpecies);
 		
-		String box = "\u239A";
-		if (comboBoxSpecies.getSelectedItem() == "Bird") {
-			Pet bird = new Bird(textFieldPetName.getText());
-			String appetite = String.join("", Collections.nCopies(bird.getHungerDrop(), box));
-			String fatigue = String.join("", Collections.nCopies(bird.getEnergyDrop(), box));
-			String depression = String.join("", Collections.nCopies(bird.getHappinessDrop(), box));
-			String aggression = String.join("", Collections.nCopies(bird.getHappinessDrop(), box));
-			String favouriteFood = bird.getFavouriteFood();
-			String favouriteToy = bird.getFavouriteToy();
-			ImageIcon petImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Bird.png");
-			displayPetStats(appetite, fatigue, depression, 
-					aggression, favouriteFood, favouriteToy, petImage);
-		}
-		
-	}
-	public void displayPetStats(String appetite, String fatigue, String depression, 
-			String aggression, String favouriteFood, String favouriteToy, ImageIcon petImage) {
-		
-		JLabel lblAppetite = new JLabel("Appetite: " + appetite);
-		lblAppetite.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblAppetite = new GridBagConstraints();
-		gbc_lblAppetite.anchor = GridBagConstraints.WEST;
-		gbc_lblAppetite.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAppetite.gridx = 1;
-		gbc_lblAppetite.gridy = 5;
-		frame.getContentPane().add(lblAppetite, gbc_lblAppetite);
-		
-		JLabel lblPets = new JLabel("");
-		lblPets.setIcon(petImage);
-		GridBagConstraints gbc_lblPets = new GridBagConstraints();
-		gbc_lblPets.gridwidth = 2;
-		gbc_lblPets.gridheight = 5;
-		gbc_lblPets.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPets.gridx = 2;
-		gbc_lblPets.gridy = 5;
-		frame.getContentPane().add(lblPets, gbc_lblPets);
-		
-		JLabel lblFatigue = new JLabel("Fatigue: " + fatigue);
-		lblFatigue.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblFatigue = new GridBagConstraints();
-		gbc_lblFatigue.anchor = GridBagConstraints.WEST;
-		gbc_lblFatigue.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFatigue.gridx = 1;
-		gbc_lblFatigue.gridy = 6;
-		frame.getContentPane().add(lblFatigue, gbc_lblFatigue);
-		
-		JLabel lblDepression = new JLabel("Depression: " + depression);
-		lblDepression.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblDepression = new GridBagConstraints();
-		gbc_lblDepression.anchor = GridBagConstraints.WEST;
-		gbc_lblDepression.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDepression.gridx = 1;
-		gbc_lblDepression.gridy = 7;
-		frame.getContentPane().add(lblDepression, gbc_lblDepression);
-		
-		JLabel lblAggression = new JLabel("Aggression: " + aggression);
-		lblAggression.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblAggression = new GridBagConstraints();
-		gbc_lblAggression.anchor = GridBagConstraints.WEST;
-		gbc_lblAggression.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAggression.gridx = 1;
-		gbc_lblAggression.gridy = 8;
-		frame.getContentPane().add(lblAggression, gbc_lblAggression);
-		
-		JLabel lblFavouriteFood = new JLabel("Favourite food: " + favouriteFood);
-		lblFavouriteFood.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblFavouriteFood = new GridBagConstraints();
-		gbc_lblFavouriteFood.anchor = GridBagConstraints.WEST;
-		gbc_lblFavouriteFood.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFavouriteFood.gridx = 1;
-		gbc_lblFavouriteFood.gridy = 9;
-		frame.getContentPane().add(lblFavouriteFood, gbc_lblFavouriteFood);
-		
-		JLabel lblFavouriteToy = new JLabel("Favourite toy: " + favouriteToy);
-		lblFavouriteToy.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblFavouriteToy = new GridBagConstraints();
-		gbc_lblFavouriteToy.anchor = GridBagConstraints.WEST;
-		gbc_lblFavouriteToy.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFavouriteToy.gridx = 1;
-		gbc_lblFavouriteToy.gridy = 10;
-		frame.getContentPane().add(lblFavouriteToy, gbc_lblFavouriteToy);
-		
 		JButton btnConfirm = new JButton("Confirm");
 		GridBagConstraints gbc_btnConfirm = new GridBagConstraints();
 		gbc_btnConfirm.insets = new Insets(0, 0, 0, 5);
@@ -353,7 +346,237 @@ public class App{
 		frame.getContentPane().add(btnConfirm, gbc_btnConfirm);
 		frame.pack();
 		frame.setVisible(true);
+		comboBoxSpecies.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if (comboBoxSpecies.getSelectedItem() == "Bird") {
+					Pet bird = new Bird(textFieldPetName.getText());
+					String birdAppetite = String.join("", Collections.nCopies(bird.getHungerDrop(), box));
+					String birdFatigue = String.join("", Collections.nCopies(bird.getEnergyDrop(), box));
+					String birdDepression = String.join("", Collections.nCopies(bird.getHappinessDrop(), box));
+					String birdAggression = String.join("", Collections.nCopies(bird.getAggression(), box));
+					String birdFavouriteFood = bird.getFavouriteFood();
+					String birdFavouriteToy = bird.getFavouriteToy();
+					ImageIcon birdImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Bird.png");
+					lblAppetite.setText("Appetite: " + birdAppetite);
+					lblFatigue.setText("Fatigue: " + birdFatigue);
+					lblDepression.setText("Depression: " +birdDepression);
+					lblAggression.setText("Aggression: " + birdAggression);
+					lblFavouriteFood.setText("Favourite food: " + birdFavouriteFood);
+					lblFavouriteToy.setText("Favourite toy: " + birdFavouriteToy);
+					lblPets.setIcon(birdImage);
+				}
+				if (comboBoxSpecies.getSelectedItem() == "Cat") {
+					Pet cat = new Cat(textFieldPetName.getText());
+					String catAppetite = String.join("", Collections.nCopies(cat.getHungerDrop(), box));
+					String catFatigue = String.join("", Collections.nCopies(cat.getEnergyDrop(), box));
+					String catDepression = String.join("", Collections.nCopies(cat.getHappinessDrop(), box));
+					String catAggression = String.join("", Collections.nCopies(cat.getAggression(), box));
+					String catFavouriteFood = cat.getFavouriteFood();
+					String catFavouriteToy = cat.getFavouriteToy();
+					ImageIcon catImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Cat.png");
+					lblAppetite.setText("Appetite: " + catAppetite);
+					lblFatigue.setText("Fatigue: " + catFatigue);
+					lblDepression.setText("Depression: " + catDepression);
+					lblAggression.setText("Aggression: " + catAggression);
+					lblFavouriteFood.setText("Favourite food: " + catFavouriteFood);
+					lblFavouriteToy.setText("Favourite toy: " + catFavouriteToy);
+					lblPets.setIcon(catImage);
+				}
+				if (comboBoxSpecies.getSelectedItem() == "CatDog") {
+					Pet catDog = new CatDog(textFieldPetName.getText());
+					String catDogAppetite = String.join("", Collections.nCopies(catDog.getHungerDrop(), box));
+					String catDogFatigue = String.join("", Collections.nCopies(catDog.getEnergyDrop(), box));
+					String catDogDepression = String.join("", Collections.nCopies(catDog.getHappinessDrop(), box));
+					String catDogAggression = String.join("", Collections.nCopies(catDog.getAggression(), box));
+					String catDogFavouriteFood = catDog.getFavouriteFood();
+					String catDogFavouriteToy = catDog.getFavouriteToy();
+					ImageIcon catDogImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\CatDog.png");
+					lblAppetite.setText("Appetite: " + catDogAppetite);
+					lblFatigue.setText("Fatigue: " + catDogFatigue);
+					lblDepression.setText("Depression: " + catDogDepression);
+					lblAggression.setText("Aggression: " + catDogAggression);
+					lblFavouriteFood.setText("Favourite food: " + catDogFavouriteFood);
+					lblFavouriteToy.setText("Favourite toy: " + catDogFavouriteToy);
+					lblPets.setIcon(catDogImage);
+				}
+				if (comboBoxSpecies.getSelectedItem() == "Dog") {
+					Pet dog = new Dog(textFieldPetName.getText());
+					String dogAppetite = String.join("", Collections.nCopies(dog.getHungerDrop(), box));
+					String dogFatigue = String.join("", Collections.nCopies(dog.getEnergyDrop(), box));
+					String dogDepression = String.join("", Collections.nCopies(dog.getHappinessDrop(), box));
+					String dogAggression = String.join("", Collections.nCopies(dog.getAggression(), box));
+					String dogFavouriteFood = dog.getFavouriteFood();
+					String dogFavouriteToy = dog.getFavouriteToy();
+					ImageIcon dogImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Dog.png");
+					lblAppetite.setText("Appetite: " + dogAppetite);
+					lblFatigue.setText("Fatigue: " + dogFatigue);
+					lblDepression.setText("Depression: " + dogDepression);
+					lblAggression.setText("Aggression: " + dogAggression);
+					lblFavouriteFood.setText("Favourite food: " + dogFavouriteFood);
+					lblFavouriteToy.setText("Favourite toy: " + dogFavouriteToy);
+					lblPets.setIcon(dogImage);
+				}
+				if (comboBoxSpecies.getSelectedItem() == "Ocelot") {
+					Pet ocelot = new Ocelot(textFieldPetName.getText());
+					String ocelotAppetite = String.join("", Collections.nCopies(ocelot.getHungerDrop(), box));
+					String ocelotFatigue = String.join("", Collections.nCopies(ocelot.getEnergyDrop(), box));
+					String ocelotDepression = String.join("", Collections.nCopies(ocelot.getHappinessDrop(), box));
+					String ocelotAggression = String.join("", Collections.nCopies(ocelot.getAggression(), box));
+					String ocelotFavouriteFood = ocelot.getFavouriteFood();
+					String ocelotFavouriteToy = ocelot.getFavouriteToy();
+					ImageIcon ocelotImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Ocelot.png");
+					lblAppetite.setText("Appetite: " + ocelotAppetite);
+					lblFatigue.setText("Fatigue: " + ocelotFatigue);
+					lblDepression.setText("Depression: " + ocelotDepression);
+					lblAggression.setText("Aggression: " + ocelotAggression);
+					lblFavouriteFood.setText("Favourite food: " + ocelotFavouriteFood);
+					lblFavouriteToy.setText("Favourite toy: " + ocelotFavouriteToy);
+					lblPets.setIcon(ocelotImage);
+				}
+				if (comboBoxSpecies.getSelectedItem() == "Tiger") {
+					Pet tiger = new Tiger(textFieldPetName.getText());
+					String tigerAppetite = String.join("", Collections.nCopies(tiger.getHungerDrop(), box));
+					String tigerFatigue = String.join("", Collections.nCopies(tiger.getEnergyDrop(), box));
+					String tigerDepression = String.join("", Collections.nCopies(tiger.getHappinessDrop(), box));
+					String tigerAggression = String.join("", Collections.nCopies(tiger.getAggression(), box));
+					String tigerFavouriteFood = tiger.getFavouriteFood();
+					String tigerFavouriteToy = tiger.getFavouriteToy();
+					ImageIcon tigerImage = new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\Tiger.png");
+					lblAppetite.setText("Appetite: " + tigerAppetite);
+					lblFatigue.setText("Fatigue: " + tigerFatigue);
+					lblDepression.setText("Depression: " + tigerDepression);
+					lblAggression.setText("Aggression: " + tigerAggression);
+					lblFavouriteFood.setText("Favourite food: " + tigerFavouriteFood);
+					lblFavouriteToy.setText("Favourite toy: " + tigerFavouriteToy);
+					lblPets.setIcon(tigerImage);
+				}
+			}
+		});
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String petName = textFieldPetName.getText();
+				if (petName.trim().length() == 0) {
+					try {
+						ErrorNoLetter dialog = new ErrorNoLetter();
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.pack();
+						dialog.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else {
+					if (petName.length() >= 20) {
+						try {
+							ErrorExceedChar dialog = new ErrorExceedChar();
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.pack();
+							dialog.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+					else {
+						boolean isValid = true;
+						for(Player person:game.playerArray){
+							if(person.getName().equals(petName)){
+								isValid = false;
+								try {
+									ErrorUniqueName dialog = new ErrorUniqueName();
+									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+									dialog.pack();
+									dialog.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						}
+						for (Pet animal:currentPlayer.petArray){
+							if(animal.getName().equals(petName)){
+								isValid = false;
+								try {
+									ErrorUniqueName dialog = new ErrorUniqueName();
+									dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+									dialog.pack();
+									dialog.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								
+							}
+						}
+						if (isValid == true) {
+							if (comboBoxSpecies.getSelectedItem() == "Bird") {
+								Pet bird = new Bird(petName);
+								currentPlayer.petArray.add(bird);
+							}
+							if (comboBoxSpecies.getSelectedItem() == "Cat") {
+								Pet cat = new Cat(petName);
+								currentPlayer.petArray.add(cat);
+							}
+							if (comboBoxSpecies.getSelectedItem() == "CatDog") {
+								Pet catDog = new CatDog(petName);
+								currentPlayer.petArray.add(catDog);
+							}
+							if (comboBoxSpecies.getSelectedItem() == "Dog") {
+								Pet dog = new Dog(petName);
+								currentPlayer.petArray.add(dog);
+							}
+							if (comboBoxSpecies.getSelectedItem() == "Ocelot") {
+								Pet ocelot = new Ocelot(petName);
+								currentPlayer.petArray.add(ocelot);
+							}
+							if (comboBoxSpecies.getSelectedItem() == "Tiger") {
+								Pet tiger = new Tiger(petName);
+								currentPlayer.petArray.add(tiger);
+							}
+							if (petID == numPets){
+								frame.getContentPane().remove(comboBoxSpecies);
+								frame.getContentPane().remove(btnConfirm);
+								frame.getContentPane().remove(lblFavouriteToy);
+								frame.getContentPane().remove(lblFavouriteFood);
+								frame.getContentPane().remove(lblAggression);
+								frame.getContentPane().remove(lblDepression);
+								frame.getContentPane().remove(lblFatigue);
+								frame.getContentPane().remove(lblPets);
+								frame.getContentPane().remove(lblAppetite);
+								frame.getContentPane().remove(textFieldPetName);
+								frame.getContentPane().remove(lblSpeciesOption);
+								frame.getContentPane().remove(lblPetName);
+								if (game.playerArray.size() == game.playerArray.indexOf(currentPlayer) + 1){
+									return;
+								}
+								else {
+									frame.revalidate();
+									frame.repaint();
+									frame.getContentPane().add(lblIntroTitle);
+									NumPets((game.playerArray.indexOf(currentPlayer)) + 1);
+									return;
+								}
+							}
+							frame.getContentPane().remove(comboBoxSpecies);
+							frame.getContentPane().remove(btnConfirm);
+							frame.getContentPane().remove(lblFavouriteToy);
+							frame.getContentPane().remove(lblFavouriteFood);
+							frame.getContentPane().remove(lblAggression);
+							frame.getContentPane().remove(lblDepression);
+							frame.getContentPane().remove(lblFatigue);
+							frame.getContentPane().remove(lblPets);
+							frame.getContentPane().remove(lblAppetite);
+							frame.getContentPane().remove(textFieldPetName);
+							frame.getContentPane().remove(lblSpeciesOption);
+							frame.getContentPane().remove(lblPetName);
+							frame.revalidate();
+							frame.repaint();
+							petName(petID + 1, numPets);
+							return;
+						}
+					}
+				}
+			}
+		});
 	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */

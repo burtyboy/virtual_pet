@@ -1039,6 +1039,7 @@ public class App{
 		
 		String condition = "Healthy";
 		JLabel lblCondition = new JLabel("Condition: " + condition);
+		lblCondition.setForeground(new Color(0, 0, 0));
 		if(currentPet.isMisbehave()) {
 			condition = "Misbehaving";
 			lblCondition.setText("Condition: " + condition);
@@ -1114,6 +1115,7 @@ public class App{
 				lblWeight.setText("Weight: " + Integer.toString(currentPet.getWeight()) + " kg");
 				String condition = "Healthy";
 				lblCondition.setText("Condition: " + condition);
+				lblCondition.setForeground(new Color(0, 0, 0));
 				if(currentPet.isMisbehave()) {
 					condition = "Misbehaving";
 					lblCondition.setText("Condition: " + condition);
@@ -1257,6 +1259,7 @@ public class App{
 				lblWeight.setText("Weight: " + Integer.toString(currentPet.getWeight()) + " kg");
 				String condition = "Healthy";
 				lblCondition.setText("Condition: " + condition);
+				lblCondition.setForeground(new Color(0, 0, 0));
 				if(currentPet.isMisbehave()) {
 					condition = "Misbehaving";
 					lblCondition.setText("Condition: " + condition);
@@ -1316,11 +1319,6 @@ public class App{
 		frame.getContentPane().add(lblShop, gbc_lblShop);
 		
 		JLabel lblToilet = new JLabel("");
-		lblToilet.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		lblToilet.setIcon(new ImageIcon("Images/ToiletButton.png"));
 		GridBagConstraints gbc_lblToilet = new GridBagConstraints();
 		gbc_lblToilet.insets = new Insets(0, 0, 0, 5);
@@ -1342,11 +1340,6 @@ public class App{
 		frame.getContentPane().add(lblFeed, gbc_lblFeed);
 		
 		JLabel lblPlay = new JLabel("");
-		lblPlay.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		lblPlay.setIcon(new ImageIcon("Images/PlayButton.png"));
 		GridBagConstraints gbc_lblPlay = new GridBagConstraints();
 		gbc_lblPlay.insets = new Insets(0, 0, 0, 5);
@@ -2341,13 +2334,16 @@ public class App{
 						int drops1 = 0 - (currentToy.getExercise() + 1);
 						currentPet.setEnergy(drops1);
 						currentPet.setHunger(drops1);
+						currentPet.setWeight(-1);
 					}
 					else {
 						int drops2 = 0 - currentToy.getExercise();
-						currentPet.setEnergy(drops2);
-						currentPet.setHunger(drops2);
+						if (drops2 != 0) {
+							currentPet.setEnergy(drops2);
+							currentPet.setHunger(drops2);
+							currentPet.setWeight(-1);
+							}
 						}
-					currentPet.setWeight(-1);
 					textPaneMessage.setText(message);
 					frame.getContentPane().remove(lblYesBtn);
 					JLabel lblYesBtn2 = new JLabel("");
@@ -4106,9 +4102,11 @@ public class App{
 				if (currentFood.getFullness() <= 1) {
 					mealSize = "Meal size: Small";
 					}
-				if (currentFood.getFullness() <= 3) {
+				else {
+					if (currentFood.getFullness() <= 3) {
 						mealSize ="Meal size: Medium";
 					}
+				}
 				lblFoodName.setText("Name: " + currentFood.getName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
@@ -4127,9 +4125,11 @@ public class App{
 				if (currentFood.getFullness() <= 1) {
 					mealSize = "Meal size: Small";
 					}
-				if (currentFood.getFullness() <= 3) {
+				else {
+					if (currentFood.getFullness() <= 3) {
 						mealSize ="Meal size: Medium";
 					}
+				}
 				lblFoodName.setText("Name: " + currentFood.getName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
@@ -4148,9 +4148,11 @@ public class App{
 				if (currentFood.getFullness() <= 1) {
 					mealSize = "Meal size: Small";
 					}
-				if (currentFood.getFullness() <= 3) {
+				else {
+					if (currentFood.getFullness() <= 3) {
 						mealSize ="Meal size: Medium";
 					}
+				}
 				lblFoodName.setText("Name: " + currentFood.getName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
@@ -4169,9 +4171,11 @@ public class App{
 				if (currentFood.getFullness() <= 1) {
 					mealSize = "Meal size: Small";
 					}
-				if (currentFood.getFullness() <= 3) {
+				else {
+					if (currentFood.getFullness() <= 3) {
 						mealSize ="Meal size: Medium";
 					}
+				}
 				lblFoodName.setText("Name: " + currentFood.getName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
@@ -4190,9 +4194,11 @@ public class App{
 				if (currentFood.getFullness() <= 1) {
 					mealSize = "Meal size: Small";
 					}
-				if (currentFood.getFullness() <= 3) {
+				else {
+					if (currentFood.getFullness() <= 3) {
 						mealSize ="Meal size: Medium";
 					}
+				}
 				lblFoodName.setText("Name: " + currentFood.getName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
@@ -4211,9 +4217,11 @@ public class App{
 				if (currentFood.getFullness() <= 1) {
 					mealSize = "Meal size: Small";
 					}
-				if (currentFood.getFullness() <= 3) {
+				else {
+					if (currentFood.getFullness() <= 3) {
 						mealSize ="Meal size: Medium";
 					}
+				}
 				lblFoodName.setText("Name: " + currentFood.getName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);

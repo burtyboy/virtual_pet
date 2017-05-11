@@ -1063,7 +1063,7 @@ public class GameEnvironment implements Printable {
 	 * If the toy breaks, the toy is removed from the inventory.
 	 * If the pet is sick, it will use up more energy to play.
 	 * If the pet is misbehaving, it will try to break the toy.
-	 * The pet loses 1 kilogram by playing with a toy.
+	 * If exercise is required to play with the toy, the pet will lose 1 kilogram, hunger and energy. (Hunger and energy depends on the exercise level).
 	 */
 	public void play(Player p , Pet a) {
 		boolean isValid = false;
@@ -1133,13 +1133,16 @@ public class GameEnvironment implements Printable {
 			int drops1 = 0 - (toy.getExercise() + 1);
 			a.setEnergy(drops1);
 			a.setHunger(drops1);
+			a.setWeight(-1);
 		}
 		else {
 			int drops2 = 0 - toy.getExercise();
-			a.setEnergy(drops2);
-			a.setHunger(drops2);
+			if (drops2 != 0) {
+				a.setWeight(-1);
+				a.setEnergy(drops2);
+				a.setHunger(drops2);
 			}
-		a.setWeight(-1);
+			}
 		}
 	}
 	/**
@@ -1163,8 +1166,7 @@ public class GameEnvironment implements Printable {
 	 * By calling this method, the pet's happiness drops to 0, but the pet is no longer misbehaving.
 	 */
 	public void discipline(Pet a) {
-		int dropFun = 0 - a.getHappiness();
-		a.setHappiness(dropFun);
+		a.setHappiness(-6);
 		a.setbehaviour(false);
 		printToScreen(a.getName() + " is starting to behave now but is feeling unhappy.");
 	}

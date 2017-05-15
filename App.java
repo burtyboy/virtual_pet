@@ -22,7 +22,6 @@ import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Label;
 import java.awt.SystemColor;
 import java.awt.TextArea;
 import java.awt.event.ActionListener;
@@ -71,7 +70,13 @@ public class App{
 	public App() {
 		initialize();
 	}
-	public void DisplayMessage() {
+	
+	/**
+	 * Displays a cover picture.
+	 * Displays a introduction message.
+	 * Also the button is included to proceed to the next stage.
+	 */
+	private void introMessage() {
 		frame.getContentPane().setBackground(new Color(199, 191, 230));
         frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		JTextPane txtpnWelcome = new JTextPane();
@@ -79,6 +84,7 @@ public class App{
 		txtpnWelcome.setFont(new Font("Bradley Hand ITC", Font.PLAIN, 34));
 		txtpnWelcome.setBackground(new Color(245, 255, 250));
 		txtpnWelcome.setText("Welcome to the world of the Virtual Pets. We know you are eager to play with your very own virtual pets, but we would like to ask you a few questions.");
+		txtpnWelcome.setEditable(false);
 		frame.getContentPane().add(txtpnWelcome, BorderLayout.CENTER);
 		JButton btnSure = new JButton("Sure!");
 		btnSure.setFont(new Font("Times New Roman", Font.PLAIN, 18));
@@ -97,16 +103,23 @@ public class App{
 				}
 		});
 	}
-	public void NumPlayers() {
+	
+	/**
+	 * Displays a cover picture.
+	 * Ask for the number of player.
+	 * Combo box are used to display the three options.
+	 * The player can click a button to confirm the number of players.
+	 */
+	private void NumPlayers() {
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		JLabel lblQuantityPlayers = new JLabel("How many players would you like?");
 		lblQuantityPlayers.setBackground(new Color(240, 255, 240));
 		lblQuantityPlayers.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		frame.getContentPane().add(lblQuantityPlayers);
-		JComboBox comboBoxNumsPlayers = new JComboBox();
+		JComboBox<String> comboBoxNumsPlayers = new JComboBox<String>();
 		comboBoxNumsPlayers.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-		comboBoxNumsPlayers.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3"}));
+		comboBoxNumsPlayers.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3"}));
 		comboBoxNumsPlayers.setEditable(false);
 		frame.getContentPane().add(comboBoxNumsPlayers);
 		JButton btnConfirm = new JButton("Confirm");
@@ -124,7 +137,14 @@ public class App{
 				}
 		});
 	}
-	public void PlayerName(int playerID) {
+	
+	/**
+	 * Displays a cover picture.
+	 * Ask for each player's name.
+	 * The players can click on the button to confirm their name.
+	 * The error message would pop up if the name is not unique, not enough letter or the name exceeds 20 characters.
+	 */
+	private void PlayerName(int playerID) {
 		String questionName = "Player " + Integer.toString(playerID) + ", what is your name?";
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
@@ -195,7 +215,14 @@ public class App{
 			}
 		});
 	}
-	public void NumPets(int index) {
+	
+	/**
+	 * Displays a cover picture.
+	 * Ask for the number of pets for each player.
+	 * Combo box are used to display the three options.
+	 * The player can click a button to confirm the number of pets.
+	 */
+	private void NumPets(int index) {
 		currentPlayer = (Player) game.playerArray.get(index);
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
@@ -206,9 +233,9 @@ public class App{
 		lblQuantityPets.setBackground(new Color(240, 255, 240));
 		lblQuantityPets.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		frame.getContentPane().add(lblQuantityPets);
-		JComboBox comboBoxNumsPets = new JComboBox();
+		JComboBox<String> comboBoxNumsPets = new JComboBox<String>();
 		comboBoxNumsPets.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-		comboBoxNumsPets.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3"}));
+		comboBoxNumsPets.setModel(new DefaultComboBoxModel<String>(new String[] {"1", "2", "3"}));
 		comboBoxNumsPets.setEditable(false);
 		frame.getContentPane().add(comboBoxNumsPets);
 		JButton btnConfirm = new JButton("Confirm");
@@ -228,7 +255,16 @@ public class App{
 				}
 		});
 	}
-	public void petName(int petID, int numPets) {
+	
+	/**
+	 * Ask for each pet's name.
+	 * The combo box displays all six different species.
+	 * The picture displays the current pet.
+	 * Displays the stat of the current pet.
+	 * The players can click on the button to confirm their pet.
+	 * The error message would pop up if the name is not unique, not enough letter or the name exceeds 20 characters.
+	 */
+	private void petName(int petID, int numPets) {
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 111, 18, 0};
@@ -347,8 +383,8 @@ public class App{
 		gbc_lblFavouriteToy.gridy = 11;
 		frame.getContentPane().add(lblFavouriteToy, gbc_lblFavouriteToy);
 		
-		JComboBox comboBoxSpecies = new JComboBox();
-		comboBoxSpecies.setModel(new DefaultComboBoxModel(new String[] {"Bird", "Cat", "CatDog", "Dog", "Ocelot", "Tiger"}));
+		JComboBox<String> comboBoxSpecies = new JComboBox<String>();
+		comboBoxSpecies.setModel(new DefaultComboBoxModel<String>(new String[] {"Bird", "Cat", "CatDog", "Dog", "Ocelot", "Tiger"}));
 		comboBoxSpecies.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_comboBoxSpecies = new GridBagConstraints();
 		gbc_comboBoxSpecies.gridwidth = 2;
@@ -604,7 +640,15 @@ public class App{
 			}
 		});
 	}
-	public void numDays() {
+	
+	/**
+	 * Displays a cover picture.
+	 * Ask for the number days the player wishes to play.
+	 * The error message pops up if the day is negative or non-numeric value.
+	 * The button are used to confirm the day.
+	 * Displays a warning message if the day exceeds 10 days.
+	 */
+	private void numDays() {
 		frame.setBackground(new Color(240, 255, 240));
 		frame.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -638,15 +682,16 @@ public class App{
 							e.printStackTrace();
 						}
 					}
-					if (gameLength > 10){
-						frame.getContentPane().remove(textFieldNumDays);
-						frame.getContentPane().remove(btnConfirm);
-						lblNumDays.setText("Do you really want to play " + numDays + " days?");
-						JButton btnYes = new JButton("Yes");
-						frame.getContentPane().add(btnYes);
-						JButton btnNo = new JButton("No");
-						frame.getContentPane().add(btnNo);
-						btnNo.addActionListener(new ActionListener() {
+					else {
+						if (gameLength > 10){
+							frame.getContentPane().remove(textFieldNumDays);
+							frame.getContentPane().remove(btnConfirm);
+							lblNumDays.setText("Do you really want to play " + numDays + " days?");
+							JButton btnYes = new JButton("Yes");
+							frame.getContentPane().add(btnYes);
+							JButton btnNo = new JButton("No");
+							frame.getContentPane().add(btnNo);
+							btnNo.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
 								frame.getContentPane().remove(btnNo);
 								frame.getContentPane().remove(btnYes);
@@ -657,7 +702,7 @@ public class App{
 								frame.repaint();
 									}
 								});
-						btnYes.addActionListener(new ActionListener() {
+							btnYes.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent arg0) {
 								frame.getContentPane().remove(btnConfirm);
 								frame.getContentPane().remove(lblIntroTitle);
@@ -665,16 +710,17 @@ public class App{
 								frame.getContentPane().remove(lblNumDays);
 								frame.getContentPane().remove(btnNo);
 								frame.getContentPane().remove(btnYes);
-								GameLoop();
+								gameLoop();
 									}
 								});
-					}
-					else {
-						frame.getContentPane().remove(btnConfirm);
-						frame.getContentPane().remove(lblIntroTitle);
-						frame.getContentPane().remove(textFieldNumDays);
-						frame.getContentPane().remove(lblNumDays);
-						GameLoop();
+						}
+						else {
+							frame.getContentPane().remove(btnConfirm);
+							frame.getContentPane().remove(lblIntroTitle);
+							frame.getContentPane().remove(textFieldNumDays);
+							frame.getContentPane().remove(lblNumDays);
+							gameLoop();
+						}
 					}
 				}
 				catch(NumberFormatException e){
@@ -689,15 +735,27 @@ public class App{
 			}
 		});
 	}
-	public void GameLoop() {
+	
+	/**
+	 * Plays the game if the day has not surpassed the chosen number of days.
+	 * Else it will display the final score.
+	 */
+	private void gameLoop() {
 		if (day <= gameLength) {
-			PlayDay(0);
+			playDay(0);
 		}
 		else {
 			displayScore();
 		}
 	}
-	public void PlayDay(int playerIndex) {
+	
+	/**
+	 * Each player receives $20 per day.
+	 * Call the setPetCondition method from the game environment.
+	 * Run the story board for each player.
+	 * Moves to a next day if all the player had their turn.
+	 */
+	private void playDay(int playerIndex) {
 		if ((playerIndex + 1) <= game.playerArray.size()) {
 			currentPlayer = game.playerArray.get(playerIndex);
 			currentPlayer.setMoney(20);
@@ -708,10 +766,18 @@ public class App{
 		}
 		else{
 			day++;
-			GameLoop();
+			gameLoop();
 		}
 	}
-	public void StoryBoard() {
+	
+	/**
+	 * Displays all the pets the player owns at the top.
+	 * The background picture of the pet changes to green to show which pet is active.
+	 * Position at middle left displays the player's stats.
+	 * Position at middle right displays the pet's stats.
+	 * The seven buttons are located at the bottom.
+	 */
+	private void StoryBoard() {
 
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -1676,7 +1742,7 @@ public class App{
 				frame.getContentPane().remove(lblPlayerName);
 				frame.getContentPane().remove(lblShop);
 				int currentPlayerIndex = game.playerArray.indexOf(currentPlayer);
-				PlayDay(currentPlayerIndex + 1);
+				playDay(currentPlayerIndex + 1);
 				return;
 			}
 		});
@@ -1687,6 +1753,11 @@ public class App{
 
 	
 	}
+	
+	/**
+	 * Display the message that the pet has used all the action points.
+	 * The button are used to confirm the message.
+	 */
 	private void tiredDisplay() {
 		frame.setBackground(new Color(0, 0, 0));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -1759,6 +1830,11 @@ public class App{
 			}
 		});
 	}
+	
+	/**
+	 * Display a message that the chosen pet is dead.
+	 * The button are used to confirm the message.
+	 */
 	private void deathMessage() {
 		frame.setBackground(new Color(0, 0, 0));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -1831,6 +1907,13 @@ public class App{
 			}
 		});
 	}
+	
+	/**
+	 * Displays a picture of the pet's poop.
+	 * Displays a message at the bottom.
+	 * Call the useToilet method from the game environment.
+	 * The button are used to confirm the message.
+	 */
 	private void displayToilet() {
 		game.useToilet(currentPet);
 		frame.setBackground(new Color(240, 255, 255));
@@ -1911,6 +1994,13 @@ public class App{
 			}
 		});
 	}
+	
+	/**
+	 * Displays a picture of the pet getting discipline by the player.
+	 * Displays a message at the bottom.
+	 * call the discipline method from the game environment.
+	 * The button are used to confirm the message.
+	 */
 	private void displayDiscipline() {
 		game.discipline(currentPet);
 		frame.setBackground(new Color(240, 255, 255));
@@ -1992,6 +2082,13 @@ public class App{
 			}
 		});
 	}
+	
+	/**
+	 * Displays a picture of the pet sleeping.
+	 * Displays a message at the bottom.
+	 * Call the sleep method from the game environment.
+	 * The button are used to confirm the message.
+	 */
 	private void displaySleep() {
 		game.sleep(currentPet);
 		frame.setBackground(new Color(240, 255, 255));
@@ -2078,6 +2175,14 @@ public class App{
 			}
 		});
 	}
+	
+	/**
+	 * Displays a title at the top.
+	 * The combo box displays all the toys in the player's inventory.
+	 * Displays the picture of the chosen toy.
+	 * Displays the message at the bottom.
+	 * The button are used to confirm the message.
+	 */
 	private void play(){
 		ArrayList<Integer> toyPos = new ArrayList<Integer>(0);
 		ArrayList<String> toyNames = new ArrayList<String>(0);
@@ -2125,9 +2230,9 @@ public class App{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		comboBox.setModel(new DefaultComboBoxModel());
+		comboBox.setModel(new DefaultComboBoxModel<String>());
 		for (String name:toyNames) {
 			int occurrences = Collections.frequency(toyInventory, name);
 			comboBox.addItem(name + " x" + Integer.toString(occurrences));
@@ -2372,6 +2477,14 @@ public class App{
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	/**
+	 * Displays a title at the top.
+	 * The combo box displays all the foods in the player's inventory.
+	 * Displays the picture of the chosen food.
+	 * Displays the message at the bottom.
+	 * The button are used to confirm the message.
+	 */
 	private void feed(){
 		ArrayList<Integer> foodPos = new ArrayList<Integer>(0);
 		ArrayList<String> foodNames = new ArrayList<String>(0);
@@ -2419,9 +2532,9 @@ public class App{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		comboBox.setModel(new DefaultComboBoxModel());
+		comboBox.setModel(new DefaultComboBoxModel<String>());
 		for (String name:foodNames) {
 			int occurrences = Collections.frequency(foodInventory, name);
 			comboBox.addItem(name + " x" + Integer.toString(occurrences));
@@ -2656,6 +2769,12 @@ public class App{
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
+	/**
+	 * Displays a title at the top.
+	 * Displays the current money the player owns.
+	 * Displays 5 buttons. (1 button to go back home and other 4 buttons are 4 different types of shop).
+	 */
 	private void useShop(){
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -2880,6 +2999,14 @@ public class App{
 		});
 	}
 	
+	/**
+	 * Displays a title at the top.
+	 * The combo box displays all the dead pets.
+	 * Displays the picture of the chosen dead pet.
+	 * Displays the name of the dead pet and the cost to revive them.
+	 * Displays the message at the bottom.
+	 * There is two buttons (one button to confirm the message and other button is to leave the shop).
+	 */
 	private void revival(){
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -2913,9 +3040,9 @@ public class App{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		comboBox.setModel(new DefaultComboBoxModel());
+		comboBox.setModel(new DefaultComboBoxModel<String>());
 		ArrayList<Integer> position = new ArrayList<Integer>(0);
 		int index = 0;
 		for(Pet animal:currentPlayer.petArray) {
@@ -3020,7 +3147,6 @@ public class App{
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent arg0) {
 					currentPet = (Pet) currentPlayer.petArray.get(position.get(comboBox.getSelectedIndex()));
-					currentPet = currentPlayer.petArray.get(position.get(0));
 					if (currentPet instanceof Bird) {
 						lblPets.setIcon(new ImageIcon("Images/Bird.png"));
 					}
@@ -3086,6 +3212,14 @@ public class App{
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Displays a title at the top.
+	 * The combo box displays all the sick pets.
+	 * Displays the picture of the chosen sick pet.
+	 * Displays the name of the sick pet and the cost to treat them.
+	 * Displays the message at the bottom.
+	 * There is two buttons (one button to confirm the message and other button is to leave the shop).
+	 */
 	private void treatment(){
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -3119,9 +3253,9 @@ public class App{
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		comboBox.setModel(new DefaultComboBoxModel());
+		comboBox.setModel(new DefaultComboBoxModel<String>());
 		ArrayList<Integer> position = new ArrayList<Integer>(0);
 		int index = 0;
 		for(Pet animal:currentPlayer.petArray) {
@@ -3354,6 +3488,13 @@ public class App{
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Displays a title at the top.
+	 * Displays the six different toys.
+	 * Displays the chosen toy's picture and stats.
+	 * Display the player's name and money.
+	 * Displays two button (One button to confirm the payment and other button to leave the shop).
+	 */
 	private void toyShop() {
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -3812,6 +3953,14 @@ public class App{
 			}
 		});
 	}
+	
+	/**
+	 * Displays a title at the top.
+	 * Displays the six different foods.
+	 * Displays the chosen food's picture and stats.
+	 * Display the player's name and money.
+	 * Displays two button (One button to confirm the payment and other button to leave the shop).
+	 */
 	private void foodShop() {
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -4048,7 +4197,7 @@ public class App{
 		gbc_lblExitbtn.gridx = 3;
 		gbc_lblExitbtn.gridy = 3;
 		panelButtons.add(lblExitbtn, gbc_lblExitbtn);
-		frame.setSize(700, 440);
+		frame.setSize(750, 440);
 		frame.setVisible(true);
 		lblYesBtn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -4261,6 +4410,12 @@ public class App{
 		});
 		
 	}
+	
+	/**
+	 * Displays a cover picture at the top.
+	 * Displays all the player's score.
+	 * Call the scoreAdjust method from the game environment.
+	 */
 	private void displayScore(){
 		frame.setBackground(new Color(240, 255, 255));
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -4279,12 +4434,14 @@ public class App{
 		frame.add(lblCoverPhoto, gbc_lblCoverPhoto);
 		int position = 1;
 		for (Player player: game.playerArray){
+			double scoreAdjust = 1;
 			for (Pet animal: player.petArray) {
-				game.finalScoreAdjust(player, animal);
-			}
+				scoreAdjust = scoreAdjust + game.finalScoreAdjust(player, animal);
+				}
+				int finalScore = (int) (scoreAdjust * player.getScore());
 			if (position == 1) {
-				JLabel lblfirstPlace = new JLabel(Integer.toString(position) + "st " + player.getName() + " " + Integer.toString(player.getScore()) + " points");
-				lblfirstPlace.setFont(new Font("Times New Roman", Font.BOLD, 20));
+				JLabel lblfirstPlace = new JLabel(Integer.toString(position) + ". " + player.getName() + " " + Integer.toString(finalScore) + " points");
+				lblfirstPlace.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 				GridBagConstraints gbc_lblfirstPlace = new GridBagConstraints();
 				gbc_lblfirstPlace.insets = new Insets(0, 0, 5, 0);
 				gbc_lblfirstPlace.gridx = 0;
@@ -4292,7 +4449,7 @@ public class App{
 				frame.add(lblfirstPlace, gbc_lblfirstPlace);
 			}
 			if (position == 2) {
-				JLabel lblSecondPlace = new JLabel(Integer.toString(position) + "nd " + player.getName() + " " + Integer.toString(player.getScore()) + " points");
+				JLabel lblSecondPlace = new JLabel(Integer.toString(position) + ". " + player.getName() + " " + Integer.toString(finalScore) + " points");
 				lblSecondPlace.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 				GridBagConstraints gbc_lblSecondPlace = new GridBagConstraints();
 				gbc_lblSecondPlace.insets = new Insets(0, 0, 5, 0);
@@ -4301,7 +4458,7 @@ public class App{
 				frame.add(lblSecondPlace, gbc_lblSecondPlace);
 			}
 			if (position == 3){
-				JLabel lblThirdPlace = new JLabel(Integer.toString(position) + "rd " + player.getName() + " " + Integer.toString(player.getScore()) + " points");
+				JLabel lblThirdPlace = new JLabel(Integer.toString(position) + ". " + player.getName() + " " + Integer.toString(finalScore) + " points");
 				lblThirdPlace.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 				GridBagConstraints gbc_lblThirdPlace = new GridBagConstraints();
 				gbc_lblThirdPlace.gridx = 0;
@@ -4310,11 +4467,14 @@ public class App{
 			}
 			position++;
 		}
-		frame.pack();
+		frame.setSize(525, 400);
 		frame.setVisible(true);
 	}
+	
 	/**
 	 * Initialize the contents of the frame.
+	 * The frame contains label as a title.
+	 * Two button is in the frame (One button to start and other button to check the instruction).
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -4345,7 +4505,7 @@ public class App{
 		        frame.getContentPane().remove(lblIntroTitle);
 		        frame.getContentPane().remove(startButton);
 		        frame.getContentPane().remove(instructionButton);
-		        DisplayMessage();
+		        introMessage();
 			}
 			
 		});

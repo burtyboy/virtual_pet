@@ -13,14 +13,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class ErrorExceedChar extends JDialog {
+public class ErrorInvalidNumber extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+
 
 	/**
 	 * Create the dialog.
 	 */
-	public ErrorExceedChar() {
+	public ErrorInvalidNumber() {
 		getContentPane().setBackground(new Color(255, 255, 255));
 		setBackground(new Color(255, 255, 255));
 		setBounds(100, 100, 450, 300);
@@ -32,7 +33,7 @@ public class ErrorExceedChar extends JDialog {
 		{
 			JLabel lblErrorMessage = new JLabel("");
 			lblErrorMessage.setBackground(new Color(255, 255, 255));
-			lblErrorMessage.setIcon(new ImageIcon("Images/ErrorExceedChar.png"));
+			lblErrorMessage.setIcon(new ImageIcon("Images/ErrorInvalidNumber.png"));
 			lblErrorMessage.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 			lblErrorMessage.setHorizontalAlignment(SwingConstants.CENTER);
 			getContentPane().add(lblErrorMessage, BorderLayout.CENTER);

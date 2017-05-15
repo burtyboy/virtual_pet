@@ -34,7 +34,7 @@ public class ErrorNoLetter extends JDialog {
 		{
 			JLabel lblErrorMessage = new JLabel("");
 			lblErrorMessage.setBackground(new Color(255, 255, 255));
-			lblErrorMessage.setIcon(new ImageIcon("C:\\Users\\Nobutaka\\workspace\\tamagochi\\Images\\ErrorNoLetter.png"));
+			lblErrorMessage.setIcon(new ImageIcon("Images/ErrorNoLetter.png"));
 			lblErrorMessage.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 			lblErrorMessage.setHorizontalAlignment(SwingConstants.CENTER);
 			getContentPane().add(lblErrorMessage, BorderLayout.CENTER);

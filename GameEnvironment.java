@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class GameEnvironment implements Printable {
 	private int day = 1;
 	private int numberOfPlayers, numberOfPets, lengthOfGame = 0;
-	public ArrayList<Player> playerArray = new ArrayList<Player>(0);//changed to allow testing
+	public ArrayList<Player> playerArray = new ArrayList<Player>(0); //changed to allow testing
 	public int getDay(){
 		return day;
 	}
@@ -344,7 +344,49 @@ public class GameEnvironment implements Printable {
 	 * Displays an instruction on how to play the game.
 	 */
 	public void displayInstruction() {
-		printToScreen("Learn it yourself!");
+		printToScreen("Welcome to the World of The Virtual Pets. Your goal here is to look after your \r\n"
+				+ "pets. The pets want your attention, and it is your job to lead them in the right \r\n"
+				+ "direction. The game itself is 1-3 players, and each player has a choice of 1-3 \r\n"
+				+ "pets (The more pet you have, the more responsibility you have). There are six \r\n"
+				+ "different species of pets to pick from the list. Each species have different stats, \r\n"
+				+ "favourite food, and favourite toy. Once all the questions been answered, the \r\n"
+				+ "game will start.\r\n\r\nEvery new day, each player receives $20, and each pet has a set action points \r\n"
+				+ "of 2 per day. The pet uses action point by sleeping, visiting the kitchen, \r\n"
+				+ "lounge, naughty corner, bathroom or vet. The player has a choice of visiting \r\n"
+				+ "the shop, feed the pet, play with the pet, send the pet to sleep, send the pet \r\n"
+				+ "to the bathroom, discipline the pet, or move to the next day. \r\n\r\n"
+				+ "The Shop\r\nThe shop is divided into four sections. There is a supermarket, toy shop, vet, \r\n"
+				+ "and cemetery. The supermarket sells six different foods. Each food has \r\n"
+				+ "different stats and price. Similarly, the toy shop sells six different toys. Each \r\n"
+				+ "toy also has different stats and price. The vet heals the sickness of the pet \r\n"
+				+ "with a cost of $10 each. The cemetery revives the pet with a cost of $30 each. \r\n"
+				+ "The pet will turn into a zombie once it gets revived. However, the zombie pet \r\n"
+				+ "can not be revived. \r\n\r\nUse the toilet\r\n"
+				+ "When the pet visits the bathroom, the pet's bladder goes to maximum level \r\nand loses 1 kg.\r\n\r\n"
+				+ "Feed the pet\r\nThe pet gains 1 kg by eating food. The pet's status changes vary depending on \r\n"
+				+ "the food. If the pet consumes their favourite food, the happiness level goes up \r\n"
+				+ "by one bar. If the pet is sick, the pet will not be able to taste the food, meaning \r\n"
+				+ "the happiness would not change. Once the food is consumed, the food is \r\n"
+				+ "removed from the inventory, and the bladder level will drop. The drop varies \r\ndepending on the meal size. \r\n"
+				+ "\r\nPlay with the toy\r\nThe pet's status changes vary depending on the toy. If the pet plays with their \r\n"
+				+ "favourite toy, the happiness level goes up by one. The toy's durability drops \r\n"
+				+ "once the toy has been played.  The drop varies depending on how aggressive \r\n"
+				+ "the pet is. The pet applies more damage on the toy than usual if the pet is \r\n"
+				+ "misbehaving. Once the toy breaks, the toy is removed from the inventory.\r\n\r\nSleep\r\n"
+				+ "Once the pet sleeps, the pet's energy level moves up to a maximum level. \r\n"
+				+ "However, if the pet is misbehaving, the pet will pretend to sleep and won't \r\ngain much energy. \r\n\r\n"
+				+ "Discipline\r\nIf the pet is misbehaving, you can discipline the pet. Once the pet is \r\n"
+				+ "disciplined, the pet starts behaving. However, the happiness level drops \r\ndrastically. \r\n\r\nWeight\r\n"
+				+ "If the pet is overweight, the pet will get hungry quicker than usual. If the \r\n"
+				+ "pet is underweight, the pet will get sick. \r\n\r\nDead\r\n"
+				+ "Once the pet dies, the pet will not be able to do anything. However, the pet \r\n"
+				+ "can be revived by visiting the cemetery, and the pet will turn into a zombie. \r\n"
+				+ "However, if the pet dies as a zombie, then the pet is no longer be able to revive.\r\n\r\n"
+				+ "Next day\r\nOnce the player did all the necessary moves, the player can move to the next \r\n"
+				+ "day which either moves on to the next player or move to the next day \r\ndepending on the situation.\r\n\r\n"
+				+ "Score \r\nThe score is calculated daily depending on the pet's status. On the final day, \r\n"
+				+ "the player can earn extra points depending on the pet's condition. However, \r\n"
+				+ "the player can also lose points by having pets with a condition sick or dead. ");
 	}
 	/**
 	 * returns Boolean.
@@ -357,7 +399,7 @@ public class GameEnvironment implements Printable {
 		printToScreen("Here is the following status of " + food.getName() + " (1 = Bad, 10 = Good)");
 		printToScreen("Nutrition: " + Integer.toString(food.getNutrition()));
 		printToScreen("Taste: " + Integer.toString(food.getTaste()));
-		if (food.getFullness() <= 1) {
+		if (food.getFullness() <= 1) { 
 			printToScreen("Meal size: Small");
 			}
 		else {

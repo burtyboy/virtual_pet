@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 import java.awt.EventQueue;
 
@@ -186,7 +186,7 @@ public class App{
 					else {
 						boolean isValid = true;
 						for(Player person:game.playerArray){
-							if(person.getName().equals(textFieldPlayerName.getText())){
+							if(person.getPetName().equals(textFieldPlayerName.getText())){
 								isValid = false;
 								try {
 									ErrorUniqueName dialog = new ErrorUniqueName();
@@ -226,7 +226,7 @@ public class App{
 		currentPlayer = (Player) game.playerArray.get(index);
 		frame.getContentPane().setBackground(new Color(240, 255, 255));
 		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
-		JLabel lblPlayer = new JLabel("Player: " + currentPlayer.getName());
+		JLabel lblPlayer = new JLabel("Player: " + currentPlayer.getPetName());
 		lblPlayer.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		frame.getContentPane().add(lblPlayer);
 		JLabel lblQuantityPets = new JLabel("How many pets would you like?");
@@ -273,7 +273,7 @@ public class App{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
-		JLabel lblPlayerName = new JLabel("  Player: " + currentPlayer.getName());
+		JLabel lblPlayerName = new JLabel("  Player: " + currentPlayer.getPetName());
 		lblPlayerName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
 		GridBagConstraints gbc_lblPlayerName = new GridBagConstraints();
 		gbc_lblPlayerName.anchor = GridBagConstraints.WEST;
@@ -539,7 +539,7 @@ public class App{
 					else {
 						boolean isValid = true;
 						for(Player person:game.playerArray){
-							if(person.getName().equals(petName)){
+							if(person.getPetName().equals(petName)){
 								isValid = false;
 								try {
 									ErrorUniqueName dialog = new ErrorUniqueName();
@@ -552,7 +552,7 @@ public class App{
 							}
 						}
 						for (Pet animal:currentPlayer.petArray){
-							if(animal.getName().equals(petName)){
+							if(animal.getPetName().equals(petName)){
 								isValid = false;
 								try {
 									ErrorUniqueName dialog = new ErrorUniqueName();
@@ -952,7 +952,7 @@ public class App{
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JLabel lblPlayer = new JLabel("Player: " + currentPlayer.getName());
+		JLabel lblPlayer = new JLabel("Player: " + currentPlayer.getPetName());
 		lblPlayer.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		GridBagConstraints gbc_lblPlayer = new GridBagConstraints();
 		gbc_lblPlayer.anchor = GridBagConstraints.WEST;
@@ -1001,9 +1001,9 @@ public class App{
 		ArrayList<String> itemNames = new ArrayList<String>(0);
 		ArrayList<String> items = new ArrayList<String>(0);
 		for (Item item:currentPlayer.inventory) {
-			items.add(item.getName());
-			if (itemNames.contains(item.getName()) == false) {
-				itemNames.add(item.getName());
+			items.add(item.getPetName());
+			if (itemNames.contains(item.getPetName()) == false) {
+				itemNames.add(item.getPetName());
 			}
 		}
 		for (String name:itemNames) {
@@ -1043,7 +1043,7 @@ public class App{
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelPetStat.setLayout(gbl_panel_2);
 		
-		JLabel lblPetName = new JLabel("Pet name: " + currentPet.getName());
+		JLabel lblPetName = new JLabel("Pet name: " + currentPet.getPetName());
 		lblPetName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		GridBagConstraints gbc_lblPetName = new GridBagConstraints();
 		gbc_lblPetName.anchor = GridBagConstraints.WEST;
@@ -1106,7 +1106,7 @@ public class App{
 		String condition = "Healthy";
 		JLabel lblCondition = new JLabel("Condition: " + condition);
 		lblCondition.setForeground(new Color(0, 0, 0));
-		if(currentPet.isMisbehave()) {
+		if(currentPet.getIsMisbehave()) {
 			condition = "Misbehaving";
 			lblCondition.setText("Condition: " + condition);
 			lblCondition.setForeground(new Color(255, 255, 0));
@@ -1173,7 +1173,7 @@ public class App{
 				String pet1Bladder = String.join("", Collections.nCopies(currentPet.getBladder(), box));
 				String pet1Energy = String.join("", Collections.nCopies(currentPet.getEnergy(), box));
 				String pet1Hunger = String.join("", Collections.nCopies(currentPet.getHunger(), box));
-				lblPetName.setText("Pet name: " + currentPet.getName());
+				lblPetName.setText("Pet name: " + currentPet.getPetName());
 				lblHappiness.setText("Happiness: " + pet1Happiness);
 				lblBladder.setText("Bladder: " + pet1Bladder);
 				lblEnergy.setText("Energy: " + pet1Energy);
@@ -1182,7 +1182,7 @@ public class App{
 				String condition = "Healthy";
 				lblCondition.setText("Condition: " + condition);
 				lblCondition.setForeground(new Color(0, 0, 0));
-				if(currentPet.isMisbehave()) {
+				if(currentPet.getIsMisbehave()) {
 					condition = "Misbehaving";
 					lblCondition.setText("Condition: " + condition);
 					lblCondition.setForeground(new Color(255, 255, 0));
@@ -1244,7 +1244,7 @@ public class App{
 				String pet1Bladder = String.join("", Collections.nCopies(currentPet.getBladder(), box));
 				String pet1Energy = String.join("", Collections.nCopies(currentPet.getEnergy(), box));
 				String pet1Hunger = String.join("", Collections.nCopies(currentPet.getHunger(), box));
-				lblPetName.setText("Pet name: " + currentPet.getName());
+				lblPetName.setText("Pet name: " + currentPet.getPetName());
 				lblHappiness.setText("Happiness: " + pet1Happiness);
 				lblBladder.setText("Bladder: " + pet1Bladder);
 				lblEnergy.setText("Energy: " + pet1Energy);
@@ -1253,7 +1253,7 @@ public class App{
 				String condition = "Healthy";
 				lblCondition.setText("Condition: " + condition);
 				lblCondition.setForeground(new Color(0, 0, 0));
-				if(currentPet.isMisbehave()) {
+				if(currentPet.getIsMisbehave()) {
 					condition = "Misbehaving";
 					lblCondition.setText("Condition: " + condition);
 					lblCondition.setForeground(new Color(255, 255, 0));
@@ -1317,7 +1317,7 @@ public class App{
 				String pet1Bladder = String.join("", Collections.nCopies(currentPet.getBladder(), box));
 				String pet1Energy = String.join("", Collections.nCopies(currentPet.getEnergy(), box));
 				String pet1Hunger = String.join("", Collections.nCopies(currentPet.getHunger(), box));
-				lblPetName.setText("Pet name: " + currentPet.getName());
+				lblPetName.setText("Pet name: " + currentPet.getPetName());
 				lblHappiness.setText("Happiness: " + pet1Happiness);
 				lblBladder.setText("Bladder: " + pet1Bladder);
 				lblEnergy.setText("Energy: " + pet1Energy);
@@ -1326,7 +1326,7 @@ public class App{
 				String condition = "Healthy";
 				lblCondition.setText("Condition: " + condition);
 				lblCondition.setForeground(new Color(0, 0, 0));
-				if(currentPet.isMisbehave()) {
+				if(currentPet.getIsMisbehave()) {
 					condition = "Misbehaving";
 					lblCondition.setText("Condition: " + condition);
 					lblCondition.setForeground(new Color(255, 255, 0));
@@ -1767,7 +1767,7 @@ public class App{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.setLayout(gridBagLayout);
 		
-		JLabel lblMessage1 = new JLabel(currentPet.getName() + " is mentally tired.");
+		JLabel lblMessage1 = new JLabel(currentPet.getPetName() + " is mentally tired.");
 		lblMessage1.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		lblMessage1.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblMessage1 = new GridBagConstraints();
@@ -1776,7 +1776,7 @@ public class App{
 		gbc_lblMessage1.gridy = 0;
 		frame.getContentPane().add(lblMessage1, gbc_lblMessage1);
 		
-		JLabel labelMessage2 = new JLabel(currentPet.getName() + " is physically tired.");
+		JLabel labelMessage2 = new JLabel(currentPet.getPetName() + " is physically tired.");
 		labelMessage2.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage2.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelMessage2 = new GridBagConstraints();
@@ -1785,7 +1785,7 @@ public class App{
 		gbc_labelMessage2.gridy = 1;
 		frame.getContentPane().add(labelMessage2, gbc_labelMessage2);
 		
-		JLabel labelMessage3 = new JLabel(currentPet.getName() + " is emotionally tired.");
+		JLabel labelMessage3 = new JLabel(currentPet.getPetName() + " is emotionally tired.");
 		labelMessage3.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage3.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelMessage3 = new GridBagConstraints();
@@ -1844,7 +1844,7 @@ public class App{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.setLayout(gridBagLayout);
 		
-		JLabel lblMessage1 = new JLabel(currentPlayer.getName() + " is looking for " + currentPet.getName());
+		JLabel lblMessage1 = new JLabel(currentPlayer.getPetName() + " is looking for " + currentPet.getPetName());
 		lblMessage1.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		lblMessage1.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblMessage1 = new GridBagConstraints();
@@ -1853,7 +1853,7 @@ public class App{
 		gbc_lblMessage1.gridy = 0;
 		frame.getContentPane().add(lblMessage1, gbc_lblMessage1);
 		
-		JLabel labelMessage2 = new JLabel(currentPlayer.getName() + " realised " + currentPet.getName() + " is no longer living in this world.");
+		JLabel labelMessage2 = new JLabel(currentPlayer.getPetName() + " realised " + currentPet.getPetName() + " is no longer living in this world.");
 		labelMessage2.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage2.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelMessage2 = new GridBagConstraints();
@@ -1862,7 +1862,7 @@ public class App{
 		gbc_labelMessage2.gridy = 1;
 		frame.getContentPane().add(labelMessage2, gbc_labelMessage2);
 		
-		JLabel labelMessage3 = new JLabel(currentPlayer.getName() + " cries.");
+		JLabel labelMessage3 = new JLabel(currentPlayer.getPetName() + " cries.");
 		labelMessage3.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMessage3.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelMessage3 = new GridBagConstraints();
@@ -1959,8 +1959,8 @@ public class App{
 		
 		JTextPane txtpnMessage = new JTextPane();
 		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 17));
-		txtpnMessage.setText(currentPlayer.getName() + " sent " + currentPet.getName() + " to the toilet.\r\n" 
-				+ currentPet.getName() + " feels relief.");
+		txtpnMessage.setText(currentPlayer.getPetName() + " sent " + currentPet.getPetName() + " to the toilet.\r\n" 
+				+ currentPet.getPetName() + " feels relief.");
 		txtpnMessage.setBackground(new Color(240, 255, 255));
 		txtpnMessage.setForeground(new Color(0, 0, 0));
 		GridBagConstraints gbc_txtpnMessage = new GridBagConstraints();
@@ -2046,8 +2046,8 @@ public class App{
 		
 		JTextPane txtpnMessage = new JTextPane();
 		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 17));
-		txtpnMessage.setText(currentPlayer.getName() + " sent " + currentPet.getName() + " to the naughty corner.\r\n" 
-				+ currentPet.getName() + " is starting to behave now but is feeling unhappy.");
+		txtpnMessage.setText(currentPlayer.getPetName() + " sent " + currentPet.getPetName() + " to the naughty corner.\r\n" 
+				+ currentPet.getPetName() + " is starting to behave now but is feeling unhappy.");
 		txtpnMessage.setBackground(new Color(240, 255, 255));
 		txtpnMessage.setForeground(new Color(0, 0, 0));
 		GridBagConstraints gbc_txtpnMessage = new GridBagConstraints();
@@ -2116,12 +2116,12 @@ public class App{
 		lblSleep.setIcon(new ImageIcon("Images/Sleep.PNG"));
 		panelPicture.add(lblSleep);
 		String message;
-		if (currentPet.isMisbehave()) {
-			message = currentPet.getName() + " is pretending to sleep.";
+		if (currentPet.getIsMisbehave()) {
+			message = currentPet.getPetName() + " is pretending to sleep.";
 		}
 		else {
-			message =  currentPet.getName() + " is sleeping... zzzzzzzz. \r\n"
-					+ currentPet.getName() + " has woken up and feels great!";
+			message =  currentPet.getPetName() + " is sleeping... zzzzzzzz. \r\n"
+					+ currentPet.getPetName() + " has woken up and feels great!";
 		}
 		JPanel panelMessage = new JPanel();
 		panelMessage.setBackground(new Color(240, 255, 255));
@@ -2140,7 +2140,7 @@ public class App{
 		panelMessage.setLayout(gbl_panelMessage);
 		JTextPane txtpnMessage = new JTextPane();
 		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 17));
-		txtpnMessage.setText(currentPlayer.getName() + " put " + currentPet.getName() + " to sleep.\r\n" 
+		txtpnMessage.setText(currentPlayer.getPetName() + " put " + currentPet.getPetName() + " to sleep.\r\n" 
 				+ message);
 		txtpnMessage.setBackground(new Color(240, 255, 255));
 		txtpnMessage.setForeground(new Color(0, 0, 0));
@@ -2190,11 +2190,11 @@ public class App{
 		int index = 0;
 		for (Item i : currentPlayer.inventory) {
 			if (i instanceof Toy) {
-				if (toyNames.contains(i.getName()) == false) {
+				if (toyNames.contains(i.getPetName()) == false) {
 				toyPos.add(index);
-				toyNames.add(i.getName());
+				toyNames.add(i.getPetName());
 				}
-			toyInventory.add(i.getName());
+			toyInventory.add(i.getPetName());
 			}
 			index++;
 		}
@@ -2283,7 +2283,7 @@ public class App{
 		
 		JTextPane textPaneMessage = new JTextPane();
 		textPaneMessage.setForeground(new Color(255, 255, 255));
-		textPaneMessage.setText("Which toy would you like " + currentPet.getName() + " to play?");
+		textPaneMessage.setText("Which toy would you like " + currentPet.getPetName() + " to play?");
 		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textPaneMessage.setBackground(new Color(47, 79, 79));
 		GridBagConstraints gbc_textPaneMessage = new GridBagConstraints();
@@ -2293,8 +2293,8 @@ public class App{
 		gbc_textPaneMessage.gridy = 2;
 		frame.getContentPane().add(textPaneMessage, gbc_textPaneMessage);
 		if (toyNames.size() == 0) {
-			textPaneMessage.setText(currentPlayer.getName() + " is looking for toys, but could not find any food inside his bag.\r\n"
-					+ currentPlayer.getName() + " has wasted " + currentPet.getName() + "'s precious time.");
+			textPaneMessage.setText(currentPlayer.getPetName() + " is looking for toys, but could not find any food inside his bag.\r\n"
+					+ currentPlayer.getPetName() + " has wasted " + currentPet.getPetName() + "'s precious time.");
 			lblYesBtn.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					frame.getContentPane().remove(comboBox);
@@ -2311,7 +2311,7 @@ public class App{
 		}
 		else {
 			currentToy = (Toy) currentPlayer.inventory.get(toyPos.get(0));
-			if (currentToy.getName() == "Football") {
+			if (currentToy.getPetName() == "Football") {
 				lblToy.setIcon(new ImageIcon("Images/Football.png"));
 				String box = "\u239A";
 				String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2319,7 +2319,7 @@ public class App{
 				lblDurability.setText("Durability: " + durability);
 				lblHappiness.setText("Happiness: " + happiness);
 			}
-			if (currentToy.getName() == "Stick") {
+			if (currentToy.getPetName() == "Stick") {
 				lblToy.setIcon(new ImageIcon("Images/Stick.png"));
 				String box = "\u239A";
 				String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2327,7 +2327,7 @@ public class App{
 				lblDurability.setText("Durability: " + durability);
 				lblHappiness.setText("Happiness: " + happiness);
 			}
-			if (currentToy.getName() == "Toilet paper") {
+			if (currentToy.getPetName() == "Toilet paper") {
 				lblToy.setIcon(new ImageIcon("Images/ToiletPaper.png"));
 				String box = "\u239A";
 				String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2335,7 +2335,7 @@ public class App{
 				lblDurability.setText("Durability: " + durability);
 				lblHappiness.setText("Happiness: " + happiness);
 			}
-			if (currentToy.getName() == "Toy Car") {
+			if (currentToy.getPetName() == "Toy Car") {
 				lblToy.setIcon(new ImageIcon("Images/ToyCar.png"));
 				String box = "\u239A";
 				String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2343,7 +2343,7 @@ public class App{
 				lblDurability.setText("Durability: " + durability);
 				lblHappiness.setText("Happiness: " + happiness);
 			}
-			if (currentToy.getName() == "Doll") {
+			if (currentToy.getPetName() == "Doll") {
 				lblToy.setIcon(new ImageIcon("Images/Doll.png"));
 				String box = "\u239A";
 				String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2351,7 +2351,7 @@ public class App{
 				lblDurability.setText("Durability: " + durability);
 				lblHappiness.setText("Happiness: " + happiness);
 			}
-			if (currentToy.getName() == "Pillow") {
+			if (currentToy.getPetName() == "Pillow") {
 				lblToy.setIcon(new ImageIcon("Images/Pillow.png"));
 				String box = "\u239A";
 				String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2362,7 +2362,7 @@ public class App{
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent arg0) {
 					currentToy = (Toy) currentPlayer.inventory.get(toyPos.get(comboBox.getSelectedIndex()));
-					if (currentToy.getName() == "Football") {
+					if (currentToy.getPetName() == "Football") {
 						lblToy.setIcon(new ImageIcon("Images/Football.png"));
 						String box = "\u239A";
 						String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2370,7 +2370,7 @@ public class App{
 						lblDurability.setText("Durability: " + durability);
 						lblHappiness.setText("Happiness: " + happiness);
 					}
-					if (currentToy.getName() == "Stick") {
+					if (currentToy.getPetName() == "Stick") {
 						lblToy.setIcon(new ImageIcon("Images/Stick.png"));
 						String box = "\u239A";
 						String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2378,7 +2378,7 @@ public class App{
 						lblDurability.setText("Durability: " + durability);
 						lblHappiness.setText("Happiness: " + happiness);
 					}
-					if (currentToy.getName() == "Toilet paper") {
+					if (currentToy.getPetName() == "Toilet paper") {
 						lblToy.setIcon(new ImageIcon("Images/ToiletPaper.png"));
 						String box = "\u239A";
 						String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2386,7 +2386,7 @@ public class App{
 						lblDurability.setText("Durability: " + durability);
 						lblHappiness.setText("Happiness: " + happiness);
 					}
-					if (currentToy.getName() == "Toy Car") {
+					if (currentToy.getPetName() == "Toy Car") {
 						lblToy.setIcon(new ImageIcon("Images/ToyCar.png"));
 						String box = "\u239A";
 						String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2394,7 +2394,7 @@ public class App{
 						lblDurability.setText("Durability: " + durability);
 						lblHappiness.setText("Happiness: " + happiness);
 					}
-					if (currentToy.getName() == "Doll") {
+					if (currentToy.getPetName() == "Doll") {
 						lblToy.setIcon(new ImageIcon("Images/Doll.png"));
 						String box = "\u239A";
 						String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2402,7 +2402,7 @@ public class App{
 						lblDurability.setText("Durability: " + durability);
 						lblHappiness.setText("Happiness: " + happiness);
 					}
-					if (currentToy.getName() == "Pillow") {
+					if (currentToy.getPetName() == "Pillow") {
 						lblToy.setIcon(new ImageIcon("Images/Pillow.png"));
 						String box = "\u239A";
 						String happiness = String.join("", Collections.nCopies(currentToy.getHappy(), box));
@@ -2416,26 +2416,26 @@ public class App{
 				public void mouseClicked(MouseEvent e) {
 					String message;
 					int index = toyPos.get(comboBox.getSelectedIndex());
-					if (currentPet.getFavouriteToy() == currentToy.getName()) {
-						message = currentPet.getName() + " is happily playing with a " + currentToy.getName();
+					if (currentPet.getFavouriteToy() == currentToy.getPetName()) {
+						message = currentPet.getPetName() + " is happily playing with a " + currentToy.getPetName();
 						int funUp = currentToy.getHappy() + 1;
 						currentPet.setHappiness(funUp);
 					}
 					else {
-						message = currentPet.getName() + " is playing with a " + currentToy.getName();
+						message = currentPet.getPetName() + " is playing with a " + currentToy.getPetName();
 						currentPet.setHappiness(currentToy.getHappy());
 					}
-					if (currentPet.isMisbehave() == true) {
-						message = message + "\r\n" + currentPet.getName() + " is trying to break the " + currentToy.getName();
+					if (currentPet.getIsMisbehave() == true) {
+						message = message + "\r\n" + currentPet.getPetName() + " is trying to break the " + currentToy.getPetName();
 						currentToy.setDurability(1);
 					}
 					currentToy.setDurability(currentPet.getAggression());
 					if (currentToy.getDurability() <= 0) {
-						message = message + "\r\n" + "Oh no the " + currentToy.getName() + " is broken!";
+						message = message + "\r\n" + "Oh no the " + currentToy.getPetName() + " is broken!";
 						currentPlayer.inventory.remove(index);
 					}
 					if (currentPet.isSick() == true) {
-						message = message + "\r\n" + currentPet.getName() + " is exhausted.";
+						message = message + "\r\n" + currentPet.getPetName() + " is exhausted.";
 						int drops1 = 0 - (currentToy.getExercise() + 1);
 						currentPet.setEnergy(drops1);
 						currentPet.setHunger(drops1);
@@ -2492,11 +2492,11 @@ public class App{
 		int index = 0;
 		for (Item i : currentPlayer.inventory) {
 			if (i instanceof Food) {
-				if (foodNames.contains(i.getName()) == false) {
+				if (foodNames.contains(i.getPetName()) == false) {
 				foodPos.add(index);
-				foodNames.add(i.getName());
+				foodNames.add(i.getPetName());
 				}
-			foodInventory.add(i.getName());
+			foodInventory.add(i.getPetName());
 			}
 			index++;
 		}
@@ -2585,7 +2585,7 @@ public class App{
 		
 		JTextPane textPaneMessage = new JTextPane();
 		textPaneMessage.setForeground(new Color(255, 255, 255));
-		textPaneMessage.setText("Which food would you like " + currentPet.getName() + " to eat?");
+		textPaneMessage.setText("Which food would you like " + currentPet.getPetName() + " to eat?");
 		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		textPaneMessage.setBackground(new Color(47, 79, 79));
 		GridBagConstraints gbc_textPaneMessage = new GridBagConstraints();
@@ -2595,8 +2595,8 @@ public class App{
 		gbc_textPaneMessage.gridy = 2;
 		frame.getContentPane().add(textPaneMessage, gbc_textPaneMessage);
 		if (foodNames.size() == 0) {
-			textPaneMessage.setText(currentPlayer.getName() + " is looking for foods, but could not find any food inside his bag.\r\n"
-					+ currentPlayer.getName() + " has wasted " + currentPet.getName() + "'s precious time.");
+			textPaneMessage.setText(currentPlayer.getPetName() + " is looking for foods, but could not find any food inside his bag.\r\n"
+					+ currentPlayer.getPetName() + " has wasted " + currentPet.getPetName() + "'s precious time.");
 			lblYesBtn.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					frame.getContentPane().remove(comboBox);
@@ -2613,7 +2613,7 @@ public class App{
 		}
 		else {
 			currentFood = (Food) currentPlayer.inventory.get(foodPos.get(0));
-			if (currentFood.getName() == "Italian pizza") {
+			if (currentFood.getPetName() == "Italian pizza") {
 				lblFood.setIcon(new ImageIcon("Images/Pizza.png"));
 				String box = "\u239A";
 				String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2621,7 +2621,7 @@ public class App{
 				lblTaste.setText("Taste: " + Taste);
 				lblNutrition.setText("Nutrition: " + nutrition);
 			}
-			if (currentFood.getName() == "Fried Chicken") {
+			if (currentFood.getPetName() == "Fried Chicken") {
 				lblFood.setIcon(new ImageIcon("Images/Fried Chicken.png"));
 				String box = "\u239A";
 				String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2629,7 +2629,7 @@ public class App{
 				lblTaste.setText("Taste: " + Taste);
 				lblNutrition.setText("Nutrition: " + nutrition);
 			}
-			if (currentFood.getName() == "Curry rice") {
+			if (currentFood.getPetName() == "Curry rice") {
 				lblFood.setIcon(new ImageIcon("Images/Curry Rice.png"));
 				String box = "\u239A";
 				String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2637,7 +2637,7 @@ public class App{
 				lblTaste.setText("Taste: " + Taste);
 				lblNutrition.setText("Nutrition: " + nutrition);
 			}
-			if (currentFood.getName() == "Fish and chips") {
+			if (currentFood.getPetName() == "Fish and chips") {
 				lblFood.setIcon(new ImageIcon("Images/FishAndChip.png"));
 				String box = "\u239A";
 				String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2645,7 +2645,7 @@ public class App{
 				lblTaste.setText("Taste: " + Taste);
 				lblNutrition.setText("Nutrition: " + nutrition);
 			}
-			if (currentFood.getName() == "Hamburger") {
+			if (currentFood.getPetName() == "Hamburger") {
 				lblFood.setIcon(new ImageIcon("Images/Hamburger.png"));
 				String box = "\u239A";
 				String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2653,7 +2653,7 @@ public class App{
 				lblTaste.setText("Taste: " + Taste);
 				lblNutrition.setText("Nutrition: " + nutrition);
 			}
-			if (currentFood.getName() == "Steak") {
+			if (currentFood.getPetName() == "Steak") {
 				lblFood.setIcon(new ImageIcon("Images/Steak.png"));
 				String box = "\u239A";
 				String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2664,7 +2664,7 @@ public class App{
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent arg0) {
 					currentFood = (Food) currentPlayer.inventory.get(foodPos.get(comboBox.getSelectedIndex()));
-					if (currentFood.getName() == "Italian pizza") {
+					if (currentFood.getPetName() == "Italian pizza") {
 						lblFood.setIcon(new ImageIcon("Images/Pizza.png"));
 						String box = "\u239A";
 						String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2672,7 +2672,7 @@ public class App{
 						lblTaste.setText("Taste: " + Taste);
 						lblNutrition.setText("Nutrition: " + nutrition);
 					}
-					if (currentFood.getName() == "Fried Chicken") {
+					if (currentFood.getPetName() == "Fried Chicken") {
 						lblFood.setIcon(new ImageIcon("Images/Fried Chicken.png"));
 						String box = "\u239A";
 						String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2680,7 +2680,7 @@ public class App{
 						lblTaste.setText("Taste: " + Taste);
 						lblNutrition.setText("Nutrition: " + nutrition);
 					}
-					if (currentFood.getName() == "Curry rice") {
+					if (currentFood.getPetName() == "Curry rice") {
 						lblFood.setIcon(new ImageIcon("Images/Curry Rice.png"));
 						String box = "\u239A";
 						String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2688,7 +2688,7 @@ public class App{
 						lblTaste.setText("Taste: " + Taste);
 						lblNutrition.setText("Nutrition: " + nutrition);
 					}
-					if (currentFood.getName() == "Fish and chips") {
+					if (currentFood.getPetName() == "Fish and chips") {
 						lblFood.setIcon(new ImageIcon("Images/FishAndChip.png"));
 						String box = "\u239A";
 						String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2696,7 +2696,7 @@ public class App{
 						lblTaste.setText("Taste: " + Taste);
 						lblNutrition.setText("Nutrition: " + nutrition);
 					}
-					if (currentFood.getName() == "Hamburger") {
+					if (currentFood.getPetName() == "Hamburger") {
 						lblFood.setIcon(new ImageIcon("Images/Hamburger.png"));
 						String box = "\u239A";
 						String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2704,7 +2704,7 @@ public class App{
 						lblTaste.setText("Taste: " + Taste);
 						lblNutrition.setText("Nutrition: " + nutrition);
 					}
-					if (currentFood.getName() == "Steak") {
+					if (currentFood.getPetName() == "Steak") {
 						lblFood.setIcon(new ImageIcon("Images/Steak.png"));
 						String box = "\u239A";
 						String nutrition = String.join("", Collections.nCopies(currentFood.getNutrition(), box));
@@ -2718,14 +2718,14 @@ public class App{
 				public void mouseClicked(MouseEvent e) {
 					int index = foodPos.get(comboBox.getSelectedIndex());
 					if (currentPet.isSick() == true) {
-						textPaneMessage.setText(currentPet.getName() + " is slowly eating " + currentFood.getName());
+						textPaneMessage.setText(currentPet.getPetName() + " is slowly eating " + currentFood.getPetName());
 						currentPet.setHunger(currentFood.getNutrition());
 						int bladderDrop = 0 - currentFood.getFullness();
 						currentPet.setBladder(bladderDrop);
 					}
 					else {	
-						if (currentPet.getFavouriteFood() == currentFood.getName()) {
-							textPaneMessage.setText(currentPet.getName() + " is happily eating " + currentFood.getName());
+						if (currentPet.getFavouriteFood() == currentFood.getPetName()) {
+							textPaneMessage.setText(currentPet.getPetName() + " is happily eating " + currentFood.getPetName());
 							currentPet.setHunger(currentFood.getNutrition());
 							int bladderDrop = 0 - currentFood.getFullness();
 							currentPet.setBladder(bladderDrop);
@@ -2733,7 +2733,7 @@ public class App{
 							currentPet.setHappiness(happyUp);
 						}
 						else {
-							textPaneMessage.setText(currentPet.getName() + " is eating " + currentFood.getName());
+							textPaneMessage.setText(currentPet.getPetName() + " is eating " + currentFood.getPetName());
 							currentPet.setHunger(currentFood.getNutrition());
 							int bladderDrop = 0 - currentFood.getFullness();
 							currentPet.setBladder(bladderDrop);
@@ -2857,7 +2857,7 @@ public class App{
 		gbc_lblPlayerName.gridy = 1;
 		panelBankStatement.add(lblPlayerName, gbc_lblPlayerName);
 		
-		JLabel lblName = new JLabel(currentPlayer.getName());
+		JLabel lblName = new JLabel(currentPlayer.getPetName());
 		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.insets = new Insets(0, 0, 5, 0);
@@ -3047,7 +3047,7 @@ public class App{
 		int index = 0;
 		for(Pet animal:currentPlayer.petArray) {
 			if (animal.isDead() == true && animal.isZombie() == false) {
-				comboBox.addItem(animal.getName());
+				comboBox.addItem(animal.getPetName());
 				position.add(index);
 				}
 			index++;
@@ -3142,7 +3142,7 @@ public class App{
 			if (currentPet instanceof Tiger) {
 				lblPets.setIcon(new ImageIcon("Images/Tiger.png"));
 			}
-			lblPetName.setText("Name: " + currentPet.getName());
+			lblPetName.setText("Name: " + currentPet.getPetName());
 			lblCost.setText("Cost: $30");
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent arg0) {
@@ -3165,7 +3165,7 @@ public class App{
 					if (currentPet instanceof Tiger) {
 						lblPets.setIcon(new ImageIcon("Images/Tiger.png"));
 					}
-					lblPetName.setText("Name: " + currentPet.getName());
+					lblPetName.setText("Name: " + currentPet.getPetName());
 				}
 			});
 			lblYesbtn.addMouseListener(new MouseAdapter() {
@@ -3174,7 +3174,7 @@ public class App{
 						currentPet.setDead(false);
 						currentPet.setZombie(true);
 						currentPlayer.setMoney(-30);
-						textPaneMessage.setText(currentPet.getName() + " is back from the dead!");
+						textPaneMessage.setText(currentPet.getPetName() + " is back from the dead!");
 						}
 						else {
 							try {
@@ -3260,7 +3260,7 @@ public class App{
 		int index = 0;
 		for(Pet animal:currentPlayer.petArray) {
 			if (animal.isSick() == true && animal.getActionsRemaning() > 0) {
-				comboBox.addItem(animal.getName());
+				comboBox.addItem(animal.getPetName());
 				position.add(index);
 				}
 			index++;
@@ -3385,7 +3385,7 @@ public class App{
 					lblPets.setIcon(new ImageIcon("Images/Tiger.png"));
 				}
 			}
-			lblPetName.setText("Name: " + currentPet.getName());
+			lblPetName.setText("Name: " + currentPet.getPetName());
 			lblCost.setText("Cost: $10");
 			comboBox.addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent arg0) {
@@ -3438,7 +3438,7 @@ public class App{
 							lblPets.setIcon(new ImageIcon("Images/Tiger.png"));
 						}
 					}
-					lblPetName.setText("Name: " + currentPet.getName());
+					lblPetName.setText("Name: " + currentPet.getPetName());
 				}
 			});
 			lblYesbtn.addMouseListener(new MouseAdapter() {
@@ -3448,7 +3448,7 @@ public class App{
 						currentPet.setHappiness(3);
 						int waitingTime = currentPet.getActionsRemaning() - 1;
 						currentPet.setActionsRemaining(waitingTime);
-						textPaneMessage.setText(currentPet.getName() + " is feeling much better now!");
+						textPaneMessage.setText(currentPet.getPetName() + " is feeling much better now!");
 						currentPlayer.setMoney(-10);
 						}
 						else {
@@ -3615,7 +3615,7 @@ public class App{
 			}
 		
 		
-		JLabel lblToyName = new JLabel("Name: " + currentToy.getName());
+		JLabel lblToyName = new JLabel("Name: " + currentToy.getPetName());
 		lblToyName.setForeground(new Color(255, 255, 255));
 		lblToyName.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblFoodName = new GridBagConstraints();
@@ -3691,7 +3691,7 @@ public class App{
 		gbc_lblPlayerName.gridy = 1;
 		panelBankStatement.add(lblPlayerName, gbc_lblPlayerName);
 		
-		JLabel lblName = new JLabel(currentPlayer.getName());
+		JLabel lblName = new JLabel(currentPlayer.getPetName());
 		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.insets = new Insets(0, 0, 5, 0);
@@ -3795,7 +3795,7 @@ public class App{
 				if (currentToy.getExercise() == 1) {
 					exercise = "Exercise: low";
 					}
-				lblToyName.setText("Name: " + currentToy.getName());
+				lblToyName.setText("Name: " + currentToy.getPetName());
 				labelNutrition.setText("Happiness: " + happiness);
 				labelTaste.setText("Durablity: " + durability);
 				labelMealSize.setText(exercise);
@@ -3819,7 +3819,7 @@ public class App{
 				if (currentToy.getExercise() == 1) {
 					exercise = "Exercise: low";
 					}
-				lblToyName.setText("Name: " + currentToy.getName());
+				lblToyName.setText("Name: " + currentToy.getPetName());
 				labelNutrition.setText("Happiness: " + happiness);
 				labelTaste.setText("Durablity: " + durability);
 				labelMealSize.setText(exercise);
@@ -3843,7 +3843,7 @@ public class App{
 				if (currentToy.getExercise() == 1) {
 					exercise = "Exercise: low";
 					}
-				lblToyName.setText("Name: " + currentToy.getName());
+				lblToyName.setText("Name: " + currentToy.getPetName());
 				labelNutrition.setText("Happiness: " + happiness);
 				labelTaste.setText("Durablity: " + durability);
 				labelMealSize.setText(exercise);
@@ -3867,7 +3867,7 @@ public class App{
 				if (currentToy.getExercise() == 1) {
 					exercise = "Exercise: low";
 					}
-				lblToyName.setText("Name: " + currentToy.getName());
+				lblToyName.setText("Name: " + currentToy.getPetName());
 				labelNutrition.setText("Happiness: " + happiness);
 				labelTaste.setText("Durablity: " + durability);
 				labelMealSize.setText(exercise);
@@ -3891,7 +3891,7 @@ public class App{
 				if (currentToy.getExercise() == 1) {
 					exercise = "Exercise: low";
 					}
-				lblToyName.setText("Name: " + currentToy.getName());
+				lblToyName.setText("Name: " + currentToy.getPetName());
 				labelNutrition.setText("Happiness: " + happiness);
 				labelTaste.setText("Durablity: " + durability);
 				labelMealSize.setText(exercise);
@@ -3915,7 +3915,7 @@ public class App{
 				if (currentToy.getExercise() == 1) {
 					exercise = "Exercise: low";
 					}
-				lblToyName.setText("Name: " + currentToy.getName());
+				lblToyName.setText("Name: " + currentToy.getPetName());
 				labelNutrition.setText("Happiness: " + happiness);
 				labelTaste.setText("Durablity: " + durability);
 				labelMealSize.setText(exercise);
@@ -4077,7 +4077,7 @@ public class App{
 				mealSize ="Meal size: Medium";
 			}
 		
-		JLabel lblFoodName = new JLabel("Name: " + currentFood.getName());
+		JLabel lblFoodName = new JLabel("Name: " + currentFood.getPetName());
 		lblFoodName.setForeground(new Color(255, 255, 255));
 		lblFoodName.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		GridBagConstraints gbc_lblFoodName = new GridBagConstraints();
@@ -4153,7 +4153,7 @@ public class App{
 		gbc_lblPlayerName.gridy = 1;
 		panelBankStatement.add(lblPlayerName, gbc_lblPlayerName);
 		
-		JLabel lblName = new JLabel(currentPlayer.getName());
+		JLabel lblName = new JLabel(currentPlayer.getPetName());
 		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		GridBagConstraints gbc_lblName = new GridBagConstraints();
 		gbc_lblName.insets = new Insets(0, 0, 5, 0);
@@ -4256,7 +4256,7 @@ public class App{
 						mealSize ="Meal size: Medium";
 					}
 				}
-				lblFoodName.setText("Name: " + currentFood.getName());
+				lblFoodName.setText("Name: " + currentFood.getPetName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
 				labelMealSize.setText(mealSize);
@@ -4279,7 +4279,7 @@ public class App{
 						mealSize ="Meal size: Medium";
 					}
 				}
-				lblFoodName.setText("Name: " + currentFood.getName());
+				lblFoodName.setText("Name: " + currentFood.getPetName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
 				labelMealSize.setText(mealSize);
@@ -4302,7 +4302,7 @@ public class App{
 						mealSize ="Meal size: Medium";
 					}
 				}
-				lblFoodName.setText("Name: " + currentFood.getName());
+				lblFoodName.setText("Name: " + currentFood.getPetName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
 				labelMealSize.setText(mealSize);
@@ -4325,7 +4325,7 @@ public class App{
 						mealSize ="Meal size: Medium";
 					}
 				}
-				lblFoodName.setText("Name: " + currentFood.getName());
+				lblFoodName.setText("Name: " + currentFood.getPetName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
 				labelMealSize.setText(mealSize);
@@ -4348,7 +4348,7 @@ public class App{
 						mealSize ="Meal size: Medium";
 					}
 				}
-				lblFoodName.setText("Name: " + currentFood.getName());
+				lblFoodName.setText("Name: " + currentFood.getPetName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
 				labelMealSize.setText(mealSize);
@@ -4371,7 +4371,7 @@ public class App{
 						mealSize ="Meal size: Medium";
 					}
 				}
-				lblFoodName.setText("Name: " + currentFood.getName());
+				lblFoodName.setText("Name: " + currentFood.getPetName());
 				labelNutrition.setText("Nutrition: " + nutrition);
 				labelTaste.setText("Taste: " + taste);
 				labelMealSize.setText(mealSize);
@@ -4440,7 +4440,7 @@ public class App{
 				}
 				int finalScore = (int) (scoreAdjust * player.getScore());
 			if (position == 1) {
-				JLabel lblfirstPlace = new JLabel(Integer.toString(position) + ". " + player.getName() + " " + Integer.toString(finalScore) + " points");
+				JLabel lblfirstPlace = new JLabel(Integer.toString(position) + ". " + player.getPetName() + " " + Integer.toString(finalScore) + " points");
 				lblfirstPlace.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 				GridBagConstraints gbc_lblfirstPlace = new GridBagConstraints();
 				gbc_lblfirstPlace.insets = new Insets(0, 0, 5, 0);
@@ -4449,7 +4449,7 @@ public class App{
 				frame.add(lblfirstPlace, gbc_lblfirstPlace);
 			}
 			if (position == 2) {
-				JLabel lblSecondPlace = new JLabel(Integer.toString(position) + ". " + player.getName() + " " + Integer.toString(finalScore) + " points");
+				JLabel lblSecondPlace = new JLabel(Integer.toString(position) + ". " + player.getPetName() + " " + Integer.toString(finalScore) + " points");
 				lblSecondPlace.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 				GridBagConstraints gbc_lblSecondPlace = new GridBagConstraints();
 				gbc_lblSecondPlace.insets = new Insets(0, 0, 5, 0);
@@ -4458,7 +4458,7 @@ public class App{
 				frame.add(lblSecondPlace, gbc_lblSecondPlace);
 			}
 			if (position == 3){
-				JLabel lblThirdPlace = new JLabel(Integer.toString(position) + ". " + player.getName() + " " + Integer.toString(finalScore) + " points");
+				JLabel lblThirdPlace = new JLabel(Integer.toString(position) + ". " + player.getPetName() + " " + Integer.toString(finalScore) + " points");
 				lblThirdPlace.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 				GridBagConstraints gbc_lblThirdPlace = new GridBagConstraints();
 				gbc_lblThirdPlace.gridx = 0;

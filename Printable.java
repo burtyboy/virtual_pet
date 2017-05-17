@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public interface Printable {
 public String getInput();

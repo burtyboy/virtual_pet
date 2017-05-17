@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public class Doll extends Toy{
 	public Doll(){

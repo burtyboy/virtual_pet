@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public class FriedChicken extends Food{
 	

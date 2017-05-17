@@ -1,4 +1,3 @@
-package tamagochi;
 
 public class Dog extends Pet{
 	

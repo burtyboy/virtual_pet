@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public class Toy extends Item{
 	private String name;
@@ -16,7 +16,7 @@ public class Toy extends Item{
 	public int getPrice() {
 		return prices;
 	}
-	public String getName() {
+	public String getPetName() {
 		return name;
 	}
 	public int getDurability() {
@@ -32,6 +32,6 @@ public class Toy extends Item{
 		return exercise;
 	}
 	public String toString(){
-		return getName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
+		return getPetName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
 	}
 }

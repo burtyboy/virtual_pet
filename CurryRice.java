@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public class CurryRice extends Food{
 	public CurryRice(){

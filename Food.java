@@ -1,4 +1,4 @@
-package tamagochi;
+
 
 public class Food extends Item{
 	private String food;
@@ -13,7 +13,7 @@ public class Food extends Item{
 		tastiness = taste;
 		fullness = mealSize;
 	}
-	public String getName() {
+	public String getPetName() {
 		return food;
 	}
 	public int getPrice() {
@@ -30,6 +30,6 @@ public class Food extends Item{
 	}
 	
 	public String toString(){
-		return getName() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getFullness();
+		return getPetName() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getFullness();
 	}
 }

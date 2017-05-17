@@ -1,4 +1,3 @@
-package tamagochi;
 
 public class Pet extends GameEnvironment {
 	private String petName;
@@ -95,7 +94,7 @@ public class Pet extends GameEnvironment {
 	public int getHappiness() {
 		return happiness;
 	}
-	public String getName(){
+	public String getPetName(){
 		return petName;
 	}
 	public int getHungerDrop(){
@@ -113,10 +112,10 @@ public class Pet extends GameEnvironment {
 	public int getActionsRemaning() {
 		return actionsRemaning;
 	}
-	public boolean isMisbehave() {
+	public boolean getIsMisbehave() {
 		return isMisbehave;
 	}
-	public void setbehaviour(boolean isMisbehave) {
+	public void setBehaviour(boolean isMisbehave) {
 		this.isMisbehave = isMisbehave;
 	}
 	public boolean isSick(){

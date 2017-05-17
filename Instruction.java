@@ -1,6 +1,6 @@
-package tamagochi;
 
-import tamagochi.App;
+
+
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.BorderLayout;

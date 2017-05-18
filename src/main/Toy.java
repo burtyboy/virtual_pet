@@ -15,7 +15,7 @@ public class Toy extends Item{
 	public int getPrice() {
 		return prices;
 	}
-	public String getPetName() {
+	public String getToyName() {
 		return name;
 	}
 	public int getDurability() {
@@ -31,6 +31,6 @@ public class Toy extends Item{
 		return exercise;
 	}
 	public String toString(){
-		return getPetName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
+		return getToyName()+": \n\tProvides: \n\t\tHappiness: "+getHappy()+"\n\t\tDurability: "+getDurability();
 	}
 }

@@ -14,7 +14,7 @@ public class Food extends Item{
 		tastiness = taste;
 		fullness = mealSize;
 	}
-	public String getPetName() {
+	public String getFoodName() {
 		return food;
 	}
 	public int getPrice() {
@@ -31,6 +31,6 @@ public class Food extends Item{
 	}
 	
 	public String toString(){
-		return getPetName() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getFullness();
+		return getFoodName() + ":\n\t Provides:\n\t\tNutrition: "+ getNutrition()+"\n\t\tTastiness: " + getTaste()+"\n\t\tBladder Fullness: "+getFullness();
 	}
 }

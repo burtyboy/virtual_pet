@@ -128,7 +128,7 @@ public class GameEnvironmentTest {
 		ocelot.setBehaviour(true);
 		game.discipline(ocelot);
 		assertEquals(ocelot.getHappiness(), 1);
-		assertFalse(ocelot.getIsMisbehave());
+		assertFalse(ocelot.isMisbehave());
 	}
 	
 	@Test

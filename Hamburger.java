@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 public class Hamburger extends Food{
 	public Hamburger(){

@@ -1,3 +1,4 @@
+package tamagochi;
 
 public class Pet extends GameEnvironment {
 	private String petName;
@@ -112,7 +113,7 @@ public class Pet extends GameEnvironment {
 	public int getActionsRemaning() {
 		return actionsRemaning;
 	}
-	public boolean getIsMisbehave() {
+	public boolean isMisbehave() {
 		return isMisbehave;
 	}
 	public void setBehaviour(boolean isMisbehave) {

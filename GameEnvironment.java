@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +54,7 @@ public class GameEnvironment implements Printable {
 				}
 				else {
 			for(Player person:playerArray){
-				if(person.getPetName().equals(playerName)){
+				if(person.getPlayerName().equals(playerName)){
 					isValid = false;
 					printToScreen("Names must be unique, please choose a new name.");
 				}
@@ -82,7 +82,7 @@ public class GameEnvironment implements Printable {
 		while(!isValid){
 			String type = getInput();
 			switch(type){
-				case "1":petName = getPetName();
+				case "1":petName = getName();
 					Pet cat = new Cat(petName);
 					boolean petWanted = petStatusDisplay(cat);
 					if (petWanted == true) {
@@ -96,7 +96,7 @@ public class GameEnvironment implements Printable {
 						printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 						break;
 					}
-				case"2":petName = getPetName(); 
+				case"2":petName = getName(); 
 					Pet dog = new Dog(petName);
 					boolean dogWanted = petStatusDisplay(dog);
 					if (dogWanted == true) {
@@ -110,7 +110,7 @@ public class GameEnvironment implements Printable {
 					printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 					break;
 				}
-				case "3":petName = getPetName(); 
+				case "3":petName = getName(); 
 				Pet catDog = new CatDog(petName);
 				boolean catDogWanted = petStatusDisplay(catDog);
 				if (catDogWanted == true) {
@@ -124,7 +124,7 @@ public class GameEnvironment implements Printable {
 				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 				break;
 			}
-				case "4": petName = getPetName(); 
+				case "4": petName = getName(); 
 				Pet tiger = new Tiger(petName);
 				boolean tigerWanted = petStatusDisplay(tiger);
 				if (tigerWanted == true) {
@@ -138,7 +138,7 @@ public class GameEnvironment implements Printable {
 				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 				break;
 			}
-				case "5": petName = getPetName(); 
+				case "5": petName = getName(); 
 				Pet bird = new Bird(petName);
 				boolean birdWanted = petStatusDisplay(bird);
 				if (birdWanted == true) {
@@ -152,7 +152,7 @@ public class GameEnvironment implements Printable {
 				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 				break;
 			}
-				case "6": petName = getPetName(); 
+				case "6": petName = getName(); 
 				Pet ocelot = new Ocelot(petName);
 				boolean ocelotWanted = petStatusDisplay(ocelot);
 				if (ocelotWanted == true) {
@@ -174,7 +174,7 @@ public class GameEnvironment implements Printable {
 	 * returns string.
 	 * Provides validation for names by checking uniqueness against any pets currently in game, length and Non-emptiness
 	 */
-	public String getPetName(){
+	public String getName(){
 		String petName = "";
 		boolean isValid = false;
 		printToScreen("What is your Pets Name?");
@@ -192,7 +192,7 @@ public class GameEnvironment implements Printable {
 				}
 				else {
 			for(Player person:playerArray){
-				if(person.getPetName().equals(petName)){
+				if(person.getPlayerName().equals(petName)){
 					isValid = false;
 					printToScreen("Names must be unique, please choose a new name.\n");
 				}
@@ -208,6 +208,19 @@ public class GameEnvironment implements Printable {
 			}
 		}
 		return petName;
+	}
+	
+	/**
+	 * Returns a string.
+	 * Returns a name of the item.
+	 */
+	public String getItemName(Item item){
+		if (item instanceof Food){
+			return ((Food) item).getFoodName();
+		}
+		else{ //Item class contains only classes of Toy and Food.
+			return ((Toy) item).getToyName();
+		}
 	}
 	
 	
@@ -286,7 +299,7 @@ public class GameEnvironment implements Printable {
 		}
 		
 		for(Player person:playerArray){
-			printToScreen("Player: " + person.getPetName());
+			printToScreen("Player: " + person.getPlayerName());
 			isValid = false;
 			while(!isValid){
 				
@@ -396,7 +409,7 @@ public class GameEnvironment implements Printable {
 	 * Also, prints off the cost of the food and the amount of money player currently have.
 	 */
 	public boolean foodStatusDisplay(Player p, Food food) {
-		printToScreen("Here is the following status of " + food.getPetName() + " (1 = Bad, 10 = Good)");
+		printToScreen("Here is the following status of " + food.getFoodName() + " (1 = Bad, 10 = Good)");
 		printToScreen("Nutrition: " + Integer.toString(food.getNutrition()));
 		printToScreen("Taste: " + Integer.toString(food.getTaste()));
 		if (food.getFullness() <= 1) { 
@@ -441,7 +454,7 @@ public class GameEnvironment implements Printable {
 	 * Also, prints off the cost of the toy and the amount of money player currently have.
 	 */
 	public boolean toyStatusDisplay(Player p, Toy toy) {
-		printToScreen("Here is the following status of " + toy.getPetName() + " (1 = Low, 10 = High)");
+		printToScreen("Here is the following status of " + toy.getToyName() + " (1 = Low, 10 = High)");
 		printToScreen("Happiness: " + Integer.toString(toy.getHappy()));
 		printToScreen("Durablilty: " + Integer.toString(toy.getDurability()));
 		if (toy.getExercise() == 0) {
@@ -583,8 +596,8 @@ public class GameEnvironment implements Printable {
 		ArrayList<String> itemNames = new ArrayList<String>(0);
 		ArrayList<String> items = new ArrayList<String>(0);
 		for (Item item:p.inventory) {
-			itemName = item.getPetName();
-			itemNames.add(itemName);
+			itemName = getItemName(item);
+			items.add(itemName);
 			if (itemNames.contains(itemName) == false) {
 				itemNames.add(itemName);
 			}
@@ -605,7 +618,7 @@ public class GameEnvironment implements Printable {
 	 */ 
 	public void useShop(Player p){
 		boolean isValid = false;
-		printToScreen("Welcome "+p.getPetName()+" .\nYou have $"+p.getMoney()+" Avaliable.\nWhat would you like to purchase?");
+		printToScreen("Welcome "+p.getPlayerName()+" .\nYou have $"+p.getMoney()+" Avaliable.\nWhat would you like to purchase?");
 		printToScreen("(1)Food\n(2)Toys\n(3)Revive\n(4)Treatment\n(5)Cancel");
 		while(!isValid){
 			String option = getInput();
@@ -675,11 +688,11 @@ public class GameEnvironment implements Printable {
 		if (selected != position.size()) {
 			if (p.getMoney() >= 30) {
 			int selectedPet = position.get(selected);
-			Pet patientP = p.petArray.get(selectedPet);
-			patientP.setDead(false);
-			patientP.setZombie(true);
+			Pet patientPet = p.petArray.get(selectedPet);
+			patientPet.setDead(false);
+			patientPet.setZombie(true);
 			p.setMoney(-30);
-			printToScreen(patientP.getPetName() + " is back from the dead!");
+			printToScreen(patientPet.getPetName() + " is back from the dead!");
 			}
 			else {
 				printToScreen("You don't have enough money!");
@@ -725,12 +738,12 @@ public class GameEnvironment implements Printable {
 		if (selected != position.size()) {
 			if (p.getMoney() >= 10) {
 			int selectedPet = position.get(selected);
-			Pet patientP = p.petArray.get(selectedPet);
-			patientP.setSick(false);
-			patientP.setHappiness(3);
-			int waitingTime = patientP.getActionsRemaning() - 1;
-			patientP.setActionsRemaining(waitingTime);
-			printToScreen(patientP.getPetName() + " is feeling much better now!");
+			Pet patientPet = p.petArray.get(selectedPet);
+			patientPet.setSick(false);
+			patientPet.setHappiness(3);
+			int waitingTime = patientPet.getActionsRemaning() - 1;
+			patientPet.setActionsRemaining(waitingTime);
+			printToScreen(patientPet.getPetName() + " is feeling much better now!");
 			p.setMoney(-10);
 			}
 			else {
@@ -756,12 +769,12 @@ public class GameEnvironment implements Printable {
 		Food food4 = new FriedChicken();
 		Food food5 = new Pizza();
 		Food food6 = new Steak();
-		printToScreen("Food options available:\n(1)" + food1.getPetName() + " $" + food1.getPrice());
-		printToScreen("(2)" + food2.getPetName() + " $" + food2.getPrice());
-		printToScreen("(3)" + food3.getPetName() + " $" + food3.getPrice());
-		printToScreen("(4)" + food4.getPetName() + " $" + food4.getPrice());
-		printToScreen("(5)" + food5.getPetName() + " $" + food5.getPrice());
-		printToScreen("(6)" + food6.getPetName() + " $" + food6.getPrice());
+		printToScreen("Food options available:\n(1)" + food1.getFoodName() + " $" + food1.getPrice());
+		printToScreen("(2)" + food2.getFoodName() + " $" + food2.getPrice());
+		printToScreen("(3)" + food3.getFoodName() + " $" + food3.getPrice());
+		printToScreen("(4)" + food4.getFoodName() + " $" + food4.getPrice());
+		printToScreen("(5)" + food5.getFoodName() + " $" + food5.getPrice());
+		printToScreen("(6)" + food6.getFoodName() + " $" + food6.getPrice());
 		printToScreen("(7)Cancel");
 		while (!isValid) {
 		String option = getInput();
@@ -888,12 +901,12 @@ public class GameEnvironment implements Printable {
 		Toy toy4 = new Stick();
 		Toy toy5 = new ToiletPaper();
 		Toy toy6 = new ToyCar();
-		printToScreen("Toy options available:\n(1)" + toy1.getPetName() + " $" + toy1.getPrice());
-		printToScreen("(2)" + toy2.getPetName() + " $" + toy2.getPrice());
-		printToScreen("(3)" + toy3.getPetName() + " $" + toy3.getPrice());
-		printToScreen("(4)" + toy4.getPetName() + " $" + toy4.getPrice());
-		printToScreen("(5)" + toy5.getPetName() + " $" + toy5.getPrice());
-		printToScreen("(6)" + toy6.getPetName() + " $" + toy6.getPrice());
+		printToScreen("Toy options available:\n(1)" + toy1.getToyName() + " $" + toy1.getPrice());
+		printToScreen("(2)" + toy2.getToyName() + " $" + toy2.getPrice());
+		printToScreen("(3)" + toy3.getToyName() + " $" + toy3.getPrice());
+		printToScreen("(4)" + toy4.getToyName() + " $" + toy4.getPrice());
+		printToScreen("(5)" + toy5.getToyName() + " $" + toy5.getPrice());
+		printToScreen("(6)" + toy6.getToyName() + " $" + toy6.getPrice());
 		printToScreen("(7)Cancel");
 		while (!isValid) {
 		String option = getInput();
@@ -1032,16 +1045,16 @@ public class GameEnvironment implements Printable {
 		int index = 0;
 		for (Item i : p.inventory) {
 			if (i instanceof Food) {
-				if (foodNames.contains(i.getPetName()) == false) {
+				if (foodNames.contains(getItemName(i)) == false) {
 				nums.add(index);
-				foodNames.add(i.getPetName());
+				foodNames.add(getItemName(i));
 				}
-			foodInventory.add(i.getPetName());
+			foodInventory.add(getItemName(i));
 			}
 			index++;
 		}
 		if (foodNames.size() == 0) {
-			printToScreen(p.getPetName() + " is looking for food, but could not find any food inside his bag.");
+			printToScreen(p.getPlayerName() + " is looking for food, but could not find any food inside his bag.");
 		}
 		else {
 		printToScreen("Choose which food " + a.getPetName() +" would like to eat:");
@@ -1069,14 +1082,14 @@ public class GameEnvironment implements Printable {
 		int selectedFood = nums.get(selected);
 		Food food = (Food) p.inventory.get(selectedFood);
 		if (a.isSick() == true) {
-			printToScreen(a.getPetName() + " is slowly eating " + food.getPetName());
+			printToScreen(a.getPetName() + " is slowly eating " + food.getFoodName());
 			a.setHunger(food.getNutrition());
 			int bladderDrop = 0 - food.getFullness();
 			a.setBladder(bladderDrop);
 		}
 		else {	
-			if (a.getFavouriteFood() == food.getPetName()) {
-				printToScreen(a.getPetName() + " is happily eating " + food.getPetName());
+			if (a.getFavouriteFood() == food.getFoodName()) {
+				printToScreen(a.getPetName() + " is happily eating " + food.getFoodName());
 				a.setHunger(food.getNutrition());
 				int bladderDrop = 0 - food.getFullness();
 				a.setBladder(bladderDrop);
@@ -1084,7 +1097,7 @@ public class GameEnvironment implements Printable {
 				a.setHappiness(happyUp);
 			}
 			else {
-				printToScreen(a.getPetName() + " is eating " + food.getPetName());
+				printToScreen(a.getPetName() + " is eating " + food.getFoodName());
 				a.setHunger(food.getNutrition());
 				int bladderDrop = 0 - food.getFullness();
 				a.setBladder(bladderDrop);
@@ -1116,16 +1129,16 @@ public class GameEnvironment implements Printable {
 		int index = 0;
 		for (Item i : p.inventory) {
 			if (i instanceof Toy) {
-				if (toyNames.contains(i.getPetName()) == false) {
+				if (toyNames.contains(getItemName(i)) == false) {
 				nums.add(index);
-				toyNames.add(i.getPetName());
+				toyNames.add(getItemName(i));
 				}
-			toyInventory.add(i.getPetName());
+			toyInventory.add(getItemName(i));
 			}
 			index++;
 		}
 		if (toyNames.size() == 0) {
-			printToScreen(p.getPetName() + " is looking for food, but could not find any food inside his bag.");
+			printToScreen(p.getPlayerName() + " is looking for toy, but could not find any toy inside his bag.");
 		}
 		else {
 		printToScreen("Choose which food " + a.getPetName() +" would like to eat:");
@@ -1152,22 +1165,22 @@ public class GameEnvironment implements Printable {
 	}
 		int selectedToy = nums.get(selected);
 		Toy toy = (Toy) p.inventory.get(selectedToy);
-		if (a.getFavouriteToy() == toy.getPetName()) {
-			printToScreen(a.getPetName() + " is happily playing with a " + toy.getPetName());
+		if (a.getFavouriteToy() == toy.getToyName()) {
+			printToScreen(a.getPetName() + " is happily playing with a " + toy.getToyName());
 			int funUp = toy.getHappy() + 1;
 			a.setHappiness(funUp);
 		}
 		else {
-			printToScreen(a.getPetName() + " is playing with a " + toy.getPetName());
+			printToScreen(a.getPetName() + " is playing with a " + toy.getToyName());
 			a.setHappiness(toy.getHappy());
 		}
-		if (a.getIsMisbehave() == true) {
-			printToScreen(a.getPetName() + " is trying to break the " + toy.getPetName());
+		if (a.isMisbehave() == true) {
+			printToScreen(a.getPetName() + " is trying to break the " + toy.getToyName());
 			toy.setDurability(1);
 		}
 		toy.setDurability(a.getAggression());
 		if (toy.getDurability() <= 0) {
-			printToScreen("Oh no the " + toy.getPetName() + " is broken!");
+			printToScreen("Oh no the " + toy.getToyName() + " is broken!");
 			p.inventory.remove(selectedToy);
 		}
 		if (a.isSick() == true) {
@@ -1193,7 +1206,7 @@ public class GameEnvironment implements Printable {
 	 * If the pet is misbehaving, the pet will not sleep properly.
 	 */
 	public void sleep(Pet a) {
-		if (a.getIsMisbehave() == true) {
+		if (a.isMisbehave() == true) {
 			a.setEnergy(2);
 			printToScreen(a.getPetName() + " is pretending to sleep.");
 		}
@@ -1231,7 +1244,7 @@ public class GameEnvironment implements Printable {
 	 */
 	public void perDayScores(Player p, Pet a) {
 		int score = 0;
-		if (a.getIsMisbehave() == true) {
+		if (a.isMisbehave() == true) {
 			score = a.getOverallStat() * 2;
 		}
 		else {
@@ -1263,7 +1276,7 @@ public class GameEnvironment implements Printable {
 				finalScore = -0.1;
 			}
 			else {
-				if (a.getIsMisbehave() == false) {
+				if (a.isMisbehave() == false) {
 					finalScore = 0.2;
 				}
 			}
@@ -1281,7 +1294,7 @@ public class GameEnvironment implements Printable {
 				scoreAdjust = scoreAdjust + finalScoreAdjust(person, animal);
 			}
 			int finalScore = (int) (scoreAdjust * person.getScore());
-			printToScreen(person.getPetName() + " your final score is: " + Integer.toString(finalScore));
+			printToScreen(person.getPlayerName() + " your final score is: " + Integer.toString(finalScore));
 			}
 	}
 	/**
@@ -1323,7 +1336,7 @@ public class GameEnvironment implements Printable {
 	 */
 	public void playDay(Player p){
 		printHeader();
-		printToScreen("Player: "+ p.getPetName());
+		printToScreen("Player: "+ p.getPlayerName());
 		printHeader();
 		printToScreen("What would you like to do?");
 		displayPets(p);
@@ -1381,7 +1394,7 @@ public class GameEnvironment implements Printable {
 		if (a.isDead() == false) {
 		boolean isValid = false;
 		while(!isValid){
-			if ( a.getIsMisbehave() == true) {
+			if ( a.isMisbehave() == true) {
 				printToScreen(a.getPetName() + " is misbehaving!");
 			}
 			if (a.isSick() == true) {

@@ -1,3 +1,4 @@
+package tamagochi;
 
 public class Pillow extends Toy {
 	public Pillow(){

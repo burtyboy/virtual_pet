@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 public class Football extends Toy{
 	

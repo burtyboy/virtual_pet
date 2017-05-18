@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class Player extends GameEnvironment{
 		return score;
 	}
 	
-	public String getPetName(){
+	public String getPlayerName(){
 		return name;
 	}
 	

@@ -1,4 +1,4 @@
-
+package tamagochi;
 
 public class Tiger extends Pet{
 	public Tiger(String petName){

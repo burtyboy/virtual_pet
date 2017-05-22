@@ -67,7 +67,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * Runs the GUI version of the game with all methods and variables associated with the GUI implemented in this class
+ * 
+ *
+ */
 
 public class App{
 
@@ -86,6 +90,7 @@ public class App{
 
 	/**
 	 * Launch the application.
+	 * @param args command line arguments to be passed none exist for this main.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -179,6 +184,7 @@ public class App{
 	 * Ask for each player's name.
 	 * The players can click on the button to confirm their name.
 	 * The error message would pop up if the name is not unique, not enough letter or the name exceeds 20 characters.
+	 * @param playerID index of the player in playerArray
 	 */
 	private void PlayerName(int playerID) {
 		String questionName = "Player " + Integer.toString(playerID) + ", what is your name?";
@@ -257,6 +263,7 @@ public class App{
 	 * Ask for the number of pets for each player.
 	 * Combo box are used to display the three options.
 	 * The player can click a button to confirm the number of pets.
+	 * @param index index of the player in playerArray
 	 */
 	private void NumPets(int index) {
 		currentPlayer = (Player) game.playerArray.get(index);
@@ -301,6 +308,8 @@ public class App{
 	 * Displays the stat of the current pet.
 	 * The players can click on the button to confirm their pet.
 	 * The error message would pop up if the name is not unique, not enough letter or the name exceeds 20 characters.
+	 * @param petID index of the pet in Player.petArray
+	 * @param numPets number of pets to be added.
 	 */
 	private void petName(int petID, int numPets) {
 		frame.setBackground(new Color(240, 255, 255));
@@ -790,6 +799,7 @@ public class App{
 	 * Call the setPetCondition method from the game environment.
 	 * Run the story board for each player.
 	 * Moves to a next day if all the player had their turn.
+	 * @param playerIndex index of the player in playerArray
 	 */
 	private void playDay(int playerIndex) {
 		if ((playerIndex + 1) <= game.playerArray.size()) {

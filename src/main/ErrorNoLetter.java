@@ -15,7 +15,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-
+/**
+ * 
+ * GUI frame class
+ */
 public class ErrorNoLetter extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

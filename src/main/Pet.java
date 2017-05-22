@@ -1,6 +1,14 @@
 package main;
 
-public class Pet extends GameEnvironment {
+/**
+ * Provides the methods required by Pets subclasses. Used to run all instances of pet.
+ * Pets should be created on the subclass level eg. Ocelot ocelot = new ocelot(String name); then can be referred to on the parent class level by all game methods
+ * 
+ *
+ *
+ */
+
+public class Pet {
 	private String petName;
 	private int actionsRemaning = 0;
 	private int hungerDrop;

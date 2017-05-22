@@ -13,7 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
+/**
+ * 
+ * GUI frame class
+ */
 public class ErrorNegativeNumber extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

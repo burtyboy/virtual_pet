@@ -10,7 +10,10 @@ import javax.swing.JTextPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+/**
+ * 
+ * GUI frame class
+ */
 @SuppressWarnings("serial")
 public class Instruction extends JFrame{
 

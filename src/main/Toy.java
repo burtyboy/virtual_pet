@@ -1,4 +1,11 @@
 package main;
+/**
+ * 
+ * Extends the Item class and provides the methods required for toys to function in game. 
+ * All instances of Food should be created on a subclass level eg. Doll doll = new Doll();
+ * All methods required for the function of any children are provided in this class.  
+ *
+ */
 public class Toy extends Item{
 	private String name;
 	private int prices;

@@ -1,5 +1,10 @@
 package foodItems;
 import main.Food;
+/**
+ * 
+ * Subclass of Food. Adds a child called FriedChicken with associated construction method. All methods are provided on the parent level
+ *
+ */
 
 public class FriedChicken extends Food{
 	

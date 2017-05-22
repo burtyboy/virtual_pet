@@ -2,8 +2,13 @@ package main;
 
 
 import java.util.ArrayList;
+/**
+ * 
+ *Provides the Player class and methods. The most important of these are the two arrayLists inventory and petArray.  
+ *
+ */
 
-public class Player extends GameEnvironment{
+public class Player {
 	private int money = 0;
 	private int score = 0;
 	private String name;

@@ -14,6 +14,7 @@ public class PlayerName extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * @param args command line arguments to be passed none exist for this main.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

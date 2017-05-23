@@ -321,7 +321,7 @@ public class App{
 		frame.setLayout(gridBagLayout);
 		
 		JLabel lblPlayerName = new JLabel("  Player: " + currentPlayer.getPlayerName());
-		lblPlayerName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblPlayerName.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblPlayerName = new GridBagConstraints();
 		gbc_lblPlayerName.anchor = GridBagConstraints.WEST;
 		gbc_lblPlayerName.insets = new Insets(0, 0, 5, 5);
@@ -330,7 +330,7 @@ public class App{
 		frame.getContentPane().add(lblPlayerName, gbc_lblPlayerName);
 		
 		JLabel lblPetName = new JLabel("  What is your pet " + Integer.toString(petID) + "'s name?");
-		lblPetName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblPetName.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblPetName = new GridBagConstraints();
 		gbc_lblPetName.anchor = GridBagConstraints.WEST;
 		gbc_lblPetName.insets = new Insets(0, 0, 5, 5);
@@ -339,7 +339,7 @@ public class App{
 		frame.getContentPane().add(lblPetName, gbc_lblPetName);
 		
 		JLabel lblSpeciesOption = new JLabel("  What breed would you like your pet to be?");
-		lblSpeciesOption.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblSpeciesOption.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblSpeciesOption = new GridBagConstraints();
 		gbc_lblSpeciesOption.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSpeciesOption.gridx = 0;
@@ -356,7 +356,7 @@ public class App{
 		ImageIcon defaultPetImage = new ImageIcon("Images/Bird.png");
 		
 		JTextField textFieldPetName = new JTextField();
-		textFieldPetName.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		textFieldPetName.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 		GridBagConstraints gbc_textFieldPetName = new GridBagConstraints();
 		gbc_textFieldPetName.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldPetName.fill = GridBagConstraints.HORIZONTAL;
@@ -366,7 +366,7 @@ public class App{
 		textFieldPetName.setColumns(10);
 		
 		JLabel lblAppetite = new JLabel("  Appetite: " + defaultAppetite);
-		lblAppetite.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblAppetite.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblAppetite = new GridBagConstraints();
 		gbc_lblAppetite.anchor = GridBagConstraints.WEST;
 		gbc_lblAppetite.insets = new Insets(0, 0, 5, 5);
@@ -384,7 +384,7 @@ public class App{
 		frame.getContentPane().add(lblPets, gbc_lblPets);
 		
 		JLabel lblFatigue = new JLabel("  Fatigue: " + defaultFatigue);
-		lblFatigue.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblFatigue.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblFatigue = new GridBagConstraints();
 		gbc_lblFatigue.anchor = GridBagConstraints.WEST;
 		gbc_lblFatigue.insets = new Insets(0, 0, 5, 5);
@@ -393,7 +393,7 @@ public class App{
 		frame.getContentPane().add(lblFatigue, gbc_lblFatigue);
 		
 		JLabel lblDepression = new JLabel("  Depression: " + defaultDepression);
-		lblDepression.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblDepression.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblDepression = new GridBagConstraints();
 		gbc_lblDepression.anchor = GridBagConstraints.WEST;
 		gbc_lblDepression.insets = new Insets(0, 0, 5, 5);
@@ -402,7 +402,7 @@ public class App{
 		frame.getContentPane().add(lblDepression, gbc_lblDepression);
 		
 		JLabel lblAggression = new JLabel("  Aggression: " + defaultAggression);
-		lblAggression.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblAggression.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblAggression = new GridBagConstraints();
 		gbc_lblAggression.anchor = GridBagConstraints.WEST;
 		gbc_lblAggression.insets = new Insets(0, 0, 5, 5);
@@ -411,7 +411,7 @@ public class App{
 		frame.getContentPane().add(lblAggression, gbc_lblAggression);
 		
 		JLabel lblFavouriteFood = new JLabel("  Favourite food: " + defaultFavouriteFood);
-		lblFavouriteFood.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblFavouriteFood.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblFavouriteFood = new GridBagConstraints();
 		gbc_lblFavouriteFood.anchor = GridBagConstraints.WEST;
 		gbc_lblFavouriteFood.insets = new Insets(0, 0, 5, 5);
@@ -420,7 +420,7 @@ public class App{
 		frame.getContentPane().add(lblFavouriteFood, gbc_lblFavouriteFood);
 		
 		JLabel lblFavouriteToy = new JLabel("  Favourite toy: " + defaultFavouriteToy);
-		lblFavouriteToy.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		lblFavouriteToy.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblFavouriteToy = new GridBagConstraints();
 		gbc_lblFavouriteToy.anchor = GridBagConstraints.WEST;
 		gbc_lblFavouriteToy.insets = new Insets(0, 0, 5, 5);
@@ -430,7 +430,7 @@ public class App{
 		
 		JComboBox<String> comboBoxSpecies = new JComboBox<String>();
 		comboBoxSpecies.setModel(new DefaultComboBoxModel<String>(new String[] {"Bird", "Cat", "CatDog", "Dog", "Ocelot", "Tiger"}));
-		comboBoxSpecies.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		comboBoxSpecies.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 		GridBagConstraints gbc_comboBoxSpecies = new GridBagConstraints();
 		gbc_comboBoxSpecies.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxSpecies.fill = GridBagConstraints.HORIZONTAL;
@@ -1818,7 +1818,7 @@ public class App{
 		frame.setLayout(gridBagLayout);
 		
 		JLabel lblMessage1 = new JLabel(currentPet.getPetName() + " is mentally tired.");
-		lblMessage1.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		lblMessage1.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		lblMessage1.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblMessage1 = new GridBagConstraints();
 		gbc_lblMessage1.insets = new Insets(0, 0, 5, 0);
@@ -1828,7 +1828,7 @@ public class App{
 		
 		JLabel labelMessage2 = new JLabel(currentPet.getPetName() + " is physically tired.");
 		labelMessage2.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMessage2.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		labelMessage2.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		GridBagConstraints gbc_labelMessage2 = new GridBagConstraints();
 		gbc_labelMessage2.insets = new Insets(0, 0, 5, 0);
 		gbc_labelMessage2.gridx = 0;
@@ -1837,7 +1837,7 @@ public class App{
 		
 		JLabel labelMessage3 = new JLabel(currentPet.getPetName() + " is emotionally tired.");
 		labelMessage3.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMessage3.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		labelMessage3.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		GridBagConstraints gbc_labelMessage3 = new GridBagConstraints();
 		gbc_labelMessage3.insets = new Insets(0, 0, 5, 0);
 		gbc_labelMessage3.gridx = 0;
@@ -1853,7 +1853,7 @@ public class App{
 		frame.getContentPane().add(lblEmptyString, gbc_lblEmptyString);
 		
 		JLabel lblMessage4 = new JLabel("Please choose a different pet!");
-		lblMessage4.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		lblMessage4.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		GridBagConstraints gbc_lblMessage4 = new GridBagConstraints();
 		gbc_lblMessage4.insets = new Insets(0, 0, 5, 0);
 		gbc_lblMessage4.gridx = 0;
@@ -1897,7 +1897,7 @@ public class App{
 		frame.setLayout(gridBagLayout);
 		
 		JLabel lblMessage1 = new JLabel(currentPlayer.getPlayerName() + " is looking for " + currentPet.getPetName());
-		lblMessage1.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		lblMessage1.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		lblMessage1.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_lblMessage1 = new GridBagConstraints();
 		gbc_lblMessage1.insets = new Insets(0, 0, 5, 0);
@@ -1907,7 +1907,7 @@ public class App{
 		
 		JLabel labelMessage2 = new JLabel(currentPet.getPetName() + " is no longer living in this world.");
 		labelMessage2.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMessage2.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		labelMessage2.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		GridBagConstraints gbc_labelMessage2 = new GridBagConstraints();
 		gbc_labelMessage2.insets = new Insets(0, 0, 5, 0);
 		gbc_labelMessage2.gridx = 0;
@@ -1916,7 +1916,7 @@ public class App{
 		
 		JLabel labelMessage3 = new JLabel(currentPlayer.getPlayerName() + " cries.");
 		labelMessage3.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMessage3.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		labelMessage3.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		GridBagConstraints gbc_labelMessage3 = new GridBagConstraints();
 		gbc_labelMessage3.insets = new Insets(0, 0, 5, 0);
 		gbc_labelMessage3.gridx = 0;
@@ -1932,7 +1932,7 @@ public class App{
 		frame.getContentPane().add(lblEmptyString, gbc_lblEmptyString);
 		
 		JLabel lblMessage4 = new JLabel("Please choose a different pet!");
-		lblMessage4.setFont(new Font("Times New Roman", Font.PLAIN, 55));
+		lblMessage4.setFont(new Font("Times New Roman", Font.PLAIN, 45));
 		GridBagConstraints gbc_lblMessage4 = new GridBagConstraints();
 		gbc_lblMessage4.insets = new Insets(0, 0, 5, 0);
 		gbc_lblMessage4.gridx = 0;
@@ -1992,7 +1992,7 @@ public class App{
 		
 		JLabel lblToilet = new JLabel("");
 		lblToilet.setBackground(new Color(240, 255, 255));
-		lblToilet.setIcon(new ImageIcon("Images/Toilet.PNG"));
+		lblToilet.setIcon(new ImageIcon("Images/Toilet.png"));
 		panelPicture.add(lblToilet);
 		
 		JPanel panelMessage = new JPanel();
@@ -2012,7 +2012,7 @@ public class App{
 		panelMessage.setLayout(gbl_panelMessage);
 		
 		JTextPane txtpnMessage = new JTextPane();
-		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		txtpnMessage.setText(currentPlayer.getPlayerName() + " sent " + currentPet.getPetName() + " to the toilet.\r\n" 
 				+ currentPet.getPetName() + " feels relief.");
 		txtpnMessage.setBackground(new Color(240, 255, 255));
@@ -2101,7 +2101,7 @@ public class App{
 		panelMessage.setLayout(gbl_panelMessage);
 		
 		JTextPane txtpnMessage = new JTextPane();
-		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		txtpnMessage.setText(currentPlayer.getPlayerName() + " sent " + currentPet.getPetName() + " to the naughty corner.\r\n" 
 				+ currentPet.getPetName() + " is starting to behave now but is feeling unhappy.");
 		txtpnMessage.setBackground(new Color(240, 255, 255));
@@ -2170,7 +2170,7 @@ public class App{
 		
 		JLabel lblSleep = new JLabel("");
 		lblSleep.setBackground(new Color(240, 255, 255));
-		lblSleep.setIcon(new ImageIcon("Images/Sleep.PNG"));
+		lblSleep.setIcon(new ImageIcon("Images/Sleep.png"));
 		panelPicture.add(lblSleep);
 		String message;
 		if (currentPet.isMisbehave()) {
@@ -2196,7 +2196,7 @@ public class App{
 		gbl_panelMessage.rowWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelMessage.setLayout(gbl_panelMessage);
 		JTextPane txtpnMessage = new JTextPane();
-		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+		txtpnMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		txtpnMessage.setText(currentPlayer.getPlayerName() + " put " + currentPet.getPetName() + " to sleep.\r\n" 
 				+ message);
 		txtpnMessage.setBackground(new Color(240, 255, 255));
@@ -2343,7 +2343,7 @@ public class App{
 		JTextPane textPaneMessage = new JTextPane();
 		textPaneMessage.setForeground(new Color(255, 255, 255));
 		textPaneMessage.setText("Which toy would you like " + currentPet.getPetName() + " to play?");
-		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		textPaneMessage.setBackground(new Color(47, 79, 79));
 		GridBagConstraints gbc_textPaneMessage = new GridBagConstraints();
 		gbc_textPaneMessage.gridwidth = 2;
@@ -2649,7 +2649,7 @@ public class App{
 		JTextPane textPaneMessage = new JTextPane();
 		textPaneMessage.setForeground(new Color(255, 255, 255));
 		textPaneMessage.setText("Which food would you like " + currentPet.getPetName() + " to eat?");
-		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		textPaneMessage.setBackground(new Color(47, 79, 79));
 		GridBagConstraints gbc_textPaneMessage = new GridBagConstraints();
 		gbc_textPaneMessage.gridwidth = 2;
@@ -3187,7 +3187,7 @@ public class App{
 		JTextPane textPaneMessage = new JTextPane();
 		textPaneMessage.setForeground(new Color(255, 255, 255));
 		textPaneMessage.setText("Which pet would you like to revive?");
-		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		textPaneMessage.setBackground(new Color(47, 79, 79));
 		GridBagConstraints gbc_textPaneMessage = new GridBagConstraints();
 		gbc_textPaneMessage.gridwidth = 2;
@@ -3402,7 +3402,7 @@ public class App{
 		JTextPane textPaneMessage = new JTextPane();
 		textPaneMessage.setForeground(new Color(255, 255, 255));
 		textPaneMessage.setText("Which pet would you like to heal?");
-		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		textPaneMessage.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		textPaneMessage.setBackground(new Color(47, 79, 79));
 		GridBagConstraints gbc_textPaneMessage = new GridBagConstraints();
 		gbc_textPaneMessage.gridwidth = 2;
@@ -4581,13 +4581,13 @@ public class App{
 		Button startButton = new Button("Start a new game!");
 		
 		startButton.setForeground(new Color(255, 255, 255));
-		startButton.setFont(new Font("Papyrus", Font.PLAIN, 16));
+		startButton.setFont(new Font("Papyrus", Font.PLAIN, 26));
 		startButton.setBackground(new Color(0, 51, 51));
 		frame.getContentPane().add(startButton);
-		Button instructionButton = new Button("Check the instruction.");
+		Button instructionButton = new Button("Check the instruction!");
 		frame.getContentPane().add(instructionButton);
 		instructionButton.setForeground(Color.WHITE);
-		instructionButton.setFont(new Font("Papyrus", Font.PLAIN, 16));
+		instructionButton.setFont(new Font("Papyrus", Font.PLAIN, 26));
 		instructionButton.setBackground(new Color(0, 51, 51));
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

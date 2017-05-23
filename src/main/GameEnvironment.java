@@ -242,7 +242,7 @@ public class GameEnvironment implements Printable {
 	/**
 	 * 
 	 * Returns a name of the item.
-	 * @param item item that requrires name to be returned for
+	 * @param item item that requires name to be returned for
 	 * @return String.
 	 */
 	public String getItemName(Item item){

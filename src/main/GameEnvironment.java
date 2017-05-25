@@ -194,7 +194,7 @@ public class GameEnvironment implements Printable {
 				printToScreen("(1)Cat\n(2)Dog\n(3)CatDog\n(4)Tiger\n(5)Bird\n(6)Ocelot");
 				break;
 			}
-		
+				default: printToScreen("Please enter a valid number.");
 			}
 		}
 	}
